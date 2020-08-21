@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wave2.apps.Wave2Config',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +89,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'wave2.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

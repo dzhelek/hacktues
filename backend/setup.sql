@@ -1,4 +1,4 @@
---creatng database and user
+-- creatng database and user
 CREATE DATABASE hacktues;
 CREATE USER nimda WITH PASSWORD '573l43vurhu7';
 
