@@ -25,7 +25,7 @@ SECRET_KEY = '^21#&4i58g@o&k-n$brbb371x8)qf@l(#c9jefv7_&-2zi+p)e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hacktues.pythonanywhere.com']
 
 
 # Application definition

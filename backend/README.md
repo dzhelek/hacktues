@@ -10,8 +10,8 @@
 `pip install -r requirements.txt`
 
 ## Setting up the database
-`psql -U postgres -f setup.sql`
-`python manage.py migrate`
+* `psql -U postgres -f setup.sql`
+* `python manage.py migrate`
 
 # Backend use notes
 
