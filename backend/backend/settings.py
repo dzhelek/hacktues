@@ -77,12 +77,15 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'hacktues',
-        'USER': 'nimda',
-        'PASSWORD': '573l43vurhu7',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'hacktues$default',
+        'USER': 'hacktues',
+        'PASSWORD': 'P8)yx?FpA2+hh!Hv',
+        'HOST': 'hacktues.mysql.pythonanywhere-services.com',
+        'TIME_ZONE': 'Europe/Sofia',
+        'TEST': {
+            'NAME': 'hacktues$test_default',
+        },
     }
 }
 
