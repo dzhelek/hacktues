@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+from os import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = '^21#&4i58g@o&k-n$brbb371x8)qf@l(#c9jefv7_&-2zi+p)e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hacktues.pythonanywhere.com']
+ALLOWED_HOSTS = ['hacktues.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -75,13 +76,18 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+if environ.get('ENV') == 'DEV':
+    host = 'localhost'
+else:
+    host = 'hacktues.mysql.pythonanywhere-services.com'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hacktues$default',
         'USER': 'hacktues',
         'PASSWORD': 'P8)yx?FpA2+hh!Hv',
-        'HOST': 'hacktues.mysql.pythonanywhere-services.com',
+        'HOST': host,
         'TIME_ZONE': 'Europe/Sofia',
         'TEST': {
             'NAME': 'hacktues$test_default',
