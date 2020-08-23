@@ -19,4 +19,5 @@ from django.urls import include, path
 urlpatterns = [
     path('', include('wave2.urls')),
     path('admin/', admin.site.urls),
+    path('auth/', include('rest_framework.urls')),
 ]
