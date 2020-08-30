@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class Technologie(models.Model):
+class Technology(models.Model):
     """
     The technologies users are able to choose when creating their account.
     """
@@ -16,6 +16,7 @@ class User(AbstractUser):
     AbstractUser._meta.get_field('first_name').blank = False
     AbstractUser._meta.get_field('last_name').blank = False
     AbstractUser._meta.get_field('email').blank = False
+    AbstractUser._meta.get_field('password').blank = True
     AbstractUser._meta.get_field('is_active').default = False
 
     FORMS = [
@@ -34,13 +35,13 @@ class User(AbstractUser):
         ('xl', 'XL'),
     ]
 
-    technologies = models.ManyToManyField(Technologie, blank=True)
+    technologies = models.ManyToManyField(Technology, blank=True)
     form = models.CharField(max_length=4, choices=FORMS)
     food_preferences = models.CharField(max_length=15, choices=FOOD_PREFERENCES, default='0')
     tshirt_size = models.CharField(max_length=5, choices=SIZES)
     alergies = models.TextField(blank=True, null=True)
 
     REQUIRED_FIELDS = [
-        'first_name', 'last_name', 'email', 'form', 'tshirt_size', 'password'
+        'first_name', 'last_name', 'email', 'form', 'tshirt_size',
     ]
 
