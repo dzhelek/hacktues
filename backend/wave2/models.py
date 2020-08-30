@@ -16,6 +16,7 @@ class User(AbstractUser):
     AbstractUser._meta.get_field('first_name').blank = False
     AbstractUser._meta.get_field('last_name').blank = False
     AbstractUser._meta.get_field('email').blank = False
+    AbstractUser._meta.get_field('is_active').default = False
 
     FORMS = [
         ('11g', '11 G'),
@@ -35,12 +36,11 @@ class User(AbstractUser):
 
     technologies = models.ManyToManyField(Technologie, blank=True)
     form = models.CharField(max_length=4, choices=FORMS)
-    food_preferences = models.CharField(max_length=15, choices=FOOD_PREFERENCES)
+    food_preferences = models.CharField(max_length=15, choices=FOOD_PREFERENCES, default='0')
     tshirt_size = models.CharField(max_length=5, choices=SIZES)
     alergies = models.TextField(blank=True, null=True)
 
     REQUIRED_FIELDS = [
-        'first_name', 'last_name', 'email', 'form',
-        'food_preferences', 'tshirt_size'
+        'first_name', 'last_name', 'email', 'form', 'tshirt_size', 'password'
     ]
 
