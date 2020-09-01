@@ -1,12 +1,25 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+class Date(models.Model):
+    """
+    Key dates, used in validation of some fields -
+    they cannot be changed after the corresponding date
+    """
+    field = models.CharField(max_length=80)
+    date = models.DateField()
+
+    def __str__(self):
+        return self.field
 
 class Technology(models.Model):
     """
     The technologies users are able to choose when creating their account.
     """
     name = models.CharField(max_length=15)
+
+    class Meta:
+        verbose_name_plural = 'technologies'
 
     def __str__(self):
         return self.name

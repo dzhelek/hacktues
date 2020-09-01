@@ -1,2 +1,8 @@
-venv/
+# Byte-compiled / optimized / DLL files
 __pycache__/
+
+# Coverage reports
+.coverage
+
+# Environment
+venv/
