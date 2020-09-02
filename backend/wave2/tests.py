@@ -129,3 +129,18 @@ class TestFieldValidationOnSpecificDates(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(user.first_name, 'First name')
 
+    def test_patch_one_editable_one_uneditable_field_on_this_date_400(self, date_mock):
+        date_mock.today.return_value = date(2019, 1, 2)  # today is 2.1.2019
+        validation_date1 = date(2019, 1, 1)  # 1.1.2019 - befote today
+        validation_date2 = date(2019, 1, 2)  # today
+        Date.objects.create(field='alergies', date=validation_date1)
+        Date.objects.create(field='tshirt_size', date=validation_date2)
+        user_id = self.user.id
+
+        response = self.client.patch(f'/users/{user_id}/', {'tshirt_size': 'm', 'alergies': 'no'})
+        user = User.objects.get(id=user_id)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(user.tshirt_size, 'l')
+        self.assertFalse(user.alergies, 'alergies changed after validation date')
+

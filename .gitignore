@@ -6,3 +6,6 @@ __pycache__/
 
 # Environment
 venv/
+
+# Database backup
+db-backup.sql

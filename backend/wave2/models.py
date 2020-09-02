@@ -33,8 +33,11 @@ class User(AbstractUser):
     AbstractUser._meta.get_field('is_active').default = False
 
     FORMS = [
-        ('11g', '11 G'),
-        ('11a', '11 A'),
+        ('8a', '8 A'), ('8b', '8 B'), ('8v', '8 V'), ('8g', '8 G'),
+        ('9a', '9 A'), ('9b', '9 B'), ('9v', '9 V'), ('9g', '9 G'),
+        ('10a', '10 A'), ('10b', '10 B'), ('10v', '10 V'), ('10g', '10 G'),
+        ('11a', '11 A'), ('11b', '11 B'), ('11v', '11 V'), ('11g', '11 G'),
+        ('12a', '12 A'), ('12b', '12 B'), ('12v', '12 V'), ('12g', '12 G'),
     ]
     FOOD_PREFERENCES = [
         ('0', 'None'),
