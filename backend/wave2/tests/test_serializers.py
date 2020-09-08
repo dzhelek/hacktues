@@ -3,11 +3,12 @@ from unittest.mock import patch
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
-from .models import Date, User
-from .serializers import date
+from wave2.models import Date, SmallInteger, Team, User
+from wave2.serializers import date
 
 
-class TestPasswordManagement(APITestCase):
+def set_up(func):
+
     def setUp(self):
         self.data = {
             'first_name': 'First', 'last_name': 'Last',
@@ -18,6 +19,75 @@ class TestPasswordManagement(APITestCase):
         self.user = User.objects.create_user(**self.data)
         self.client = APIClient()
         self.client.force_authenticate(self.user)
+
+        func(self)
+
+    return setUp
+
+
+class TestTeam(APITestCase):
+    @set_up
+    def setUp(self):
+        self.min = 3
+        self.max = 5
+        self.max_teams = 2
+        SmallInteger.objects.create(name='min_users_in_team', value=self.min)
+        SmallInteger.objects.create(name='max_users_in_team', value=self.max)
+        SmallInteger.objects.create(name='max_teams', value=self.max_teams)
+
+        self.team = Team.objects.create()
+
+    def test_post_201_is_full_returns_false_when_not_confirmed(self):
+        data = {
+            'name': 'hello',
+            'github_link': 'https://github.com/././',
+            'users': [f'http://testserver/users/{self.user.id}/'],
+            'is_full': True,
+        }
+
+        response = self.client.post(f'/teams/', data)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertFalse(self.team.is_full, 'team should not be full')
+
+    def test_patch_200_is_full_returns_false_when_not_confirmed(self):
+
+        response = self.client.patch(f'/teams/{self.team.id}/', {'is_full': True})
+        self.team.refresh_from_db()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(self.team.is_full, 'team should not be full')
+
+    def test_patch_200_team_may_be_full_when_confirmed(self):
+        self.team.users.set(
+            [User.objects.create(username=str(i)) for i in range(self.min)]
+        )
+
+        response = self.client.patch(f'/teams/{self.team.id}/', {'is_full': True})
+        self.team.refresh_from_db()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(self.team.is_full, 'team should be full')
+
+    def test_post_400_maximum_teams_limit_exceeded(self):
+        data = {
+            'name': 'hello',
+            'github_link': 'https://github.com/././',
+            'users': [f'http://testserver/users/{self.user.id}/'],
+        }
+        self.client.post(f'/teams/', data)
+        data['name'] = 'world'
+
+        response = self.client.post(f'/teams/', data)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Team.objects.count(), self.max_teams)
+
+
+class TestUserPasswordManagement(APITestCase):
+    @set_up
+    def setUp(self):
+        pass
 
     def test_get_password_not_visible(self):
         response = self.client.get(f'/users/{self.user.id}/')
@@ -70,14 +140,10 @@ class TestPasswordManagement(APITestCase):
 
 
 @patch('wave2.serializers.date', autospec=True)
-class TestFieldValidationOnSpecificDates(APITestCase):
+class TestUserFieldValidationOnSpecificDates(APITestCase):
+    @set_up
     def setUp(self):
-        self.user = User.objects.create_user(first_name='First', last_name='Last',
-                                             email='firstlast@abv.bg', password='hello',
-                                             username='josen', is_active=True,
-                                             tshirt_size='l', form='11g')
-        self.client = APIClient()
-        self.client.force_authenticate(self.user)
+        pass
 
     def test_get_200(self, *args):
         response = self.client.get(f'/users/{self.user.id}/')

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator, URLValidator
 from django.db import models
 
 class Date(models.Model):
@@ -11,6 +12,18 @@ class Date(models.Model):
 
     def __str__(self):
         return self.field
+
+class SmallInteger(models.Model):
+    """
+    Key vales, used in validation of some fields -
+    team limits,
+    """
+    name = models.CharField(max_length=80)
+    value = models.SmallIntegerField()
+
+    def __str__(self):
+        return self.name
+
 
 class Technology(models.Model):
     """
@@ -53,11 +66,34 @@ class User(AbstractUser):
 
     technologies = models.ManyToManyField(Technology, blank=True)
     form = models.CharField(max_length=4, choices=FORMS)
-    food_preferences = models.CharField(max_length=15, choices=FOOD_PREFERENCES, default='0')
+    food_preferences = models.CharField(max_length=15,
+                                        choices=FOOD_PREFERENCES, default='0')
     tshirt_size = models.CharField(max_length=5, choices=SIZES)
     alergies = models.TextField(blank=True, null=True)
 
     REQUIRED_FIELDS = [
         'first_name', 'last_name', 'email', 'form', 'tshirt_size',
     ]
+
+
+class Team(models.Model):
+    users = models.ManyToManyField(User)
+
+    name = models.CharField(max_length=100, unique=True)
+    github_link = models.URLField(
+        validators=[URLValidator(), RegexValidator(regex=r'github.com/.+/.+')]
+    )
+    is_full = models.BooleanField(default=False)
+
+    project_name = models.CharField(max_length=100, blank=True)
+    project_description = models.TextField(blank=True)
+    technologies = models.ManyToManyField(Technology, blank=True)
+
+    @property
+    def is_confirmed(self):
+        min_users = SmallInteger.objects.get(name='min_users_in_team').value
+        return self.users.count() >= min_users  
+
+    def __str__(self):
+        return self.name
 
