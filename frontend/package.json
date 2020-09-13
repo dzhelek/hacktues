@@ -8,8 +8,19 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "9.5.2",
+    "@chakra-ui/core": "^0.8.0",
+    "@emotion/core": "^10.0.34",
+    "@emotion/styled": "^10.0.27",
+    "emotion-theming": "^10.0.27",
+    "lottie-web": "^5.7.1",
+    "next": "9.5.1",
+    "node-fetch": "^2.6.1",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-lottie": "^1.2.3",
+    "react-pixelify": "^0.2.2"
+  },
+  "devDependencies": {
+    "json-loader": "^0.5.7"
   }
 }

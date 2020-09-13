@@ -1,0 +1,27 @@
+import React from 'react'
+import { Box } from "@chakra-ui/core";
+import { Collapse } from '@chakra-ui/core';
+import { Button } from '@chakra-ui/core';
+import { Text } from '@chakra-ui/core'
+
+const About = (props) => {
+
+    const [show, setShow] = React.useState(false);
+    const handleToggle = () => setShow(!show);
+
+    return(
+    <Box paddingTop="1%" position="relative" height="auto" borderColor="black" borderWidth="10px" rounded="lg" overflow="hidden">
+        <Text color="black" mt="1" fontWeight="semibold" as="h2" lineHeight="tight">
+            За събитието
+        </Text>
+        <Collapse startingHeight={100} isOpen={show}>
+        {props.description}
+        </Collapse>
+        <Button variant="solid" borderWidth="0px" variantColor="green" size="sm" onClick={handleToggle} mt="1rem">
+            Покажи {show ? "по-малко" : "повече"}
+        </Button>
+    </Box>
+);
+}
+
+export default About;
