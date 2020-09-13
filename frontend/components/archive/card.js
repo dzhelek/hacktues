@@ -23,11 +23,11 @@ const Card = (props) => {
     }
 
     return (
-      <Box padding = "3%" backgroundColor={color} height="auto" borderColor="black" borderWidth="10px" rounded="lg" overflow="hidden">
+      <Box margin="2%" padding = "3%" backgroundColor={color} borderColor="black" borderWidth="10px" rounded="lg" overflow="hidden">
         <Text color="black" mt="1" fontWeight="semibold" as="h2" lineHeight="tight">
             {emoji}{props.name}
         </Text>
-        <Image maxW="100%" height="auto" paddingLeft="1%" paddingRight="1%" src={props.img}/>
+        <Image maxW="100%" h="auto" padding="1%" src={props.img}/>
         <Box p="1">
             <Box mt="1" fontWeight="normal" as="h4" lineHeight="tight">
                 <strong>Участници: </strong>{props.teammates}
