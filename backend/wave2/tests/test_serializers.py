@@ -3,7 +3,7 @@ from unittest.mock import patch
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
-from wave2.models import Date, SmallInteger, Team, User
+from wave2.models import FieldValidationDate, SmallInteger, Team, User
 from wave2.serializers import date
 
 
@@ -13,8 +13,8 @@ def set_up(func):
         self.data = {
             'first_name': 'First', 'last_name': 'Last',
             'email': 'firstlast@abv.bg', 'password': 'hello',
-            'username': 'josen', 'is_active': True,
-            'tshirt_size': 'l', 'form': '11g',
+            'username': 'josen', 'is_active': True, 'tshirt_size': 'l',
+            'form': '11g', 'is_superuser': True
         }
         self.user = User.objects.create_user(**self.data)
         self.client = APIClient()
@@ -97,6 +97,8 @@ class TestUserPasswordManagement(APITestCase):
 
     def test_post_password_is_hashed_correctly_on_creation(self):
         self.data['username'] = 'pass'
+        self.user.is_staff = True
+        self.user.save()
 
         response = self.client.post(f'/users/', self.data)
         user = User.objects.get(id=self.user.id)
@@ -153,7 +155,7 @@ class TestUserFieldValidationOnSpecificDates(APITestCase):
     def test_patch_field_uneditable_on_this_date_400(self, date_mock):
         date_mock.today.return_value = date(2019, 1, 2)  # today is 2.1.2019
         validation_date = date(2019, 1, 1)  # 1.1.2019 - befote today
-        Date.objects.create(field='tshirt_size', date=validation_date)
+        FieldValidationDate.objects.create(field='tshirt_size', date=validation_date)
         user_id = self.user.id
 
         response = self.client.patch(f'/users/{user_id}/', {'tshirt_size': 'm'})
@@ -165,7 +167,7 @@ class TestUserFieldValidationOnSpecificDates(APITestCase):
     def test_patch_field_editable_on_this_date_200(self, date_mock):
         date_mock.today.return_value = date(2019, 1, 2)  # today is 2.1.2019
         validation_date = date(2019, 1, 2)
-        Date.objects.create(field='tshirt_size', date=validation_date)
+        FieldValidationDate.objects.create(field='tshirt_size', date=validation_date)
         user_id = self.user.id
 
         response = self.client.patch(f'/users/{user_id}/', {'tshirt_size': 'm'})
@@ -177,7 +179,7 @@ class TestUserFieldValidationOnSpecificDates(APITestCase):
     def test_patch_field_uneditable_but_not_edited_200(self, date_mock):
         date_mock.today.return_value = date(2019, 1, 2)  # today is 2.1.2019
         validation_date = date(2019, 1, 1)  # 1.1.2019 - befote today
-        Date.objects.create(field='tshirt_size', date=validation_date)
+        FieldValidationDate.objects.create(field='tshirt_size', date=validation_date)
         user_id = self.user.id
 
         response = self.client.patch(f'/users/{user_id}/', {'tshirt_size': 'l'})
@@ -199,8 +201,8 @@ class TestUserFieldValidationOnSpecificDates(APITestCase):
         date_mock.today.return_value = date(2019, 1, 2)  # today is 2.1.2019
         validation_date1 = date(2019, 1, 1)  # 1.1.2019 - befote today
         validation_date2 = date(2019, 1, 2)  # today
-        Date.objects.create(field='alergies', date=validation_date1)
-        Date.objects.create(field='tshirt_size', date=validation_date2)
+        FieldValidationDate.objects.create(field='alergies', date=validation_date1)
+        FieldValidationDate.objects.create(field='tshirt_size', date=validation_date2)
         user_id = self.user.id
 
         response = self.client.patch(f'/users/{user_id}/', {'tshirt_size': 'm', 'alergies': 'no'})

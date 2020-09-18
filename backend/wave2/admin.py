@@ -1,22 +1,27 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import Date, SmallInteger, Team, Technology, User
+from . import models
 
 
-@admin.register(Date)
+@admin.register(models.FieldValidationDate)
 class DateAdmin(admin.ModelAdmin):
-    list_display = ['field', 'date']
+    list_display = ('field', 'date')
 
 
-@admin.register(SmallInteger)
+@admin.register(models.Log)
+class DateAdmin(admin.ModelAdmin):
+    list_display = ('user', 'action', 'date')
+
+
+@admin.register(models.SmallInteger)
 class SmallIntegerAdmin(admin.ModelAdmin):
-    list_display = ['name', 'value']
+    list_display = ('name', 'value')
 
 
-@admin.register(Team)
+@admin.register(models.Team)
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ['name', 'github_link', 'is_full', 'confirmed']
+    list_display = ('name', 'github_link', 'is_full', 'confirmed')
 
     def confirmed(self, obj):
         return obj.is_confirmed
@@ -25,10 +30,10 @@ class TeamAdmin(admin.ModelAdmin):
     confirmed.short_description = 'confirmed'
 
 
-admin.site.register(Technology)
+admin.site.register(models.Technology)
 
 
-@admin.register(User)
+@admin.register(models.User)
 class UserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),

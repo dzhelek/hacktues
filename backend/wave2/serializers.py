@@ -2,7 +2,7 @@ from datetime import date
 
 from rest_framework import serializers
 
-from .models import Date, SmallInteger, Team, Technology, User
+from .models import FieldValidationDate, SmallInteger, Team, Technology, User
 
 
 def check_is_full(func):
@@ -48,7 +48,8 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
     def check_users_count(users):
         max_users = SmallInteger.objects.get(name='max_users_in_team').value
         if len(users) > max_users:
-            raise ValidationError('reached maximum users in team limit')
+            err = 'reached maximum users in team limit'
+            raise serializers.ValidationError(err)
 
 
 class TechnologySerializer(serializers.HyperlinkedModelSerializer):
@@ -88,15 +89,22 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         """
         some fields should not be editable after specific date
         """
-        for field_object in Date.objects.all():
+        for field_object in FieldValidationDate.objects.all():
             field = field_object.field
             # new_value = validaed_data.get(field) if field in validated_data
             if new_value := self.initial_data.get(field):
-                initial_value = getattr(self.instance, field)
+                try:
+                    initial_value = getattr(self.instance, field)
+                except AttributeError:
+                    if field_object.date < date.today():
+                        err = f'users not creatable after {field_object.date}'
+                        raise serializers.ValidationError(err)
+                    else:
+                        continue
 
                 if initial_value != new_value:
                     if field_object.date < date.today():
-                        err = 'not a github repository name'
+                        err = f'{field} was editable untill {field_object.date}'
                         raise serializers.ValidationError(err)
 
         return super().is_valid(*args, **kwargs)

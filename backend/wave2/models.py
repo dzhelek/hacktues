@@ -2,16 +2,25 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator, URLValidator
 from django.db import models
 
-class Date(models.Model):
-    """
-    Key dates, used in validation of some fields -
-    they cannot be changed after the corresponding date
-    """
+
+class BaseDate(models.Model):
     field = models.CharField(max_length=80)
     date = models.DateField()
 
+    class Meta:
+        abstract = True
+
     def __str__(self):
         return self.field
+
+
+class FieldValidationDate(BaseDate):
+    """
+    Key dates, used in validation of some fields -
+    they cannot be changed after the corresponding date.
+    """
+    pass
+
 
 class SmallInteger(models.Model):
     """
@@ -71,9 +80,20 @@ class User(AbstractUser):
     tshirt_size = models.CharField(max_length=5, choices=SIZES)
     alergies = models.TextField(blank=True, null=True)
 
+    is_captain = models.BooleanField(default=False)
+
     REQUIRED_FIELDS = [
         'first_name', 'last_name', 'email', 'form', 'tshirt_size',
     ]
+
+
+class Log(models.Model):
+    """
+    Team actions logger.
+    """
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    action = models.CharField(max_length=200)
+    date = models.DateTimeField(auto_now_add=True)
 
 
 class Team(models.Model):
@@ -81,7 +101,8 @@ class Team(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
     github_link = models.URLField(
-        validators=[URLValidator(), RegexValidator(regex=r'github.com/.+/.+')]
+        validators=[URLValidator(),
+        RegexValidator(regex=r'(github.com/.+/.+/?,? ?)+')]
     )
     is_full = models.BooleanField(default=False)
 
