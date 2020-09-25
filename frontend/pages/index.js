@@ -1,13 +1,12 @@
-import styles from '../styles/Home.module.css'
 import Schedule from "./schedule/schedule"
-
+import { Box } from "@chakra-ui/core";
 import Link from 'next/link'
 
-
 export default function Home() {
-  return (
-    <div>
+    return(
+    <Box>
       <Schedule/>
-    </div>
-  );
+    </Box>
+    
+    );
 }

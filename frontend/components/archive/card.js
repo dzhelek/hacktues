@@ -1,5 +1,4 @@
 import { Box } from "@chakra-ui/core";
-import { Image } from "@chakra-ui/core";
 import { Text } from "@chakra-ui/core";
 
 const Card = (props) => {
@@ -22,17 +21,19 @@ const Card = (props) => {
             break;
     }
 
+    const pictute = props.img
+
     return (
-      <Box margin="2%" padding = "3%" backgroundColor={color} borderColor="black" borderWidth="10px" rounded="lg" overflow="hidden">
+      <Box flex-flow="column wrap" justifyContent="flex-start" alignSelf="stretch" flex="1 1" h="500px" margin="2%" padding = "1%" backgroundColor={color} rounded="lg" overflow="hidden">
         <Text color="black" mt="1" fontWeight="semibold" as="h2" lineHeight="tight">
             {emoji}{props.name}
         </Text>
-        <Image maxW="100%" h="auto" padding="1%" src={props.img}/>
-        <Box p="1">
-            <Box mt="1" fontWeight="normal" as="h4" lineHeight="tight">
+        <Box rounded="lg" w="100%" h="250px" margin="1%" padding="1%" backgroundRepeat="no-repeat" backgroundSize="cover" backgroundPosition="center" backgroundImage={"url(" + props.img + ")"}/>
+        <Box p="1%">
+            <Box mt="1%" fontWeight="normal" as="h4" lineHeight="tight">
                 <strong>Участници: </strong>{props.teammates}
             </Box>
-            <Box mt="1" fontWeight="normal" as="h4" lineHeight="tight">
+            <Box fontWeight="normal" as="h4" lineHeight="tight">
                 <strong>Проект: </strong>{props.project}
             </Box>
         </Box>

@@ -1,20 +1,28 @@
 import React from 'react'
 import { Box } from "@chakra-ui/core";
-import Entry from "../../components/schedule/entry"
+import Day from "../../components/schedule/day"
 import { IoIosLaptop, IoMdPin } from "react-icons/io";
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 
 var emojiLaptop = <IoIosLaptop/>;
 var emojiPin = <IoMdPin/>;
-const Schedule = props => (
-    <Box p="5%">
-        <Entry place="https://goo.gl/maps/dqveFsehYJWcV1sh6" link="https://goo.gl/maps/dqveFsehYJWcV1sh6" emoji={emojiPin} title="Откриване на събитието" time="19:00-20:00" place="Sofia Tech Park"/>
-        <Entry place="https://goo.gl/maps/dqveFsehYJWcV1sh6" emoji={emojiPin} title="Откриване на събитието" time="19:00-20:00" place="Sofia Tech Park"/>
-        <Entry place="https://goo.gl/maps/dqveFsehYJWcV1sh6" emoji={emojiPin} title="Откриване на събитието" time="19:00-20:00" place="Sofia Tech Park"/>
-        <Entry place="https://goo.gl/maps/dqveFsehYJWcV1sh6" emoji={emojiPin} title="Откриване на събитието" time="19:00-20:00" place="Sofia Tech Park"/>
+var TechPark = "https://goo.gl/maps/dtZjXyfVKV42cetB9"
 
-        <Entry place="https://goo.gl/maps/dqveFsehYJWcV1sh6" emoji={emojiPin} title="Откриване на събитието" time="19:00-20:00" place="Sofia Tech Park"/>
-    </Box>
-    
-);
+const day1 = [
+  { title: 'Официално откриване на събитието', time1: '17:30', time2:'18:00', link: TechPark, emoji:emojiPin, place:"Sofia Tech Park",}, 
+  { title: 'Образователна лекция', time1: '18:15', time2: '19:00', link: TechPark, emoji: emojiPin, place:"Sofia Tech Park",}, 
+  { title: 'Образователна лекция (онлайн)', time1: '19:15', time2: '20:30', link: TechPark, emoji: emojiPin, place:"Sofia Tech Park",},
+  { title: 'Образователни уъркшопи', time1: '19:15', time2: '20:30', emoji: emojiPin, place:"Sofia Tech Park",},];
 
-export default Schedule;
+export default function Schedule(){
+  return (
+      <div>
+        <CarouselProvider naturalSlideWidth={100} naturalSlideHeight={125} totalSlides={3}>
+        <Slider>
+          <Slide index={0}><Day schedule={day1} lenght={day1.length} /></Slide>
+          <Slide index={2}>I am the third Slide.</Slide>
+        </Slider>
+        </CarouselProvider>
+        </div>
+      );
+};

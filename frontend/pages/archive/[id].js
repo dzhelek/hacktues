@@ -10,19 +10,13 @@ var data = JSON.parse(stringArchive);
 
 const Hacktues = ({currData}) => {     
     return(
-    <Box  padding="15%" backgroundColor="white" borderColor="black">
-        <Numbers allParticipants={currData.allParticipants} teams={currData.teams} valuedProjects={currData.valuedProjects}/>
-        <SimpleGrid columns={["3","1", "1", "3"]}>
-            <Flex alignItems="stretch">
+    <Box padding="15%" backgroundColor="white" borderColor="black">
+        <Flex flexDirection={["column","column","column", "row"]} flex-flow="column wrap" justify="space-around">
                 <Card img={currData.winners[0].image} name={currData.winners[0].name} teammates={currData.winners[0].participants} place={currData.winners[0].place} project={currData.winners[0].project}/>
-            </Flex>
-            <Flex alignItems="stretch">
                 <Card img={currData.winners[1].image} name={currData.winners[1].name} teammates={currData.winners[1].participants} place={currData.winners[1].place} project={currData.winners[1].project}/>
-            </Flex>
-            <Flex alignItems="stretch">
                 <Card img={currData.winners[2].image} name={currData.winners[2].name} teammates={currData.winners[2].participants} place={currData.winners[2].place} project={currData.winners[2].project}/>
-            </Flex>
-        </SimpleGrid>
+        </Flex>
+        <Numbers padding="1%" allParticipants={currData.allParticipants} teams={currData.teams} valuedProjects={currData.valuedProjects}/>
         <About description={currData.description}/>
     </Box>
 )};

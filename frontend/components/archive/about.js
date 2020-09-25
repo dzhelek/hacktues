@@ -14,7 +14,7 @@ const About = (props) => {
         <Text color="black" mt="1" fontWeight="semibold" as="h2" lineHeight="tight">
             За събитието
         </Text>
-        <Collapse startingHeight={100} isOpen={show}>
+        <Collapse startingHeight={110} isOpen={show}>
         {props.description}
         </Collapse>
         <Button variant="solid" borderWidth="0px" variantColor="green" size="sm" onClick={handleToggle} mt="1rem">
