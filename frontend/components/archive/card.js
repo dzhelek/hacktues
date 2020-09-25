@@ -21,8 +21,6 @@ const Card = (props) => {
             break;
     }
 
-    const pictute = props.img
-
     return (
       <Box flex-flow="column wrap" justifyContent="flex-start" alignSelf="stretch" flex="1 1" h="500px" margin="2%" padding = "1%" backgroundColor={color} rounded="lg" overflow="hidden">
         <Text color="black" mt="1" fontWeight="semibold" as="h2" lineHeight="tight">
