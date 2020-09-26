@@ -23,16 +23,16 @@ const Card = (props) => {
 
     return (
       <Box flex-flow="column wrap" justifyContent="flex-start" alignSelf="stretch" flex="1 1" h="500px" margin="2%" padding = "1%" backgroundColor={color} rounded="lg" overflow="hidden">
-        <Text color="black" mt="1" fontWeight="semibold" as="h2" lineHeight="tight">
+        <Text  color="black" mt="1" fontWeight="semibold" as="h2" lineHeight="tight">
             {emoji}{props.name}
         </Text>
         <Box rounded="lg" w="100%" h="250px" margin="1%" padding="1%" backgroundRepeat="no-repeat" backgroundSize="cover" backgroundPosition="center" backgroundImage={"url(" + props.img + ")"}/>
         <Box p="1%">
             <Box mt="1%" fontWeight="normal" as="h4" lineHeight="tight">
-                <strong>Участници: </strong>{props.teammates}
+                <Text fontWeight="400" as="h3"><strong>Участници: </strong>{props.teammates}</Text>
             </Box>
             <Box fontWeight="normal" as="h4" lineHeight="tight">
-                <strong>Проект: </strong>{props.project}
+                <Text fontWeight="400" as="h3"><strong>Проект: </strong>{props.project}</Text>
             </Box>
         </Box>
       </Box>

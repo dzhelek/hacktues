@@ -11,11 +11,11 @@ const About = (props) => {
 
     return(
     <Box paddingTop="1%" position="relative" height="auto" borderColor="black" borderWidth="10px" rounded="lg" overflow="hidden">
-        <Text color="black" mt="1" fontWeight="semibold" as="h2" lineHeight="tight">
+        <Text fontWeight="semibold" color="black" mt="1" as="h2" lineHeight="tight">
             За събитието
         </Text>
         <Collapse startingHeight={110} isOpen={show}>
-            {props.description}
+            <Text color="black" fontWeight="400" as="h3">{props.description}</Text>
         </Collapse>
         <Button variant="solid" borderWidth="0px" variantColor="green" size="sm" onClick={handleToggle} mt="1rem">
             Покажи {show ? "по-малко" : "повече"}
