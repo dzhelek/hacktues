@@ -10,7 +10,7 @@ var data = JSON.parse(stringArchive);
 
 const Hacktues = ({currData}) => {     
     return(
-    <Box padding="15%"  backgroundColor="white" borderColor="black">
+    <Box padding="15%"   backgroundColor="white" borderColor="black">
         <Flex flexDirection={["column","column","column", "row"]} flex-flow="column wrap" justify="space-around">
                 <Card img={currData.winners[0].image} name={currData.winners[0].name} teammates={currData.winners[0].participants} place={currData.winners[0].place} project={currData.winners[0].project}/>
                 <Card img={currData.winners[1].image} name={currData.winners[1].name} teammates={currData.winners[1].participants} place={currData.winners[1].place} project={currData.winners[1].project}/>
