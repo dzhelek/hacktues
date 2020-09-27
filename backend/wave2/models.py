@@ -52,7 +52,12 @@ class User(AbstractUser):
     AbstractUser._meta.get_field('last_name').blank = False
     AbstractUser._meta.get_field('email').blank = False
     AbstractUser._meta.get_field('password').blank = True
+
     AbstractUser._meta.get_field('is_active').default = False
+
+    AbstractUser._meta.get_field('username').validators = (
+        [RegexValidator(regex=r'.+#\d{4}')]  # username#1234
+    )
 
     FORMS = [
         ('8a', '8 A'), ('8b', '8 B'), ('8v', '8 V'), ('8g', '8 G'),
