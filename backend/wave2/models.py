@@ -97,7 +97,7 @@ class Log(models.Model):
     Team actions logger.
     """
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    action = models.CharField(max_length=200)
+    action = models.JSONField()
     date = models.DateTimeField(auto_now_add=True)
 
 

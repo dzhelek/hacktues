@@ -1,6 +1,6 @@
 from rest_framework import permissions, viewsets
 
-from .models import Team, Technology, User
+from .models import Log, Team, Technology, User
 from .permissions import UserPermissions, TeamPermissions
 from .serializers import TeamSerializer, TechnologySerializer, UserSerializer
 
@@ -15,6 +15,11 @@ class TeamViewSet(viewsets.ModelViewSet):
         user.is_captain = True
         user.save()
         return super().perform_create(serializer)
+
+    def perform_update(self, serializer):
+        Log.objects.create(user=serializer._kwargs['context']['request'].user,
+                           action=serializer._kwargs['data'])
+        return super().perform_update(serializer)
 
 
 class TechnologyViewSet(viewsets.ReadOnlyModelViewSet):
