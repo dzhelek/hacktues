@@ -1,9 +1,14 @@
 import React from 'react'
 import GetPanelData from '../../components/regulation/panel'
 
+var React = require('react');
+var Markdown = require('react-markdown');
+s
 
 const panels = [
-    { title: "Hello", description: "Kill me",},
+    {
+        title: "# HACK TUES и COVID-19", 
+        description: <Markdown source={} />,},
     { title: "Hello2", description: "Kill me2",},];
 
 

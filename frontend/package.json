@@ -20,7 +20,8 @@
     "react-dom": "16.13.1",
     "react-icons": "^3.11.0",
     "react-lottie": "^1.2.3",
-    "react-markdown": "^4.3.1"
+    "react-markdown": "^4.3.1",
+    "remarkable": "^2.0.1"
   },
   "devDependencies": {
     "json-loader": "^0.5.7"
