@@ -21,19 +21,19 @@ const Panel = (props) => {
 
     return(
     <AccordionItem>
-    <Flex marginLeft="100px" marginRight="100px" marginBottom="10px" marginTop="10px" padding="1%" flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
-    <AccordionHeader>
-        <Text paddingLeft="10px" color="black" mb="1" mt="1" as="h2" lineHeight="tight">
-            {props.title}
-        </Text>
-        </AccordionHeader>
-        <AccordionPanel pb={4}>
-        <Divider width="99%"/>
-        <Text paddingLeft="10px" color="black" lineHeight="tight">
-            {props.description}
-        </Text>
-        </AccordionPanel>
-    </Flex>
+        <Flex marginLeft={["10%", "10%", "100px", "100px"]} marginRight={["10%", "10%", "100px", "100px"]} marginBottom="10px" marginTop="10px"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
+            <AccordionHeader _focus={{outline:0}}>
+                <Text textAlign="left" paddingLeft="10px" color="black" mt="0" mb="0" as="h2">
+                    {props.title}
+                </Text>
+            </AccordionHeader>
+            <AccordionPanel pb={4}>
+            <Divider width="99%"/>
+            <Text paddingLeft="10px" color="black">
+                {props.description}
+            </Text>
+            </AccordionPanel>
+        </Flex>
     </AccordionItem>
     );
 }

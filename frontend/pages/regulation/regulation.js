@@ -16,7 +16,7 @@ const panels = [
     { title: <Markdown>### Оценяване от журито</Markdown>, description: <Markdown>{parts[7]}</Markdown>},
     { title: <Markdown>### Провеждане на четвъртфинали, полуфинали и финали</Markdown>, description: <Markdown>{parts[8]}</Markdown>},
     { title: <Markdown>### Дисквалификация</Markdown>, description: <Markdown>{parts[9]}</Markdown>},
-    { title: <Markdown>### Дисквалификация</Markdown>, description: <Markdown>{parts[10]}</Markdown>},
+    { title: <Markdown>### Тормоз</Markdown>, description: <Markdown>{parts[10]}</Markdown>},
 ];
 
 export default function Regulation() {
