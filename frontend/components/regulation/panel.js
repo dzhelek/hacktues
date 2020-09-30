@@ -16,13 +16,13 @@ function GetPanelData(params) {
 const Panel = (props) => {
 
     return(
-    <Flex marginLeft="100px" marginRight="100px" marginBottom="10px" marginTop="10px" flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
-        <Text paddingLeft="10px" color="black" mb="1" mt="1" fontWeight="semibold" as="h1" lineHeight="tight">
-            <ReactMarkdown source={props.title} />
+    <Flex marginLeft="100px" marginRight="100px" marginBottom="10px" marginTop="10px" padding="1%" flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
+        <Text paddingLeft="10px" color="black" mb="1" mt="1" as="h2" lineHeight="tight">
+            {props.title}
         </Text>
         <Divider width="99%"/>
         <Text paddingLeft="10px" color="black" lineHeight="tight">
-            <ReactMarkdown source={props.description} />
+            {props.description}
         </Text>
     </Flex>
     );

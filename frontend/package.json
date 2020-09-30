@@ -13,6 +13,7 @@
     "@emotion/styled": "^10.0.27",
     "emotion-theming": "^10.0.27",
     "lottie-web": "^5.7.1",
+    "markdown-to-jsx": "^7.0.0",
     "next": "9.5.1",
     "node-fetch": "^2.6.1",
     "pure-react-carousel": "^1.27.3",
@@ -24,6 +25,7 @@
     "remarkable": "^2.0.1"
   },
   "devDependencies": {
-    "json-loader": "^0.5.7"
+    "json-loader": "^0.5.7",
+    "raw-loader": "^4.0.1"
   }
 }
