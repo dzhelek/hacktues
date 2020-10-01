@@ -1,9 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@font-face {
+  font-family: LLPixel3;
+  font-weight: regular;
+  src:  local('llpixel3'), url(../fonts/llpixel3/LLPIXEL3.ttf) format('truetype');
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -Rubik, sans-serif;
+  font-family: -Rubik, -LLPixel, sans-serif;
   background-color: grey;
   font-weight: 400;
 }
