@@ -1,5 +1,5 @@
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import RegexValidator, URLValidator
+from django.core.validators import RegexValidator
 from django.db import models
 
 
@@ -56,7 +56,7 @@ class User(AbstractUser):
     AbstractUser._meta.get_field('is_active').default = False
 
     AbstractUser._meta.get_field('username').validators = (
-        [RegexValidator(regex=r'.+#\d{4}')]  # username#1234
+        [RegexValidator(regex=r'^.+#\d{4}$')]  # username#1234
     )
 
     FORMS = [
@@ -105,9 +105,9 @@ class Team(models.Model):
     users = models.ManyToManyField(User)
 
     name = models.CharField(max_length=100, unique=True)
-    github_link = models.URLField(
-        validators=[URLValidator(),
-        RegexValidator(regex=r'(github.com/.+/.+/?,? ?)+')]
+    github_link = models.CharField(
+        max_length=400,
+        validators=[RegexValidator(regex=r'github.com/.+/.+')]
     )
     is_full = models.BooleanField(default=False)
 
@@ -115,11 +115,12 @@ class Team(models.Model):
     project_description = models.TextField(blank=True)
     technologies = models.ManyToManyField(Technology, blank=True)
 
+    date_created = models.DateTimeField(auto_now_add=True)
+
     @property
     def is_confirmed(self):
         min_users = SmallInteger.objects.get(name='min_users_in_team').value
-        return self.users.count() >= min_users  
+        return self.users.count() >= min_users
 
     def __str__(self):
         return self.name
-

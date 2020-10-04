@@ -21,21 +21,20 @@ class UserPermissions(permissions.BasePermission):
 
         return True
 
-
     def has_object_permission(self, request, view, obj):
         if is_admin_or_safe(request) or request.user == obj:
             return True
 
         return False
-        
+
 
 class TeamPermissions(permissions.BasePermission):
     """
     allowed methods:
 
-    unregistered user: - get
-    registered user: - get
-    captain: - get, put*, delete*
+    user: - get
+    registered user: - ..., post
+    captain: - ..., put*, delete*
     """
     def has_permission(self, request, view):
         if is_admin_or_safe(request):
@@ -48,10 +47,9 @@ class TeamPermissions(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         is_team_captain = (
-            request.user.is_captain and request.user.team_set == obj
+            request.user.is_captain and request.user.team_set.first() == obj
         )
         if is_admin_or_safe(request) or is_team_captain:
             return True
-        
-        return False
 
+        return False
