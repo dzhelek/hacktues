@@ -76,14 +76,14 @@ const Header = props => {
 		<MenuItems><Link href="/about">About</Link></MenuItems>
       </Box>
 
-      <Box
+      {/* <Box
         display={{ sm: show ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
       >
         <Button bg="transparent" border="1px">
           Create account
         </Button>
-      </Box>
+      </Box> */}
     </Flex>
   );
 };
