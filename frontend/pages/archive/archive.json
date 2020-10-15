@@ -7,21 +7,21 @@
                 "participants": "Телерик Арсов, Антонио Милев, Мартин Дацев",
                 "name": "Go6o",
                 "project": "Автоматизирана оценка на тестове",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht%2Fht-1.jpg?alt=media&token=a117c3ae-7168-4cbd-84d1-59e48cdaa4ff"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/ht-1.jpg"
             },
             {
                 "place": "second",
                 "participants": "Антонио Миндов, Дария Никитова, Кристиана Иванова, Петър Петров, Ясен Алексиев",
                 "name": "R&T",
                 "project": "Визуализация на код с блок-схеми",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht%2Fht-2.jpg?alt=media&token=88bef65d-f596-44ed-993e-842b7090530e"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/ht-2.jpg"
             },
             {
                 "place": "third",
                 "participants": "Габриел Гарвалов, Дейвид-Николас Петров, Илиян Кордев, Филип Пепегов, Кристиан Томов",
                 "name": "Coding Masters",
                 "project": "Система за обмен на информация и знания между учениците",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht%2Fht-3.jpg?alt=media&token=32983808-86ce-4f23-82ea-a7a8064afb6e"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/ht-3.jpg"
             }
         ],
         "allParticipants": 84,
@@ -64,21 +64,21 @@
                 "participants": "Лазар Френкев, Александър Вербовский, Андрей Стрински, Християн Генчев, Алекс Стефанов",
                 "name": "Зор",
                 "project": "2D Platformer с puzzle game елементи",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht3%2Fht3-1.jpg?alt=media&token=7af0dd5d-558a-490f-9cbe-366603d70ebe"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/ht3-1.jpg"
             },
             {
                 "place": "second",
                 "participants": "Телерик Арсов, Стефан Бабуков, Николай Милчев, Мартин Дацев",
                 "name": "To6o",
                 "project": "Симулация на генетичен алгоритъм",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht3%2Fht3-2.jpg?alt=media&token=56fe9595-09f0-47b4-bd4b-4f59bf001376"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/ht3-2.jpg"
             },
             {
                 "place": "third",
                 "participants": "Георги Корчаков, Кристиян Йочев, Йордан Златанов, Симеон Георгиев, Александър Стоичков",
                 "name": "Top8",
                 "project": "Уеб приложение за създаване и редактиране на изображения",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht3%2Fht3-3.jpg?alt=media&token=8d29551b-5367-49c8-b929-a19410fb0aae"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/ht3-3.jpg"
             }
         ],
         "allParticipants": 136,
@@ -94,21 +94,21 @@
                 "participants": "Телерик Арсов, Ивона Мирчева, Владислав Георгиев, Мартин Дацев, Петър Милев",
                 "name": "COCOBE",
                 "project": "Приложение за резюмиране на текст, използващо невронни мрежи и машинно самообучение",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht30%2Fh30xt-1.jpg?alt=media&token=81998738-f4ce-4792-8406-7fe1313f6b8e"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/h30xt-1.jpg"
             },
             {
                 "place": "second",
                 "participants": "Георги Любенов, Виктор Велев, Антон Янчев, Самуил Георгиев",
                 "name": "Old and Bald",
                 "project": "Приложение за чатбот на историческа тема, което предлага резюме на текстове по дадена тема, спрямо интересите на ползвателите",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht30%2Fh30xt-2.jpg?alt=media&token=ac1a56a7-c38d-412d-8368-3c747db878e0"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/h30xt-2.jpg"
             },
             {
                 "place": "third",
                 "participants": "Михаил Киров, Петър Николов, Денис Бързанов, Тони Пеловски, Стефан Стефанов",
                 "name": "IDK",
                 "project": "Игрална конзола",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht30%2Fh30xt-3.jpg?alt=media&token=2ede6148-5de5-4582-be3c-32260577e382"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/h30xt-3.jpg"
             }
         ],
         "allParticipants": 206,
@@ -124,21 +124,21 @@
                 "participants": "Виктор Велев, Петър Герасимов, Теодор Станишев",
                 "name": "Elsyser",
                 "project": "Персонален асистент целящ да промени живота на незрящите като използва Artificial intelligence",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht365%2Fht365-1.jpg?alt=media&token=fdf5b6b6-981c-49e7-a5d4-efe4c00a7990"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/ht365-1.jpg"
             },
             {
                 "place": "second",
                 "participants": "Владислав Георгиев, Мартин Дацев, Антонио Милев, Телерик Арсов",
                 "name": "Какводой",
                 "project": "Платформа за решаване на геометрични задачи",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht365%2Fht365-2.jpg?alt=media&token=64557df6-b2d4-455d-aca0-3ccac3543a40"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/ht365-2.jpg"
             },
             {
                 "place": "third",
                 "participants": "Мартин Йорданов, Самуил Георгиев, Антон Янчев, Огнян Барух, Георги Любенов",
                 "name": "Babba4e",
                 "project": "Система за проверка на автентичността на продукта чрез сканиране на уникален QR код на всеки продукт",
-                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht365%2Fht365-3.jpg?alt=media&token=99e63270-7e9e-4f97-94d4-3046bdc05037"
+                "image": "https://hacktues.pythonanywhere.com/static/frontend/ht365-3.jpg"
             }
         ],
         "allParticipants": 198,
@@ -146,4 +146,4 @@
         "valuedProjects": 10,
         "description": "Вградено устройство с камера и изкуствен интелект в помощ на незрящите хора спечели първа награда в петия ученически хакатон HackTUES 365 на Технологично училище „Електронни системи“ (ТУЕС) към Технически университет – София. Устройството VoiceCV, създадено от отбор „Elsyser“ - Виктор Велев от 10 клас, Петър Герасимов и Теодор Станишев от 12 клас, може да се интегрира в шапка или очила и играе ролята на личен асистент, който информира с глас за околните обекти чрез снимки в близка и далечна перспектива. Отборът получи и специалните награди на ScaleFocus, Дроксик и Data Science Society.\n     Специалната награда за проект с вградена микрокомпютърна технология, която се връчва за първи път в HackTUES, получи системата S.P.A.S. (Smart Personal Assistant System) за отдалечено управление на устройства в дома или офиса през мобилен телефон. Проектът е разработен от Искрен Александров от 8 клас и Ангел Стоянов, Мартин Вайер, Мартин Георгиев и Денис Захариев от 9 клас, от отбор „Телефона в сака“. Наградата е осигурена от Комет Електроникс.\n     Втора награда в хакатона спечели приложението за решаване на геометрични задачи GeoSolver. То сканира условието и генерира електронен чертеж и решение на задачата. Разработката е дело на 12-токласниците Телерик Арсов, Мартин Дацев, Антонио Милев, Владислав Георгиев и Петър Милев от отбор „Какводой“. Момчетата получиха и специална награда от Data Science Society.\n     Трета награда в хакатона спечели отбор „Бабич“ за проекта Product Chain, използващ блокчейн технология, за да предпази потребителите от фалшиви стоки на пазара. Мартин Йорданов от 11 клас и Самуил Георгиев, Антон Янчев, Огнян Барух и Георги Любенов от 10 клас разработиха система за проследяване на автентичността на продукти в търговската мрежа, чрез уникален QR код, който дава информация за пътя на продукта. Те спечелиха и специална награда от TelebidPro.\n     Още шест други проекта спечелиха специални награди в тазгодишното издание на HackTUES. Състезанието се проведе от 15 до 17 март 2019 г. в ТУЕС и София Тех Парк. В него участваха 200 ученици от 8-ми до 12-ти клас на ТУЕС, разпределени в 43 отбора. Над 60 ИТ професионалисти от различни компании, много от които възпитаници на училището, бяха ментори и членове на журито. Хакатонът се организира от екип от доброволци от 11 клас с подкрепата на Асоциацията на завършилите ТУЕС и ръководството на ТУЕС. За поредна година водещи технологични компании подкрепят провеждането на ученическото ИТ състезание HackTUES. Това са SAP, SoftServe, TelebidPro, VMware, Droxic, Progress, ScaleFocus, Astea Solutions, DevriX, Dopamine, Nemetschek Bulgaria. Технологични партньори на събитието тази година са София Тех Парк, Комет Електроникс, Смартком - България, Булгед, Cloud Balkan, Data Science Society и init Lab. Кетеринг партньори на хакатона са CoKitchen, Aristeon.bg, Delishu, Domino’s, Пекарчето на татко, Pura Vida Organic Farm, Pure Water, Работилничка за сладки моменти и сладкар Ирина Иванова. Събитието беше подкрепено и от Ротари Клуб София Капитал, DevStyler и YoungArtist.\n     „Учениците от ТУЕС отново доказаха, че за тях няма неосъществими идеи.“ – каза доц. д-р инж. Стела Стефанова, директор на Технологично училище „Електронни системи“ към ТУ - София. „Журито и професионалистите са силно впечатлени от факта, че в хакатона се разработват проекти, използващи най-новите технологии. В последните години силно впечатление правят решения с невронни мрежи и изкуствен интелект, проекти с вградени микрокомпютърни системи и IoT, а ето че тази година има и проект с блокчейн технология. Надяваме се, че всяка следваща година конкуренцията между отборите ще става още по-голяма и новите технологии ще са част от HackTUES“. Преобладаващата част от проектите – финалисти в HackTUES 365 комбинират софтуерни, мрежови и хардуерни решения.\n     Сред основните ползи от участието си в хакатона учениците посочват възможността да опознаят и тестват нови технологии, да работят с професионалисти като ментори, да се научат да работят в екип и да представят идеите си, както и да открият конкретни насоки за бъдещото си професионално развитие. Ученици от ТУЕС редовно печелят награди и в хакатони за професионалисти и студенти, като Спортния хакатон, Балканския хакатон, Хакатон за София, хакатона, посветен на 10-годишнината от членството на България в ЕС и др. Членовете на отбора победител „Elsyser“ наскоро спечелиха хакатона на Студентския клуб на Американския университет в България и са носители на различни отличия от други хакатони за професионалисти. Част от членовете на отбора, заел второ място „Какводой“, са най-награждаваната група ученици в историята на HackTUES, като неизменно са сред лауреатите на хакатона"
     }
-  ]
+]
