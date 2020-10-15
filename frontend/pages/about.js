@@ -1,6 +1,6 @@
 import React from 'react'
-import GetPanelData from '../../components/about/panel'
-import txt from 'raw-loader!./about.md';
+import GetPanelData from '../components/about/panel'
+import txt from 'raw-loader!./about/about.md';
 
 const panels = [
     {description: txt},

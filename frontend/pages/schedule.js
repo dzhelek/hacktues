@@ -1,5 +1,5 @@
 import React from 'react'
-import Day from "../../components/schedule/day"
+import Day from "../components/schedule/day"
 import { IoIosLaptop, IoMdPin } from "react-icons/io";
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 

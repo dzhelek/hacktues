@@ -1,7 +1,7 @@
 import React from 'react'
-import GetPanelData from '../../components/regulation/panel'
+import GetPanelData from '../components/regulation/panel'
 import Markdown from 'markdown-to-jsx';
-import txt from 'raw-loader!./regulation.md';
+import txt from 'raw-loader!./regulation/regulation.md';
 import { Accordion } from '@chakra-ui/core'
 var parts = txt.split(";;");
 
