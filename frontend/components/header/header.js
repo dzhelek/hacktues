@@ -34,9 +34,9 @@ const Header = props => {
       {...props}
     >
       <Flex align="center" mr={5}>
-        <Heading as="h1" size="lg">
+        <Link href="/"><a><Heading as="h1" size="lg">
           HackTUES 7
-        </Heading>
+        </Heading></a></Link>
       </Flex>
 
       <Box display={{ sm: "block", md: "none" }} onClick={handleToggle}>
