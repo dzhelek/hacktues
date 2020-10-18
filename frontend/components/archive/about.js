@@ -17,7 +17,7 @@ const About = (props) => {
         <Collapse startingHeight={110} isOpen={show}>
             <Text color="black" fontWeight="400" as="h3">{props.description}</Text>
         </Collapse>
-        <Button variant="solid" borderWidth="0px" variantColor="green" size="sm" onClick={handleToggle} mt="1rem">
+        <Button _focus="outline: none;" variant="solid" borderWidth="0px" variantColor="green" size="sm" onClick={handleToggle} mt="1rem">
             Покажи {show ? "по-малко" : "повече"}
         </Button>
     </Box>

@@ -2,7 +2,8 @@ import '../styles/globals.css'
 import { ThemeProvider, CSSReset } from "@chakra-ui/core"
 import { theme } from "@chakra-ui/core";
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import Header from '../components/header/header'
+import Navbar from '../components/navbar/navbar'
+import Footer from '../components/footer/footer'
 
 
 const customTheme = {
@@ -20,8 +21,9 @@ const customTheme = {
 function MyApp({ Component, pageProps }) {
   return (
    <ThemeProvider theme={customTheme}>
-    <Header/>
-    <Component {...pageProps} />)
+    <Navbar/>
+    <Component {...pageProps} />
+    <Footer/>)
    </ThemeProvider>) 
 }
 
