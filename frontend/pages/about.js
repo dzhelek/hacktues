@@ -5,15 +5,15 @@ import { Text } from '@chakra-ui/core'
 
 const Panel = (props) => {
     return(
-        <Flex margin="0 auto" marginLeft={["10%", "10%", "100px", "100px"]} marginRight={["10%", "10%", "100px", "100px"]} marginTop="10%"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
-            <Text textAlign="left" paddingLeft="10px" color="black" mt="0" mb="0" as="h2">
+        <Flex p="10px" margin="0 auto" marginLeft={["10%", "10%", "100px", "100px"]} marginRight={["10%", "10%", "100px", "100px"]} marginTop="10%"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
+            <Text textAlign="left" paddingLeft="10px" color="black" as="h2">
                 За Hack TUES
             </Text>
             <Text paddingLeft="10px">
-                Hack&nbsp;
+            <span style={{"fontFamily":"llpixel"}}>Hack&nbsp;</span>
                 <span style={{"font-family":"llpixel","color":"green"}}>
-                    TUES&nbsp;
-                </span>
+                    TUES
+                </span>&nbsp;
                  е първият и единствен по рода си хакатон в България, организиран от ученици за ученици. Събитието стартира през 2015г. като инициатива на ученици от &nbsp;
                 <a style={{"color":"green"}} href="http://tues.bg/">Технологично училище „Електронни системи“ към ТУ - София</a>
                 , като 5 издания по-късно, Hack TUES е вече едно от ключовите събития за училището. В хакатона могат да участват само ученици от ТУЕС в отбори с три до пет участници, които в рамките на два дни създават от нулата свой ИТ проект по зададена тема и след това го представят пред професионално жури от преподаватели и ИТ специалисти.

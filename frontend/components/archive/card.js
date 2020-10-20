@@ -23,13 +23,13 @@ const Card = (props) => {
 
     return (
       <Flex flexDirection="column" flexWrap="nowrap" alignSelf="stretch" flex="1 1" h="600px" m="15px" padding="15px" backgroundColor={color} rounded="lg" overflow="hidden">
-        <Text color="black" mt="1" fontWeight="semibold" as="h2">
-            {emoji}{props.name}
+        <Text display="flex" color="black" mt="1" fontWeight="semibold" as="h2">
+            {emoji}<span>{props.name}</span>
         </Text>
-        <Box rounded="lg" w="100%" h="250px" padding="10px" backgroundRepeat="no-repeat" backgroundSize="cover" backgroundPosition="center" backgroundImage={"url(" + props.img + ")"}/>
+        <Box minH="250px" backgroundPosition={["","","",""]} rounded="lg" w="100%" padding="10px" backgroundRepeat="no-repeat" backgroundSize="cover" backgroundPosition="center" backgroundImage={"url(" + props.img + ")"}/>
         <Flex paddingTop="25px" justifyContent="center" flexDirection="column">
-            <Text m="0" fontWeight="300" as="h3"><strong>Участници: </strong>{props.teammates}</Text>
-            <Text m="0" fontWeight="300" as="h3"><strong>Проект: </strong>{props.project}</Text>
+            <Text wordBreak="break-word" mt="10" fontWeight="300" as="h3"><strong>Участници: </strong>{props.teammates}</Text>
+            <Text wordBreak="break-word" mt="10" fontWeight="300" as="h3"><strong>Проект: </strong>{props.project}</Text>
         </Flex>
       </Flex>
     );

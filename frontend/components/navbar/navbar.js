@@ -13,9 +13,9 @@ import {
 } from "@chakra-ui/core";
 
 const MenuItems = ({ children }) => (
-  <Text>
+	<Button color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px">
     {children}
-  </Text>
+  </Button>
 );
 
 const Navbar = props => {
@@ -29,43 +29,40 @@ const Navbar = props => {
       	<Flex align="center" ml={5} mr={5}>
        		<Link href="/">
           		<a>
-            		<Heading as="h1" size="lg">
-              			Hack TUES 7
+            		<Heading fontFamily="llpixel" color="black" fontWeight="400" size="lg">
+              			Hack <span style={{"color":"green"}}>TUES 7</span>
             		</Heading>
           		</a>
         	</Link>
       	</Flex>
 
-      	<Box display={{ sm: "block", md: "none" }} onClick={handleToggle}>
-        <svg
-          fill="white"
-          width="12px"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title>Menu</title>
-          <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-        </svg>
-      </Box>
-
-      <Box display={{ sm: show ? "block" : "none", md: "flex" }} width={{ sm: "full", md: "auto" }} alignItems="center" flexGrow={1}>
-        <MenuItems><Button color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px"><Link href="/schedule" >Schedule</Link></Button></MenuItems>
-        <MenuItems><Button color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px"><Link href="/regulation">Regulation</Link></Button></MenuItems>
-        <MenuItems>
+      <Box display={{ sm:"none", md: "flex" }} width={{ sm: "full", md: "auto" }} alignItems="center" flexGrow={1}>
+        <MenuItems><Link href="/schedule" ><a>Програма</a></Link></MenuItems>
+        <MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
         	<Menu>
         		<MenuButton as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
-    				Archive
+    				Архив
   				</MenuButton>
-  				<MenuList>
-    				<Link href="/archive/hacktues" ><a><MenuItem>HackTUES</MenuItem></a></Link>
-    				<Link href="/archive/hacktues2" ><a><MenuItem>HackTUES2</MenuItem></a></Link>
-    				<Link href="/archive/hacktues3" ><a><MenuItem>HackTUES3</MenuItem></a></Link>
-    				<Link href="/archive/hacktues30" ><a><MenuItem>HackTUES30</MenuItem></a></Link>
-					<Link href="/archive/hacktues365" ><a><MenuItem>HackTUES365</MenuItem></a></Link>
+  				<MenuList p="0">
+    				<Link href="/archive/hacktues" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white" _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span></MenuItem></a></Link>
+    				<Link href="/archive/hacktues2" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white"  _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span>&nbsp;<span>2</span></MenuItem></a></Link>
+    				<Link href="/archive/hacktues3" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#fff"}}>Hack</span>&nbsp;<span style={{"color":"#09c0de"}}>TUES</span >&nbsp;<span style={{"color":"#b2006e"}}>2</span></MenuItem></a></Link>
+    				<Link href="/archive/hacktues30" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323" _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"cyan"}}>Hack&nbsp;<sup>30x</sup>TUES</span></MenuItem></a></Link>
+					  <Link href="/archive/hacktues365" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#343a40"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#d6c6ad"}}>Hack</span>&nbsp;<span style={{"color":"#99d02b"}}>&nbsp;TUES&nbsp;</span><span style={{"color":"#99d02b"}} ><sup>^365</sup></span></MenuItem></a></Link>
   				</MenuList>
 			</Menu>
-		</MenuItems>
-		<MenuItems><Button color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px"><Link href="/about">About</Link></Button></MenuItems>
+        	<Menu>
+        		<MenuButton as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
+    				Декларации
+  				</MenuButton>
+  				<MenuList p="0">
+    				<a href="http://hacktues.pythonanywhere.com/static/frontend/Declaracia_pylnoletni%20uchenici_v.2.docx"><MenuItem fontSize="1rem" color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за пълнолетни(docx)</MenuItem></a>
+    				<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_pylnoletni%20uchenici_v.2.pdf"><MenuItem fontSize="1rem" color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за пълнолетни(pdf)</MenuItem></a>
+    				<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_uchenici%20pod%2018_v.2.docx"><MenuItem fontSize="1rem"  color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за непълнолетни(docx)</MenuItem></a>
+    				<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_uchenici%20pod%2018_v.2.pdf"><MenuItem fontSize="1rem" color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за непълнолетни(pdf)</MenuItem></a>
+  				</MenuList>
+			</Menu>
+		<MenuItems><Link href="/about"><a>За Hack TUES</a></Link></MenuItems>
       </Box>
 
       {/* <Box
