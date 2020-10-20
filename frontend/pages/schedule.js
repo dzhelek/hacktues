@@ -19,7 +19,7 @@ const day2 = [
 
 export default function Schedule(){
   return (
-      <CarouselProvider naturalSlideWidth={100} naturalSlideHeight={400} totalSlides={2}>
+      <CarouselProvider margin="0 auto"  naturalSlideWidth={100} naturalSlideHeight={75} totalSlides={2}>
         <Slider lockOnWindowScroll="true" moveThreshold="0.2">
           <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
           <Slide index={1}><Day schedule={day2} lenght={day2.length}/></Slide>

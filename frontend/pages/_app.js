@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }) {
    <ThemeProvider theme={customTheme}>
     <Navbar/>
     <Component {...pageProps} />
-    <Footer/>)
+    <Footer/>
    </ThemeProvider>) 
 }
 
