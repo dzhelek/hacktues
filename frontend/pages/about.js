@@ -10,8 +10,8 @@ const Panel = (props) => {
                 За Hack TUES
             </Text>
             <Text paddingLeft="10px">
-            <span style={{"fontFamily":"llpixel"}}>Hack&nbsp;</span>
-                <span style={{"font-family":"llpixel","color":"green"}}>
+            <span style={{"font-size":"25px","fontFamily":"llpixel"}}>Hack&nbsp;</span>
+                <span style={{"font-size":"25px","font-family":"llpixel","color":"green"}}>
                     TUES
                 </span>&nbsp;
                  е първият и единствен по рода си хакатон в България, организиран от ученици за ученици. Събитието стартира през 2015г. като инициатива на ученици от &nbsp;

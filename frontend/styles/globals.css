@@ -29,3 +29,9 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.carousel__dot-group {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 150px;
+}

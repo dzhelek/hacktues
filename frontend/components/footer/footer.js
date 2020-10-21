@@ -10,7 +10,7 @@ const Footer = (props) => {
 
     return(
     <Flex h="100px" w="100%" mt="-100px" flexDirection="row" justifyContent="center" position="absolute" bottom="0" paddingLeft="10px" paddingRight="10px"  borderColor="black" borderWidth="10px" background="lightgrey">
-        <Text fontWeight="300" color="black" p="2" as="h4" lineHeight="tight">
+        <Text fontWeight="300" color="black" m="35px" as="h4" lineHeight="tight">
             <span>
                 <Link paddingRight="10px" _focus="outline: none;" href="https://instagram.com/hacktues">
                     <Icon as={FiFacebook}  size="25px"></Icon>

@@ -1,7 +1,8 @@
 import React from 'react'
 import Day from "../components/schedule/day"
 import { IoIosLaptop, IoMdPin } from "react-icons/io";
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import { Flex, Box, SimpleGrid } from '@chakra-ui/core'
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
 
 var emojiLaptop = <IoIosLaptop/>;
 var emojiPin = <IoMdPin/>;
@@ -19,11 +20,14 @@ const day2 = [
 
 export default function Schedule(){
   return (
-      <CarouselProvider margin="0 auto"  naturalSlideWidth={100} naturalSlideHeight={75} totalSlides={2}>
+    <Box>
+      <CarouselProvider margin="0 auto" naturalSlideWidth={100} naturalSlideHeight={50} totalSlides={2}>
         <Slider lockOnWindowScroll="true" moveThreshold="0.2">
           <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
           <Slide index={1}><Day schedule={day2} lenght={day2.length}/></Slide>
         </Slider>
+        <DotGroup/>
       </CarouselProvider>
+      </Box>
   );
 };

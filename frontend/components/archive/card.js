@@ -22,7 +22,7 @@ const Card = (props) => {
     }
 
     return (
-      <Flex flexDirection="column" flexWrap="nowrap" alignSelf="stretch" flex="1 1" h="650px" m="15px" padding="15px" backgroundColor={color} rounded="lg" overflow="hidden">
+      <Flex flexDirection="column" flexWrap="nowrap" alignSelf="stretch" flex="1 1" h="auto" m="15px" padding="15px" backgroundColor={color} rounded="lg" overflow="hidden">
         <Text display="flex" color="black" mt="1" fontWeight="semibold" as="h2">
             {emoji}<span>{props.name}</span>
         </Text>
