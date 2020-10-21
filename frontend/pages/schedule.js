@@ -21,11 +21,11 @@ const day2 = [
 export default function Schedule(){
   return (
     <Box>
-      <CarouselProvider margin="0 auto" naturalSlideWidth={100} naturalSlideHeight={50} totalSlides={2}>
-        <Slider lockOnWindowScroll="true" moveThreshold="0.2">
-          <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
-          <Slide index={1}><Day schedule={day2} lenght={day2.length}/></Slide>
-        </Slider>
+          <CarouselProvider isIntrinsicHeight="true" naturalSlideWidth={100} naturalSlideHeight={250} totalSlides={2}>
+            <Slider moveThreshold="0.2">
+              <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
+              <Slide index={1}><Day schedule={day2} lenght={day2.length}/></Slide>
+            </Slider>
         <DotGroup/>
       </CarouselProvider>
       </Box>

@@ -22,7 +22,7 @@ const panels = [
 export default function Regulation() {
     return (
         <div>
-            <Accordion margin="0 auto"  defaultIndex={[0]} allowMultiple>
+            <Accordion mt="50px" defaultIndex={[0]} allowMultiple>
                 <GetPanelData lenght={panels.length} panels={panels}/>
             </Accordion>
         </div>
