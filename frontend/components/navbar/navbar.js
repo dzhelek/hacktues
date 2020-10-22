@@ -52,7 +52,7 @@ const Navbar = props => {
         	</Link>
       	</Flex>
 
-      <Box display={{ sm:"none", md: "flex" }} width={{ sm: "full", md: "auto" }} alignItems="center" flexGrow={1}>
+      <Box display={{ sm:"none", md: "flex" }} alignItems="center" flexGrow={1}>
         <MenuItems><Link href="/schedule" ><a>Програма</a></Link></MenuItems>
         <MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
         	<Menu>
