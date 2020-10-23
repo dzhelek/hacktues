@@ -37,7 +37,6 @@ const Navbar = props => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef();
   const btnRef = React.useRef();
-
 	
   return (
 	<Box>
@@ -52,7 +51,7 @@ const Navbar = props => {
         	</Link>
       	</Flex>
 
-      <Box display={{ sm:"none", md: "flex" }} alignItems="center" flexGrow={1}>
+      <Box display={{ "0em":"none", md: "flex" }} alignItems="center" flexGrow={1}>
         <MenuItems><Link href="/schedule" ><a>Програма</a></Link></MenuItems>
         <MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
         	<Menu>
@@ -96,7 +95,7 @@ const Navbar = props => {
       </Box>
     </Flex>
     
-	<Flex display={{ sm:"flex", md: "none" }} width={{ sm: "full", md: "auto" }} alignItems="center" flexGrow={1}>
+	<Flex display={{ "0em":"flex", md: "none" }} width={{ sm: "full", md: "auto" }} alignItems="center" flexGrow={1}>
     	<Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         	<DrawerOverlay />
         	<DrawerContent backgroundColor="lightgrey" color="lightgrey">
