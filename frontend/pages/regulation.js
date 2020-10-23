@@ -21,7 +21,7 @@ const panels = [
 
 export default function Regulation() {
     return (
-        <Box pb="120px" pt="50px">
+        <Box pb="160px" pt="50px">
             <Accordion defaultIndex={[0]} >
                 <GetPanelData lenght={panels.length} panels={panels}/>
             </Accordion>

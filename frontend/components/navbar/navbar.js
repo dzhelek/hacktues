@@ -39,9 +39,9 @@ const Navbar = props => {
   const btnRef = React.useRef();
 	
   return (
-	<Box>
-    <Flex as="nav" width="100%" align="center" justify="space-between" wrap="wrap" padding="10px" bg="lightgrey" color="white"{...props}>
-      	<Flex align="center" ml={5} mr={5}>
+	<header>
+    <Flex as="nav" align="center" justify="space-between" padding="10px" bg="lightgrey" color="white"{...props}>
+      	<Flex width="auto" align="center" ml={5} mr={5}>
        		<Link href="/">
           		<a>
             		<Heading fontFamily="llpixel" color="black" fontWeight="200" size="lg">
@@ -81,7 +81,7 @@ const Navbar = props => {
       </Box>
 
 
-	<Box display={{ sm:"flex", md: "none" }}>
+	<Box width="auto" display={{ sm:"flex", md: "none" }}>
   	<Button  _focus="outline: none;" display="block" ref={btnRef} backgroundColor="transparent" variantColor="lightgrey" border="0px" onClick={onOpen}>
         <svg
           fill="white"
@@ -95,7 +95,7 @@ const Navbar = props => {
       </Box>
     </Flex>
     
-	<Flex display={{ "0em":"flex", md: "none" }} width={{ sm: "full", md: "auto" }} alignItems="center" flexGrow={1}>
+	<Flex display={{ "0em":"block", md: "none" }} width={{ "0em": "100%", md: "auto" }} alignItems="center" flexGrow={1}>
     	<Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         	<DrawerOverlay />
         	<DrawerContent backgroundColor="lightgrey" color="lightgrey">
@@ -144,7 +144,7 @@ const Navbar = props => {
         </DrawerContent>
     </Drawer>
 	</Flex>
-</Box>
+</header>
   )
 };
 
