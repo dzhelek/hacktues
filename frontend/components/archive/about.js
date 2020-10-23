@@ -10,14 +10,14 @@ const About = (props) => {
     const handleToggle = () => setShow(!show);
 
     return(
-    <Box paddingTop="1%" position="relative" height="auto" borderColor="black" borderWidth="10px" rounded="lg" overflow="hidden">
+    <Box display="block" paddingTop="1%" borderColor="black" borderWidth="10px" rounded="lg" overflow="hidden">
         <Text fontWeight="semibold" color="black" mt="1" as="h2" lineHeight="tight">
             За събитието
         </Text>
         <Collapse startingHeight={110} isOpen={show}>
             <Text color="black" fontWeight="400" as="h3">{props.description}</Text>
         </Collapse>
-        <Button _focus="outline: none;" variant="solid" borderWidth="0px" variantColor="green" size="sm" onClick={handleToggle} mt="1rem">
+        <Button marginBottom="50px" _focus="outline: none;" variant="solid" borderWidth="0px" variantColor="green" size="sm" onClick={handleToggle} mt="1rem">
             Покажи {show ? "по-малко" : "повече"}
         </Button>
     </Box>
