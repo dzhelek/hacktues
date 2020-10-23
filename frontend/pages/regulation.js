@@ -2,7 +2,7 @@ import React from 'react'
 import GetPanelData from '../components/regulation/panel'
 import Markdown from 'markdown-to-jsx';
 import txt from 'raw-loader!./regulation/regulation.md';
-import { Accordion } from '@chakra-ui/core'
+import { Accordion, Box } from '@chakra-ui/core'
 var parts = txt.split(";;");
 
 const panels = [
@@ -21,10 +21,10 @@ const panels = [
 
 export default function Regulation() {
     return (
-        <div>
-            <Accordion mt="50px" defaultIndex={[0]} allowMultiple>
+        <Box pb="120px" pt="50px">
+            <Accordion defaultIndex={[0]} >
                 <GetPanelData lenght={panels.length} panels={panels}/>
             </Accordion>
-        </div>
+        </Box>
     )
 }
