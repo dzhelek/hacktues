@@ -39,12 +39,12 @@ const Navbar = props => {
   const btnRef = React.useRef();
 	
   return (
-	<Box>
-    <Flex as="nav" width="100%" align="center" justify="space-between" wrap="wrap" padding="10px" bg="lightgrey" color="white"{...props}>
-      	<Flex align="center" ml={5} mr={5}>
+	<header>
+    <Flex as="nav" align="center" justify="space-between" padding="10px" bg="lightgrey" color="white"{...props}>
+      	<Flex width="auto" align="center" ml={5} mr={5}>
        		<Link href="/">
           		<a>
-            		<Heading fontFamily="llpixel" color="black" fontWeight="200" size="lg">
+            		<Heading fontFamily="llpixel" color="black" fontSize="1.25rem" fontWeight="200" size="lg">
               			Hack <span style={{"color":"green"}}>TUES 7</span>
             		</Heading>
           		</a>
@@ -59,11 +59,11 @@ const Navbar = props => {
     				Архив
   				</MenuButton>
   				<MenuList p="0">
-    				<Link href="/archive/hacktues" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white" _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span></MenuItem></a></Link>
-    				<Link href="/archive/hacktues2" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white"  _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span>&nbsp;<span>2</span></MenuItem></a></Link>
-    				<Link href="/archive/hacktues3" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#fff"}}>Hack</span>&nbsp;<span style={{"color":"#09c0de"}}>TUES</span >&nbsp;<span style={{"color":"#b2006e"}}>3</span></MenuItem></a></Link>
-    				<Link href="/archive/hacktues30" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323" _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"cyan"}}>Hack&nbsp;<sup>30x</sup>TUES</span></MenuItem></a></Link>
-					  <Link href="/archive/hacktues365" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#343a40"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#d6c6ad"}}>Hack</span>&nbsp;<span style={{"color":"#99d02b"}}>&nbsp;TUES&nbsp;</span><span style={{"color":"#99d02b"}} ><sup>^365</sup></span></MenuItem></a></Link>
+    				<Link href="/archive/hacktues" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white" _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span></MenuItem></a></Link>
+    				<Link href="/archive/hacktues2" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white"  _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span>&nbsp;<span>2</span></MenuItem></a></Link>
+    				<Link href="/archive/hacktues3" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#fff"}}>Hack</span>&nbsp;<span style={{"color":"#09c0de"}}>TUES</span >&nbsp;<span style={{"color":"#b2006e"}}>3</span></MenuItem></a></Link>
+    				<Link href="/archive/hacktues30" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323" _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"cyan"}}>Hack&nbsp;<sup>30x</sup>TUES</span></MenuItem></a></Link>
+					  <Link href="/archive/hacktues365" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#343a40"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#d6c6ad"}}>Hack</span>&nbsp;<span style={{"color":"#99d02b"}}>&nbsp;TUES&nbsp;</span><span style={{"color":"#99d02b"}} ><sup>^365</sup></span></MenuItem></a></Link>
   				</MenuList>
 			</Menu>
         	<Menu>
@@ -81,8 +81,8 @@ const Navbar = props => {
       </Box>
 
 
-	<Box display={{ sm:"flex", md: "none" }}>
-  	<Button  _focus="outline: none;" display="block" ref={btnRef} backgroundColor="transparent" colorScheme="lightgrey" border="0px" onClick={onOpen}>
+	<Box width="auto" display={{ sm:"flex", md: "none" }}>
+  	<Button  _focus="outline: none;" display="block" ref={btnRef} backgroundColor="transparent" variantColor="lightgrey" border="0px" onClick={onOpen}>
         <svg
           fill="white"
           width="12px"
@@ -95,7 +95,7 @@ const Navbar = props => {
       </Box>
     </Flex>
     
-	<Flex display={{ "0em":"flex", md: "none" }} width={{ sm: "full", md: "auto" }} alignItems="center" flexGrow={1}>
+	<Flex display={{ "0em":"block", md: "none" }} width={{ "0em": "100%", md: "auto" }} alignItems="center" flexGrow={1}>
     	<Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         	<DrawerOverlay />
         	<DrawerContent backgroundColor="lightgrey" color="lightgrey">
@@ -115,11 +115,11 @@ const Navbar = props => {
     					Архив
   					</MenuButton>
   					<MenuList p="0">
-    					<Link href="/archive/hacktues" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white" _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span></MenuItem></a></Link>
-    					<Link href="/archive/hacktues2" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white"  _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span>&nbsp;<span>2</span></MenuItem></a></Link>
-    					<Link href="/archive/hacktues3" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#fff"}}>Hack</span>&nbsp;<span style={{"color":"#09c0de"}}>TUES</span >&nbsp;<span style={{"color":"#b2006e"}}>2</span></MenuItem></a></Link>
-    					<Link href="/archive/hacktues30" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323" _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"cyan"}}>Hack&nbsp;<sup>30x</sup>TUES</span></MenuItem></a></Link>
-					  	<Link href="/archive/hacktues365" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#343a40"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#d6c6ad"}}>Hack</span>&nbsp;<span style={{"color":"#99d02b"}}>&nbsp;TUES&nbsp;</span><span style={{"color":"#99d02b"}} ><sup>^365</sup></span></MenuItem></a></Link>
+    					<Link href="/archive/hacktues" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="200" color="black" backgroundColor="white" _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span></MenuItem></a></Link>
+    					<Link href="/archive/hacktues2" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="200" color="black" backgroundColor="white"  _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span>&nbsp;<span>2</span></MenuItem></a></Link>
+    					<Link href="/archive/hacktues3" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="200" color="black" backgroundColor="#232323"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#fff"}}>Hack</span>&nbsp;<span style={{"color":"#09c0de"}}>TUES</span >&nbsp;<span style={{"color":"#b2006e"}}>2</span></MenuItem></a></Link>
+    					<Link href="/archive/hacktues30" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="200" color="black" backgroundColor="#232323" _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"cyan"}}>Hack&nbsp;<sup>30x</sup>TUES</span></MenuItem></a></Link>
+					  	<Link href="/archive/hacktues365" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="300" color="black" backgroundColor="#343a40"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#d6c6ad"}}>Hack</span>&nbsp;<span style={{"color":"#99d02b"}}>&nbsp;TUES&nbsp;</span><span style={{"color":"#99d02b"}} ><sup>^365</sup></span></MenuItem></a></Link>
   					</MenuList>
 				</Menu>
         		<Menu>
@@ -144,7 +144,7 @@ const Navbar = props => {
         </DrawerContent>
     </Drawer>
 	</Flex>
-</Box>
+</header>
   )
 };
 

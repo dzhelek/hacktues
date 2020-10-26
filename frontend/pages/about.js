@@ -5,7 +5,8 @@ import { Text } from '@chakra-ui/core'
 
 const Panel = (props) => {
     return(
-        <Box display="block" p="10px" marginBottom="5px" marginLeft={["10%", "10%", "100px", "100px"]} marginRight={["10%", "10%", "100px", "100px"]} marginTop="5%"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
+        <Box paddingBottom={["160px", "160px", "100px", "100px"]}>
+        <Box display="block" pt="10px" pl="10px" pr="10px" marginLeft={["10%", "10%", "100px", "100px"]} marginRight={["10%", "10%", "100px", "100px"]} marginTop="5%"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
             <Text textAlign="left" paddingLeft="10px" color="black" as="h2">
                 За Hack TUES
             </Text>
@@ -23,6 +24,7 @@ const Panel = (props) => {
 <br></br><br></br>Всяка година Hack TUES се организира от координационен екип доброволци от 11-ти клас, който се грижи за цялостната организация на събитието под менторството на АЗТУЕС и ръководството на ТУЕС.
 &nbsp;<br></br><br></br><b>Поради</b>&nbsp;наложеното извънредно положение в страната заради COVID-19 пандемията, тазгодишното издание на Hack TUES 6, първоначално планирано за 12-15 март, се отлага за 1-11 октомври.
             </Text>
+        </Box>
         </Box>
     );
 }

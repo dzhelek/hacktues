@@ -10,7 +10,7 @@ const About = (props) => {
     const handleToggle = () => setShow(!show);
 
     return(
-    <Box display="block" marginBottom="5px" paddingTop="1%" borderColor="black" borderWidth="10px" rounded="lg" overflow="hidden">
+    <Box display="block" pb={["100px", "30px"]} paddingTop="1%" borderColor="black" borderWidth="10px" rounded="lg" overflow="hidden">
         <Text fontWeight="semibold" color="black" mt="1" as="h2" lineHeight="tight">
             За събитието
         </Text>
