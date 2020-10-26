@@ -25,7 +25,7 @@ import {
 import { useDisclosure } from "@chakra-ui/core";
 
 const MenuItems = ({ children }) => (
-	<Button color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px">
+	<Button fontFamily="Rubik" color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px">
     {children}
   </Button>
 );
@@ -61,7 +61,7 @@ const Navbar = props => {
   				<MenuList p="0">
     				<Link href="/archive/hacktues" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white" _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span></MenuItem></a></Link>
     				<Link href="/archive/hacktues2" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white"  _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span>&nbsp;<span>2</span></MenuItem></a></Link>
-    				<Link href="/archive/hacktues3" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#fff"}}>Hack</span>&nbsp;<span style={{"color":"#09c0de"}}>TUES</span >&nbsp;<span style={{"color":"#b2006e"}}>2</span></MenuItem></a></Link>
+    				<Link href="/archive/hacktues3" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#fff"}}>Hack</span>&nbsp;<span style={{"color":"#09c0de"}}>TUES</span >&nbsp;<span style={{"color":"#b2006e"}}>3</span></MenuItem></a></Link>
     				<Link href="/archive/hacktues30" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323" _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"cyan"}}>Hack&nbsp;<sup>30x</sup>TUES</span></MenuItem></a></Link>
 					  <Link href="/archive/hacktues365" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#343a40"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#d6c6ad"}}>Hack</span>&nbsp;<span style={{"color":"#99d02b"}}>&nbsp;TUES&nbsp;</span><span style={{"color":"#99d02b"}} ><sup>^365</sup></span></MenuItem></a></Link>
   				</MenuList>
@@ -82,7 +82,7 @@ const Navbar = props => {
 
 
 	<Box display={{ sm:"flex", md: "none" }}>
-  	<Button  _focus="outline: none;" display="block" ref={btnRef} backgroundColor="transparent" variantColor="lightgrey" border="0px" onClick={onOpen}>
+  	<Button  _focus="outline: none;" display="block" ref={btnRef} backgroundColor="transparent" colorScheme="lightgrey" border="0px" onClick={onOpen}>
         <svg
           fill="white"
           width="12px"

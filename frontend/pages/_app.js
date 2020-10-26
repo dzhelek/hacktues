@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { ThemeProvider, CSSReset } from "@chakra-ui/core"
+import { ThemeProvider } from "@chakra-ui/core"
 import { theme } from "@chakra-ui/core";
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import Navbar from '../components/navbar/navbar'

@@ -8,24 +8,26 @@
     "start": "next start"
   },
   "dependencies": {
-    "@chakra-ui/core": "^0.8.0",
-    "@emotion/core": "^10.0.34",
-    "@emotion/styled": "^10.0.27",
-    "emotion-theming": "^10.0.27",
-    "lottie-web": "^5.7.1",
-    "markdown-to-jsx": "^7.0.0",
+    "@chakra-ui/core": "0.8.0",
+    "@emotion/core": "10.0.35",
+    "@emotion/styled": "10.0.27",
+    "emotion-theming": "10.0.27",
+    "framer-motion": "latest",
+    "lottie-web": "^5.7.3",
+    "markdown-to-jsx": "^7.0.1",
     "next": "9.5.1",
     "node-fetch": "^2.6.1",
-    "pure-react-carousel": "^1.27.3",
+    "pure-react-carousel": "^1.27.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-icons": "^3.11.0",
     "react-lottie": "^1.2.3",
     "react-markdown": "^4.3.1",
-    "remarkable": "^2.0.1"
+    "remarkable": "^2.0.1",
+    "memoize-one": "5.1.1"
   },
   "devDependencies": {
     "json-loader": "^0.5.7",
-    "raw-loader": "^4.0.1"
+    "raw-loader": "^4.0.2"
   }
 }
