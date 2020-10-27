@@ -1,6 +1,7 @@
 import React from 'react';
 import { Flex, Box, Button, Text, Link, Image } from "@chakra-ui/core";
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
+import { AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
 import sponsor from "./sponsor.json";
 var stringArchive = JSON.stringify(sponsor);
 var data = JSON.parse(stringArchive);
@@ -17,10 +18,10 @@ const GetSponsors = props => {
 
 const Entry = props => {
     return(
-    <Flex h="auto" flexDirection="column" flexWrap="wrap" alignSelf="center" marginTop="25px" marginLeft={["5%", "5%", "5%", "35%"]} marginRight={["5%", "5%", "5%", "35%"]} alignSelf="center" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="transparent" >
-        <Box order="3" alignSelf="center">
+    <Flex h="150px" flexDirection="column" flexWrap="wrap" alignSelf="center" marginTop="25px" marginLeft={["5%", "5%", "5%", "35%"]} marginRight={["5%", "5%", "5%", "35%"]} alignSelf="center" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" >
+        <Box p="15px" order="3" alignSelf="center">
             <Link name={props.id} href={props.link} isExternal>
-                <Image objectFit="contain" width="100%" src={props.logo}></Image>
+                <Image h="100px" objectFit="contain" width="100%" src={props.logo}></Image>
             </Link>
         </Box>
     </Flex>
@@ -35,12 +36,14 @@ export default function Sponsors(){
     }
 
     return (
-      <Box>
-            <CarouselProvider isPlaying={true} infinite={true} interval={2000} isIntrinsicHeight="true" naturalSlideWidth={100} naturalSlideHeight={250} totalSlides={5}>
+      <Flex pr="10%" pl="10%">
+            <CarouselProvider style={{"display":"flex", "flex-direction":"row", "flex-wrap":"nowrap","padding":"15%"}} isPlaying={true} infinite={true} interval={2000} isIntrinsicHeight="true" naturalSlideWidth={100} naturalSlideHeight={250} totalSlides={5}>
+            <ButtonBack style={{"backgroundColor":"transparent", "border":"0", "outline":"none"   }}><AiOutlineArrowLeft/></ButtonBack>
               <Slider moveThreshold="0.1">
                 {xd}
               </Slider>
+        <ButtonNext style={{"backgroundColor":"transparent", "border":"0", "outline":"none"}}><AiOutlineArrowRight/></ButtonNext>
         </CarouselProvider>
-        </Box>
+        </Flex>
     );
 };

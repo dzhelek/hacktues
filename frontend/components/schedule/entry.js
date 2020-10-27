@@ -4,7 +4,7 @@ import { Flex, Box, Button, Text, Link } from "@chakra-ui/core";
 let time;
 
 const Entry = props => (
-    <Flex h="250px" flexDirection="column" flexWrap="wrap" alignSelf="center" marginTop="25px" marginLeft={["5%", "5%", "5%", "35%"]} marginRight={["5%", "5%", "5%", "35%"]} alignSelf="center" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" >
+    <Flex w="100%" h="250px" flexDirection="column" flexWrap="wrap" alignSelf="center" marginTop="25px" marginLeft={["5%", "5%", "5%", "35%"]} marginRight={["5%", "5%", "5%", "35%"]} alignSelf="center" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" >
         <Text fontWeight="400" as="h3" order="1" textAlign="center" alignSelf="center">{props.title}</Text>
         <div>
             {(() => {if(props.notime) time = <Text order="2" textAlign="center" alignSelf="center"></Text>;

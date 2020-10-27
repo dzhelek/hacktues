@@ -3,6 +3,7 @@ import Day from "../components/schedule/day"
 import { IoIosLaptop, IoMdPin } from "react-icons/io";
 import { Flex, Box, SimpleGrid } from '@chakra-ui/core'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
+import { AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
 
 var emojiLaptop = <IoIosLaptop/>;
 var emojiPin = <IoMdPin/>;
@@ -40,13 +41,15 @@ const day2 = [
 export default function Schedule(){
   return (
     <Box pb="25px">
-          <CarouselProvider style={{ "touch-action":"pan-y pinch-zoom;"}} lockOnWindowScroll="true" isIntrinsicHeight="true" naturalSlideWidth={100} naturalSlideHeight={250} totalSlides={2}>
+          <CarouselProvider style={{"display":"flex", "flex-direction":"row", "flex-wrap":"nowrap"}} lockOnWindowScroll="true" isIntrinsicHeight="true" naturalSlideWidth={100} naturalSlideHeight={250} totalSlides={2}>
+      <ButtonBack style={{"backgroundColor":"transparent", "border":"0", "outline":"none", "width":"auto"   }}><AiOutlineArrowLeft/></ButtonBack>
             <Slider trayProps={{
       onTouchMove: eventLogger}}>
               <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
               <Slide index={1}><Day schedule={day2} lenght={day2.length}/></Slide>
             </Slider>
-        <DotGroup showAsSelectedForCurrentSlideOnly="true"/>
+            
+        <ButtonNext style={{"backgroundColor":"transparent", "border":"0", "outline":"none"}}><AiOutlineArrowRight/></ButtonNext>
       </CarouselProvider>
       </Box>
   );
