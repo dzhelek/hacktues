@@ -36,11 +36,10 @@ export default function Sponsors(){
 
     return (
       <Box>
-            <CarouselProvider isIntrinsicHeight="true" naturalSlideWidth={100} naturalSlideHeight={250} totalSlides={5}>
+            <CarouselProvider isPlaying={true} infinite={true} interval={2000} isIntrinsicHeight="true" naturalSlideWidth={100} naturalSlideHeight={250} totalSlides={5}>
               <Slider moveThreshold="0.1">
                 {xd}
               </Slider>
-          <DotGroup/>
         </CarouselProvider>
         </Box>
     );

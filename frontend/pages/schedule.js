@@ -17,15 +17,32 @@ const day1 = [
 
 const day2 = [
   { title: 'Работа по проектите', notime:1, emoji:emojiLaptop, place:"Онлайн",},];
+  var lock = true
+
+  function eventLogger(ev) {
+    
+    var newPos
+    var oldPos = 0
+    
+    console.log(ev.type, ev.touches[0]);
+    // var newPos = ev.touches[0].clientY
+    // if(newPos > oldPos || newPos < oldPos){
+    //   lock = false
+    // }
+    // else{
+    //   lock = true
+    //   oldPost = newPos
+    // }
+
+  }
+
 
 export default function Schedule(){
-  
-  var lock
-
   return (
     <Box pb="25px">
-          <CarouselProvider onScroll = {() => {lock=false}} touchEnabled={lock} lockOnWindowScroll="true" isIntrinsicHeight="true" naturalSlideWidth={100} naturalSlideHeight={250} totalSlides={2}>
-            <Slider>
+          <CarouselProvider style={{ "touch-action":"pan-y pinch-zoom;"}} lockOnWindowScroll="true" isIntrinsicHeight="true" naturalSlideWidth={100} naturalSlideHeight={250} totalSlides={2}>
+            <Slider trayProps={{
+      onTouchMove: eventLogger}}>
               <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
               <Slide index={1}><Day schedule={day2} lenght={day2.length}/></Slide>
             </Slider>
