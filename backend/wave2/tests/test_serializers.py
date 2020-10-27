@@ -1,5 +1,6 @@
 from unittest.mock import patch
 
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
@@ -37,17 +38,18 @@ class TestTeam(APITestCase):
 
         self.team = Team.objects.create()
 
-    def test_post_400_team_with_users_gt_the_maximum(self):
-        def create_users():
-            for i in range(self.max + 1):
-                yield User.objects.create(username=str(i)).id
+    @staticmethod
+    def create_users(count):
+        for i in range(count):
+            yield User.objects.create(username=str(i)).id
 
+    def test_post_400_team_with_users_gt_the_maximum(self):
         data = {
             'name': 'hello',
             'github_link': 'https://github.com/././',
             'users': (
                 [f'http://testserver/users/{i}/'
-                 for i in create_users()]
+                 for i in self.create_users(self.max + 1)]
             ),
         }
 
@@ -56,16 +58,12 @@ class TestTeam(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_post_201_team_with_users_equal_to_the_maximum(self):
-        def create_users():
-            for i in range(self.max):
-                yield User.objects.create(username=str(i)).id
-
         data = {
             'name': 'hello',
             'github_link': 'https://github.com/././',
             'users': (
                 [f'http://testserver/users/{i}/'
-                 for i in create_users()]
+                 for i in self.create_users(self.max)]
             ),
         }
 
@@ -74,14 +72,10 @@ class TestTeam(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_patch_400_team_with_users_gt_the_maximum(self):
-        def create_users():
-            for i in range(self.max + 1):
-                yield User.objects.create(username=str(i)).id
-
         data = {
             'users': (
                 [f'http://testserver/users/{i}/'
-                 for i in create_users()]
+                 for i in self.create_users(self.max + 1)]
             ),
         }
 
@@ -90,14 +84,10 @@ class TestTeam(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_patch_200_team_with_users_equal_to_the_maximum(self):
-        def create_users():
-            for i in range(self.max):
-                yield User.objects.create(username=str(i)).id
-
         data = {
             'users': (
                 [f'http://testserver/users/{i}/'
-                 for i in create_users()]
+                 for i in self.create_users(self.max)]
             ),
         }
 
@@ -139,19 +129,58 @@ class TestTeam(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(self.team.is_full, 'team should be full')
 
-    def test_post_400_maximum_teams_limit_exceeded(self):
+    def test_post_201_maximum_teams_limit_exceeded_team_is_not_ready(self):
         data = {
             'name': 'hello',
             'github_link': 'https://github.com/././',
             'users': [f'http://testserver/users/{self.user.id}/'],
         }
-        self.client.post('/teams/', data)
-        data['name'] = 'world'
+        Team.objects.create(name='team')
 
         response = self.client.post('/teams/', data)
 
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(Team.objects.count(), self.max_teams)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIsNone(Team.objects.last().ready)
+
+    def test_post_201_team_is_ready_if_confirmed_but_max_limit_exceeded(self):
+        data = {
+            'name': 'hello',
+            'github_link': 'https://github.com/././',
+            'users': [f'http://testserver/users/{i}/'
+                      for i in self.create_users(self.min)],
+        }
+        Team.objects.create(name='team')
+
+        response = self.client.post('/teams/', data)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertAlmostEqual(Team.objects.last().ready, timezone.now(),
+                               delta=timezone.timedelta(seconds=1))
+
+    def test_patch_200_first_ready_team_gets_confirmed_on_team_unconf(self):
+        self.team.confirmed = True
+        self.team.save()
+        team = Team.objects.create(name='team')
+        team.confirmed = True
+        team.save()
+        ready_team = Team.objects.create(name='ready')
+        ready_team.ready = timezone.now() - timezone.timedelta(days=1)
+        ready_team.save()
+        second_ready = Team.objects.create(name='second')
+        second_ready.ready = timezone.now()
+        second_ready.save()
+        data = {'users': [f'http://testserver/users/{self.user.id}/']}
+
+        response = self.client.patch(f'/teams/{self.team.id}/', data)
+        self.team.refresh_from_db()
+        ready_team.refresh_from_db()
+        second_ready.refresh_from_db()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(self.team.confirmed, 'team should not be confirmed')
+        self.assertTrue(ready_team.confirmed, 'team should get confirmed')
+        self.assertIsNone(ready_team.ready, 'should not be ready')
+        self.assertFalse(second_ready.confirmed, 'team shouldnt get confirmed')
 
 
 class TestUserPasswordManagement(APITestCase):

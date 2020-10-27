@@ -1,48 +1,57 @@
 from datetime import date
 
+from django.utils import timezone
 from rest_framework import serializers
 
 from .models import FieldValidationDate, SmallInteger, Team, Technology, User
 
 
-def check_is_full(func):
-
-    def create_update(*args):
-        instance = func(*args)
-
-        if instance.is_confirmed is False:
-            instance.is_full = False
-            instance.save()
-
-        return instance
-
-    return create_update
-
-
 class TeamSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Team
-        fields = ('url', 'name', 'github_link', 'is_full', 'is_confirmed',
+        fields = ('url', 'name', 'github_link', 'is_full', 'confirmed',
                   'project_name', 'project_description', 'users',
                   'technologies')
+        read_only_fields = 'confirmed',
 
-    @check_is_full
     def create(self, validated_data):
         max_teams = SmallInteger.objects.get(name='max_teams').value
-        if Team.objects.count() == max_teams:
-            raise serializers.ValidationError('reached maximum teams limit')
 
         self.check_users_count(validated_data.get('users'))
 
-        return super().create(validated_data)
+        instance = super().create(validated_data)
 
-    @check_is_full
+        if instance.is_confirmed is False:
+            instance.is_full = False
+        elif Team.objects.count() >= max_teams:
+            instance.ready = timezone.now()
+        else:
+            instance.confirmed = instance.is_confirmed
+
+        instance.save()
+        return instance
+
     def update(self, instance, validated_data):
         if users := validated_data.get('users'):
             if users != instance.users:
                 self.check_users_count(users)
 
-        return super().update(instance, validated_data)
+        was_confirmed = instance.confirmed
+
+        instance = super().update(instance, validated_data)
+
+        if instance.is_confirmed is False:
+            instance.is_full = False
+            instance.confirmed = False
+            instance.save()
+            if was_confirmed:
+                team = Team.objects.filter(ready__lte=timezone.now()).first()
+                if team:
+                    team.ready = None
+                    team.confirmed = True
+                    team.save()
+
+        return instance
 
     @staticmethod
     def check_users_count(users):
@@ -105,8 +114,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
                 if initial_value != new_value:
                     if field_object.date < date.today():
-                        err = f'{field} was editable untill {field_object.date}'
-                        raise serializers.ValidationError(err)
+                        er = f'{field} was editable untill {field_object.date}'
+                        raise serializers.ValidationError(er)
 
         return super().is_valid(*args, **kwargs)
-

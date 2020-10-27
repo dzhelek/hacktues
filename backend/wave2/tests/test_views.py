@@ -39,3 +39,15 @@ class TestTeamView(test.APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(models.Log.objects.first().action, data)
+
+    def test_patch_201_logs_are_created_on_team_creation(self):
+        data = {
+            'name': 'hello',
+            'github_link': 'https://github.com/././',
+            'users': [f'http://testserver/users/{self.user.id}/']
+        }
+
+        response = self.client.post('/teams/', data)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(models.Log.objects.first().action, data)

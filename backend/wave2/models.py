@@ -115,7 +115,8 @@ class Team(models.Model):
     project_description = models.TextField(blank=True)
     technologies = models.ManyToManyField(Technology, blank=True)
 
-    date_created = models.DateTimeField(auto_now_add=True)
+    ready = models.DateTimeField(blank=True, null=True)
+    confirmed = models.BooleanField(default=False)
 
     @property
     def is_confirmed(self):
