@@ -42,8 +42,15 @@ const day2 = [
     lock = false
   }
 
-  function onSwipeEnd(events) {
-    console.log('End swiping...', events);
+  function onSwipeLeft(position, events) {
+    // console.log(`Moved ${position.x} pixels horizontally`, events);
+    //console.log(`Moved ${position.y} pixels vertically`, events);
+    lock = true
+  }
+
+  function onSwipeRight(position, events) {
+    // console.log(`Moved ${position.x} pixels horizontally`, events);
+    //console.log(`Moved ${position.y} pixels vertically`, events);
     lock = true
   }
 
@@ -54,7 +61,8 @@ export default function Schedule(){
     <Swipe
         onSwipeUp={onSwipeUp}
         onSwipeDown={onSwipeDown}
-        onSwipeEnd={onSwipeEnd}>
+        onSwipeRight={onSwipeRight}
+        onSwipeLeft={onSwipeLeft}>
           <CarouselProvider touchEnabled={false} isIntrinsicHeight="true" naturalSlideWidth={150} naturalSlideHeight={150} totalSlides={2}>
               <Slider>
               <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
