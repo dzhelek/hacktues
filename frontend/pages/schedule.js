@@ -1,9 +1,11 @@
-import React from 'react'
+'use strict';
+import React, {useEffect} from 'react'
 import Day from "../components/schedule/day"
 import { IoIosLaptop, IoMdPin } from "react-icons/io";
 import { Flex, Box, SimpleGrid } from '@chakra-ui/core'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
 import { AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
+import Swipe from 'react-easy-swipe';
 
 var emojiLaptop = <IoIosLaptop/>;
 var emojiPin = <IoMdPin/>;
@@ -18,37 +20,49 @@ const day1 = [
 
 const day2 = [
   { title: 'Работа по проектите', notime:1, emoji:emojiLaptop, place:"Онлайн",},];
+  
+  
+  
+  
+  
   var lock = true
+ function onSwipeStart(events) {
+    console.log('Start swiping...', events);
+  }
 
-  function eventLogger(ev) {
-    
-    var newPos
-    var oldPos = 0
-    
-    console.log(ev.type, ev.touches[0]);
-    // var newPos = ev.touches[0].clientY
-    // if(newPos > oldPos || newPos < oldPos){
-    //   lock = false
-    // }
-    // else{
-    //   lock = true
-    //   oldPost = newPos
-    // }
+  function onSwipeDown(position, events) {
+    // console.log(`Moved ${position.x} pixels horizontally`, events);
+    //console.log(`Moved ${position.y} pixels vertically`, events);
+    lock = false
+  }
 
+  function onSwipeUp(position, events) {
+    // console.log(`Moved ${position.x} pixels horizontally`, events);
+    //console.log(`Moved ${position.y} pixels vertically`, events);
+    lock = false
+  }
+
+  function onSwipeEnd(events) {
+    console.log('End swiping...', events);
+    lock = true
   }
 
 
 export default function Schedule(){
   return (
-    <Box pb="25px">
-          <CarouselProvider style={{"padding-bottom":"100px","justify-content":"center","width":"100%","display":"flex", "flex-direction":"row", "flex-wrap":"wrap"}} lockOnWindowScroll="true" isIntrinsicHeight="true" naturalSlideWidth={150} naturalSlideHeight={250} totalSlides={2}>
-            <ButtonBack style={{"backgroundColor":"transparent", "border":"0", "outline":"none"}}><AiOutlineArrowLeft/></ButtonBack>
-              <Slider trayProps={{onTouchMove: eventLogger}}>
+    <Box pb="250px">
+    <Swipe
+        onSwipeUp={onSwipeUp}
+        onSwipeDown={onSwipeDown}
+        onSwipeEnd={onSwipeEnd}>
+          <CarouselProvider touchEnabled={false} isIntrinsicHeight="true" naturalSlideWidth={150} naturalSlideHeight={150} totalSlides={2}>
+              <Slider>
               <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
               <Slide index={1}><Day schedule={day2} lenght={day2.length}/></Slide>
             </Slider>
-        <ButtonNext style={{"background-color":"transparent", "border":"0", "outline":"none", "width":"auto"}}><AiOutlineArrowRight/></ButtonNext>
-      </CarouselProvider>
+            <Swipe/>
+            </CarouselProvider>
+      </Swipe>
       </Box>
   );
 };

@@ -15,16 +15,17 @@
     "framer-motion": "latest",
     "lottie-web": "^5.7.3",
     "markdown-to-jsx": "^7.0.1",
+    "memoize-one": "5.1.1",
     "next": "9.5.1",
     "node-fetch": "^2.6.1",
     "pure-react-carousel": "^1.27.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-easy-swipe": "0.0.21",
     "react-icons": "^3.11.0",
     "react-lottie": "^1.2.3",
     "react-markdown": "^4.3.1",
-    "remarkable": "^2.0.1",
-    "memoize-one": "5.1.1"
+    "remarkable": "^2.0.1"
   },
   "devDependencies": {
     "json-loader": "^0.5.7",
