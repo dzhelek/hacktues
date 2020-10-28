@@ -41,15 +41,13 @@ const day2 = [
 export default function Schedule(){
   return (
     <Box pb="25px">
-          <CarouselProvider style={{"display":"flex", "flex-direction":"row", "flex-wrap":"nowrap"}} lockOnWindowScroll="true" isIntrinsicHeight="true" naturalSlideWidth={100} naturalSlideHeight={250} totalSlides={2}>
-      <ButtonBack style={{"backgroundColor":"transparent", "border":"0", "outline":"none", "width":"auto"   }}><AiOutlineArrowLeft/></ButtonBack>
-            <Slider trayProps={{
-      onTouchMove: eventLogger}}>
+          <CarouselProvider style={{"padding-bottom":"100px","justify-content":"center","width":"100%","display":"flex", "flex-direction":"row", "flex-wrap":"wrap"}} lockOnWindowScroll="true" isIntrinsicHeight="true" naturalSlideWidth={150} naturalSlideHeight={250} totalSlides={2}>
+            <ButtonBack style={{"backgroundColor":"transparent", "border":"0", "outline":"none"}}><AiOutlineArrowLeft/></ButtonBack>
+              <Slider trayProps={{onTouchMove: eventLogger}}>
               <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
               <Slide index={1}><Day schedule={day2} lenght={day2.length}/></Slide>
             </Slider>
-            
-        <ButtonNext style={{"backgroundColor":"transparent", "border":"0", "outline":"none"}}><AiOutlineArrowRight/></ButtonNext>
+        <ButtonNext style={{"background-color":"transparent", "border":"0", "outline":"none", "width":"auto"}}><AiOutlineArrowRight/></ButtonNext>
       </CarouselProvider>
       </Box>
   );

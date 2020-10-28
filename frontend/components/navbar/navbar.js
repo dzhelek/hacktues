@@ -40,7 +40,7 @@ const Navbar = props => {
 	
   return (
 	<header>
-    <Flex as="nav" align="center" justify="space-between" padding="10px" bg="lightgrey" color="white"{...props}>
+    <Flex as="nav" align="center" justify="space-between" padding="10px" bg="#a5cf9f" color="white"{...props}>
       	<Flex width="auto" align="center" ml={5} mr={5}>
        		<Link href="/">
           		<a>
