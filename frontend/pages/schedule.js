@@ -21,50 +21,28 @@ const day1 = [
 const day2 = [
   { title: 'Работа по проектите', notime:1, emoji:emojiLaptop, place:"Онлайн",},];
   
-  
-  
-  
-  
-  var lock = true
- function onSwipeStart(events) {
-    console.log('Start swiping...', events);
-  }
+//  function onSwipeStart(events) {
+//     // console.log('Start swiping...', events)
+//   return true
+//   }
 
-  function onSwipeDown(position, events) {
-    // console.log(`Moved ${position.x} pixels horizontally`, events);
-    //console.log(`Moved ${position.y} pixels vertically`, events);
-    lock = false
-  }
-
-  function onSwipeUp(position, events) {
-    // console.log(`Moved ${position.x} pixels horizontally`, events);
-    //console.log(`Moved ${position.y} pixels vertically`, events);
-    lock = false
-  }
-
-  function onSwipeLeft(position, events) {
-    // console.log(`Moved ${position.x} pixels horizontally`, events);
-    //console.log(`Moved ${position.y} pixels vertically`, events);
-    lock = true
-  }
-
-  function onSwipeRight(position, events) {
-    // console.log(`Moved ${position.x} pixels horizontally`, events);
-    //console.log(`Moved ${position.y} pixels vertically`, events);
-    lock = true
+  function onSwipeMove(position, events) {
+    return true
   }
 
 
 export default function Schedule(){
   return (
     <Box pb="250px">
-    <Swipe
-        onSwipeUp={onSwipeUp}
-        onSwipeDown={onSwipeDown}
-        onSwipeRight={onSwipeRight}
-        onSwipeLeft={onSwipeLeft}>
-          <CarouselProvider touchEnabled={false} isIntrinsicHeight="true" naturalSlideWidth={150} naturalSlideHeight={150} totalSlides={2}>
-              <Slider>
+    <Swipe tolerance={50} allowMouseEvents={true}
+      onSwipeMove={[onSwipeMove
+      }
+      //  onSwipeUp={onSwipeMove}
+        // onSwipeDown={onSwipeMove}
+        // onSwipeRight={onSwipeRight}>
+          >
+          <CarouselProvider isIntrinsicHeight="true" naturalSlideWidth={150} naturalSlideHeight={150} totalSlides={2}>
+              <Slider style={{"touchAction":"pan-y pinch-zoom"}} moveThreshold="0.1">
               <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
               <Slide index={1}><Day schedule={day2} lenght={day2.length}/></Slide>
             </Slider>
