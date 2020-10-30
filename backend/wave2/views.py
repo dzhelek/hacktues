@@ -35,7 +35,7 @@ class TeamViewSet(ModelViewSet):
     @action(detail=True, methods=['post', 'get'],
             permission_classes=[IsAuthenticated, TeamPermissions])
     def change_captain(self, request, pk=None):
-        self.check_object_permissions(request, pk)
+        self.check_object_permissions(request, Team.objects.get(id=pk))
         if request.method == 'POST':
             if len(users := request.data.getlist('users')) != 1:
                 raise ValidationError('specify one user')

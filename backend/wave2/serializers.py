@@ -23,7 +23,7 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
 
         if instance.is_confirmed is False:
             instance.is_full = False
-        elif Team.objects.count() >= max_teams:
+        elif Team.objects.count() > max_teams:
             instance.ready = timezone.now()
         else:
             instance.confirmed = instance.is_confirmed
