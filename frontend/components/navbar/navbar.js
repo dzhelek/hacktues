@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Heading, Flex, Text, Button } from "@chakra-ui/core";
+import { Box, Heading, Flex, Text, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select } from "@chakra-ui/core";
 import Link from 'next/link'
 import {
   Menu,
@@ -13,6 +13,23 @@ import {
 } from "@chakra-ui/core";
 
 import {
+	FormControl,
+	FormLabel,
+	FormErrorMessage,
+	FormHelperText,
+  } from "@chakra-ui/core";
+
+import {
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	ModalCloseButton,
+  } from "@chakra-ui/core";
+
+import {
 	Drawer,
 	DrawerBody,
 	DrawerFooter,
@@ -21,6 +38,10 @@ import {
 	DrawerContent,
 	DrawerCloseButton,
   } from "@chakra-ui/core";
+
+  import { AiOutlinePhone} from 'react-icons/ai';
+
+import { Formik, Field, Form } from 'formik';
 
 import { useDisclosure } from "@chakra-ui/core";
 
@@ -78,6 +99,7 @@ const Navbar = props => {
   				</MenuList>
 			</Menu>
 		<MenuItems><Link href="/about"><a>За Hack TUES</a></Link></MenuItems>
+		<BasicUsage/>
       </Box>
 
 
@@ -147,5 +169,162 @@ const Navbar = props => {
 </header>
   )
 };
+
+
+
+function BasicUsage() {
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	
+	const [show, setShow] = React.useState(false);
+  	const handleClick = () => setShow(!show);
+
+    return (
+      <>
+        <Button fontFamily="Rubik" color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader fontFamily="Rubik">Регистрация</ModalHeader>
+            <ModalCloseButton _focus="outline: none;" backgroundColor="transparent" border="white" />
+            <ModalBody>
+			<Formik initialValues={{ name: "име", email: "имейл" }} 
+				onSubmit={(values, actions) => {
+        			setTimeout(() => {
+          			alert(JSON.stringify(values, null, 2))
+          			actions.setSubmitting(false)
+        		}, 1000)
+      		}}
+    		>
+    {props => (
+        <form onSubmit={props.handleSubmit}>
+          <Field name="name">
+            {({ field, form }) => (
+              <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
+                <FormLabel fontFamily="Rubik" htmlFor="name">Име (на кирилица)</FormLabel>
+                <Input {...field} id="name" placeholder="име" />
+                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+              </FormControl>
+            )}
+          </Field>
+		  <Field name="lastname">
+            {({ field, form }) => (
+              <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
+                <FormLabel fontFamily="Rubik" htmlFor="name">Фамилия (на кирилица)</FormLabel>
+                <Input {...field} id="name" placeholder="име" />
+                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+              </FormControl>
+            )}
+          </Field>
+		  <Field name="email">
+            {({ field, form }) => (
+              <FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
+                <FormLabel fontFamily="Rubik" htmlFor="email">Имейл</FormLabel>
+                <Input {...field} type="email" placeholder="email" />
+                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+              </FormControl>
+            )}
+          </Field>
+
+		  <Field name="class">
+            {() => (
+				<FormControl isRequired>
+  					<FormLabel fontFamily="Rubik" htmlFor="country">Клас</FormLabel>
+  					<Select variant="outline" id="class" fontFamily="Rubik" placeholder="Избери клас">
+					  	<option value="option1">8А</option>
+  						<option value="option2">8Б</option>
+  						<option value="option3">8В</option>
+						<option value="option4">8Г</option>
+					  	<option value="option5">9А</option>
+  						<option value="option6">9Б</option>
+  						<option value="option7">9В</option>
+						<option value="option8">9Г</option>
+					  	<option value="option9">10А</option>
+  						<option value="option10">10Б</option>
+  						<option value="option11">10В</option>
+						<option value="option12">10Г</option>
+					  	<option value="option13">11А</option>
+  						<option value="option14">1Б</option>
+  						<option value="option15">1В</option>
+						<option value="option16">1Г</option>
+					  	<option value="option17">12А</option>
+  						<option value="option18">12Б</option>
+  						<option value="option19">12В</option>
+						<option value="option20">12Г</option>
+					</Select>
+				</FormControl>
+            )}
+          </Field>
+
+		  <Field name="phone" >
+            {({ field, form }) => (
+              <FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
+			  <FormLabel fontFamily="Rubik" htmlFor="email">Телефон</FormLabel>
+			  <InputGroup>
+			  	<InputLeftElement children={<Icon name="phone" color="gray.300" />} />
+    			<Input type="phone" placeholder="Phone number" />
+  				</InputGroup>
+              </FormControl>
+            )}
+          </Field>
+
+		  <Field name="tshirt">
+            {() => (
+				<FormControl isRequired>
+  					<FormLabel fontFamily="Rubik" htmlFor="tshirt">Размер тениска</FormLabel>
+  					<Select variant="outline" id="class" fontFamily="Rubik" placeholder="Избери размер">
+					  	<option value="option1">XS</option>
+  						<option value="option2">S</option>
+  						<option value="option3">M</option>
+						<option value="option4">L</option>
+					  	<option value="option5">XL</option>
+  						<option value="option6">XXL</option>
+					</Select>
+				</FormControl>
+            )}
+          </Field>
+
+		  <Field name="phone" >
+            {({ field, form }) => (
+              <FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
+			  <FormLabel fontFamily="Rubik" htmlFor="email">Телефон</FormLabel>
+			  <InputGroup size="md">
+      <Input
+        pr="4.5rem"
+        type={show ? "text" : "password"}
+        placeholder="Enter password"
+      />
+      <InputRightElement width="4.5rem">
+        <Button h="1.75rem" size="sm" onClick={handleClick}>
+          {show ? "Hide" : "Show"}
+        </Button>
+      </InputRightElement>
+    </InputGroup>
+              </FormControl>
+            )}
+          </Field>
+
+
+		  <Button
+            mt={4}
+            variantColor="green"
+			border="0"
+            isLoading={props.isSubmitting}
+            type="submit"
+          >
+            Submit
+          </Button>
+        </form>
+      )}
+    </Formik>
+	</ModalBody>
+            <ModalFooter>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
+    );
+  }
+
 
 export default Navbar;
