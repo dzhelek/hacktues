@@ -1,9 +1,11 @@
-import React from 'react'
+'use strict';
+import React, {useEffect} from 'react'
 import Day from "../components/schedule/day"
 import { IoIosLaptop, IoMdPin } from "react-icons/io";
 import { Flex, Box, SimpleGrid } from '@chakra-ui/core'
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, DotGroup } from 'pure-react-carousel';
 import { AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
+import Swipe from 'react-easy-swipe';
 
 var emojiLaptop = <IoIosLaptop/>;
 var emojiPin = <IoMdPin/>;
@@ -18,39 +20,35 @@ const day1 = [
 
 const day2 = [
   { title: 'Работа по проектите', notime:1, emoji:emojiLaptop, place:"Онлайн",},];
-  var lock = true
+  
+//  function onSwipeStart(events) {
+//     // console.log('Start swiping...', events)
+//   return true
+//   }
 
-  function eventLogger(ev) {
-    
-    var newPos
-    var oldPos = 0
-    
-    console.log(ev.type, ev.touches[0]);
-    // var newPos = ev.touches[0].clientY
-    // if(newPos > oldPos || newPos < oldPos){
-    //   lock = false
-    // }
-    // else{
-    //   lock = true
-    //   oldPost = newPos
-    // }
-
+  function onSwipeMove(position, events) {
+    return true
   }
 
 
 export default function Schedule(){
   return (
-    <Box pb="25px">
-          <CarouselProvider style={{"display":"flex", "flex-direction":"row", "flex-wrap":"nowrap"}} lockOnWindowScroll="true" isIntrinsicHeight="true" naturalSlideWidth={100} naturalSlideHeight={250} totalSlides={2}>
-      <ButtonBack style={{"backgroundColor":"transparent", "border":"0", "outline":"none", "width":"auto"   }}><AiOutlineArrowLeft/></ButtonBack>
-            <Slider trayProps={{
-      onTouchMove: eventLogger}}>
+    <Box pb="250px">
+    <Swipe tolerance={50} allowMouseEvents={true}
+      onSwipeMove={[onSwipeMove
+      }
+      //  onSwipeUp={onSwipeMove}
+        // onSwipeDown={onSwipeMove}
+        // onSwipeRight={onSwipeRight}>
+          >
+          <CarouselProvider isIntrinsicHeight="true" naturalSlideWidth={150} naturalSlideHeight={150} totalSlides={2}>
+              <Slider style={{"touchAction":"pan-y pinch-zoom"}} moveThreshold="0.1">
               <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
               <Slide index={1}><Day schedule={day2} lenght={day2.length}/></Slide>
             </Slider>
-            
-        <ButtonNext style={{"backgroundColor":"transparent", "border":"0", "outline":"none"}}><AiOutlineArrowRight/></ButtonNext>
-      </CarouselProvider>
+            <Swipe/>
+            </CarouselProvider>
+      </Swipe>
       </Box>
   );
 };

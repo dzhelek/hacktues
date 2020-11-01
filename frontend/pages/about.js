@@ -7,9 +7,6 @@ const Panel = (props) => {
     return(
         <Box paddingBottom={["160px", "160px", "100px", "100px"]}>
         <Box display="block" pt="10px" pl="10px" pr="10px" marginLeft={["10%", "10%", "100px", "100px"]} marginRight={["10%", "10%", "100px", "100px"]} marginTop="5%"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
-            <Text textAlign="left" paddingLeft="10px" color="black" as="h2">
-                За Hack TUES
-            </Text>
             <Text paddingLeft="10px">
             <span style={{"font-size":"25px","fontFamily":"llpixel"}}>Hack&nbsp;</span>
                 <span style={{"font-size":"25px","font-family":"llpixel","color":"green"}}>
