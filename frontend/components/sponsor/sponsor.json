@@ -2,26 +2,31 @@
     {
         "id": "telebid",
         "logo": "https://hacktues.pythonanywhere.com/static/frontend/2.telebid.svg",
-        "link": "https://telebid-pro.com/"
+        "link": "https://telebid-pro.com/",
+        "packet": "alpha"
     },
     {
         "id": "bosch",
         "logo": "https://hacktues.pythonanywhere.com/static/frontend/9.bosch.png",
-        "link": "https://bosch.io/"
+        "link": "https://bosch.io/",
+        "packet": "alpha"
     },
     {
         "id": "devrix",
         "logo": "https://hacktues.pythonanywhere.com/static/frontend/91.devrix.png",
-        "link": "https://devrix.com/"
+        "link": "https://devrix.com/",
+        "packet": "beta"
     },
     {
         "id": "dopamine",
         "logo": "https://hacktues.pythonanywhere.com/static/frontend/92.dopamine.png",
-        "link": "https://www.dopamine.bg/odoo"
+        "link": "https://www.dopamine.bg/odoo",
+        "packet": "beta"
     },
     {
         "id": "dominos",
         "logo": "https://hacktues.pythonanywhere.com/static/frontend/95.domnions.png",
-        "link": "https://www.dominos.bg/"
+        "link": "https://www.dominos.bg/",
+        "packet": "gamma"
     }
 ]

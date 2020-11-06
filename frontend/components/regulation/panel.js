@@ -21,9 +21,9 @@ const Panel = (props) => {
 
     return(
     <AccordionItem>
-        <Flex marginLeft={["10%", "10%", "100px", "100px"]} marginRight={["10%", "10%", "100px", "100px"]} marginTop="10px"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
-            <AccordionHeader _focus={{outline:0}}>
-                <Text textAlign="left" paddingLeft="10px" color="black" mt="0" mb="0" as="h2">
+        <Flex marginLeft={["50px", "50px", "100px", "100px"]} marginRight={["100px", "100px", "100px", "100px"]} marginTop="10px"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
+            <AccordionHeader border="0" backgroundColor="white" _focus={{outline:0, background:"white"}}>
+                <Text fontFamily="Rubik" textAlign="left" paddingLeft="10px" color="black" mt="0" mb="0" as="h3">
                     {props.title}
                 </Text>
             </AccordionHeader>

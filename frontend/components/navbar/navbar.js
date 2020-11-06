@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Heading, Flex, Text, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select } from "@chakra-ui/core";
+import { Box, Heading, Flex, Text, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/core";
 import Link from 'next/link'
 import {
   Menu,
@@ -17,7 +17,7 @@ import {
 	FormLabel,
 	FormErrorMessage,
 	FormHelperText,
-  } from "@chakra-ui/core";
+ } from "@chakra-ui/core";
 
 import {
 	Modal,
@@ -39,14 +39,12 @@ import {
 	DrawerCloseButton,
   } from "@chakra-ui/core";
 
-  import { AiOutlinePhone} from 'react-icons/ai';
-
 import { Formik, Field, Form } from 'formik';
 
 import { useDisclosure } from "@chakra-ui/core";
 
 const MenuItems = ({ children }) => (
-	<Button fontFamily="Rubik" color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px">
+	<Button _hover="transparent" fontFamily="Rubik" color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px">
     {children}
   </Button>
 );
@@ -72,14 +70,14 @@ const Navbar = props => {
         	</Link>
       	</Flex>
 
-      <Box display={{ "0em":"none", md: "flex" }} alignItems="center" flexGrow={1}>
+      <Box display={{ "850px":"none", md: "flex" }} alignItems="center" flexGrow={1}>
         <MenuItems><Link href="/schedule" ><a>Програма</a></Link></MenuItems>
         <MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
         	<Menu>
-        		<MenuButton as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
+        		<MenuButton cursor="pointer" _hover="transparent" as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
     				Архив
   				</MenuButton>
-  				<MenuList p="0">
+  				<MenuList _hover="transparent" p="0">
     				<Link href="/archive/hacktues" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white" _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span></MenuItem></a></Link>
     				<Link href="/archive/hacktues2" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white"  _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span>&nbsp;<span>2</span></MenuItem></a></Link>
     				<Link href="/archive/hacktues3" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#fff"}}>Hack</span>&nbsp;<span style={{"color":"#09c0de"}}>TUES</span >&nbsp;<span style={{"color":"#b2006e"}}>3</span></MenuItem></a></Link>
@@ -88,7 +86,7 @@ const Navbar = props => {
   				</MenuList>
 			</Menu>
         	<Menu>
-        		<MenuButton as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
+        		<MenuButton cursor="pointer" _hover="transparent" as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
     				Декларации
   				</MenuButton>
   				<MenuList p="0">
@@ -117,7 +115,7 @@ const Navbar = props => {
       </Box>
     </Flex>
     
-	<Flex display={{ "0em":"block", md: "none" }} width={{ "0em": "100%", md: "auto" }} alignItems="center" flexGrow={1}>
+	<Flex display={{ "850px":"block", md: "none" }} width={{ "0em": "100%", md: "auto" }} alignItems="center" flexGrow={1}>
     	<Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         	<DrawerOverlay />
         	<DrawerContent backgroundColor="lightgrey" color="lightgrey">
@@ -180,18 +178,18 @@ function BasicUsage() {
 
     return (
       <>
-        <Button fontFamily="Rubik" color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
+        <Button cursor="pointer" _hover="transparent" fontFamily="Rubik" color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
 
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader fontFamily="Rubik">Регистрация</ModalHeader>
             <ModalCloseButton _focus="outline: none;" backgroundColor="transparent" border="white" />
             <ModalBody>
-			<Formik initialValues={{ name: "име", email: "имейл" }} 
+			<Formik initialValues={{ name: "", email: "" }} 
 				onSubmit={(values, actions) => {
         			setTimeout(() => {
-          			alert(JSON.stringify(values, null, 2))
+          			alert(JSON.stringify(values))
           			actions.setSubmitting(false)
         		}, 1000)
       		}}
@@ -201,17 +199,17 @@ function BasicUsage() {
           <Field name="name">
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel fontFamily="Rubik" htmlFor="name">Име (на кирилица)</FormLabel>
-                <Input {...field} id="name" placeholder="име" />
+                <FormLabel paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Име (на кирилица)</FormLabel>
+                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="name" />
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
           </Field>
 		  <Field name="lastname">
             {({ field, form }) => (
-              <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel fontFamily="Rubik" htmlFor="name">Фамилия (на кирилица)</FormLabel>
-                <Input {...field} id="name" placeholder="име" />
+              <FormControl  isRequired isInvalid={form.errors.name && form.touched.name}>
+                <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Фамилия (на кирилица)</FormLabel>
+                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="lastname" />
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
@@ -219,38 +217,77 @@ function BasicUsage() {
 		  <Field name="email">
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
-                <FormLabel fontFamily="Rubik" htmlFor="email">Имейл</FormLabel>
-                <Input {...field} type="email" placeholder="email" />
+                <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="email">Имейл</FormLabel>
+                <Input {...field} type="email"/>
+                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+              </FormControl>
+            )}
+          </Field>
+
+		  <Field name="reemail">
+            {({ field, form }) => (
+              <FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
+                <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Повторете имейла</FormLabel>
+                <Input type="text"/>
+                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+              </FormControl>
+            )}
+          </Field>
+			
+		  <Field name="password" >
+            {({ field, form }) => (
+              <FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
+			  <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Парола</FormLabel>
+			  <InputGroup size="md">
+      <Input
+        pr="4.5rem"
+        type={show ? "text" : "password"}
+		isRequired {...field} isInvalid={form.errors.password && form.touched.password}
+      />
+      <InputRightElement width="4.5rem">
+        <Button fontFamily="Rubik" fontSize="15px" border="0" variantColor="green" _focus="none" h="1.75rem" size="sm" onClick={handleClick}>
+          {show ? "Hide" : "Show"}
+        </Button>
+      </InputRightElement>
+    </InputGroup>
+    </FormControl>)}
+    </Field>
+
+		  <Field name="repassword">
+            {({ field, form }) => (
+              <FormControl {...field} isRequired isInvalid={form.errors.password && form.touched.password}>
+                <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Повторете паролата</FormLabel>
+                <Input type="password"/>
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
           </Field>
 
 		  <Field name="class">
-            {() => (
-				<FormControl isRequired>
-  					<FormLabel fontFamily="Rubik" htmlFor="country">Клас</FormLabel>
+            {({ field, form }) => (
+				<FormControl {...field} isRequired>
+  					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="country">Клас</FormLabel>
   					<Select variant="outline" id="class" fontFamily="Rubik" placeholder="Избери клас">
-					  	<option value="option1">8А</option>
-  						<option value="option2">8Б</option>
-  						<option value="option3">8В</option>
-						<option value="option4">8Г</option>
-					  	<option value="option5">9А</option>
-  						<option value="option6">9Б</option>
-  						<option value="option7">9В</option>
-						<option value="option8">9Г</option>
-					  	<option value="option9">10А</option>
-  						<option value="option10">10Б</option>
-  						<option value="option11">10В</option>
-						<option value="option12">10Г</option>
-					  	<option value="option13">11А</option>
-  						<option value="option14">1Б</option>
-  						<option value="option15">1В</option>
-						<option value="option16">1Г</option>
-					  	<option value="option17">12А</option>
-  						<option value="option18">12Б</option>
-  						<option value="option19">12В</option>
-						<option value="option20">12Г</option>
+					  	<option value="8A">8А</option>
+  						<option value="8Б">8Б</option>
+  						<option value="8В">8В</option>
+						<option value="8Г">8Г</option>
+					  	<option value="9А">9А</option>
+  						<option value="9Б">9Б</option>
+  						<option value="9В">9В</option>
+						<option value="9Г">9Г</option>
+					  	<option value="10А">10А</option>
+  						<option value="10Б">10Б</option>
+  						<option value="10В">10В</option>
+						<option value="10Г">10Г</option>
+					  	<option value="11А">11А</option>
+  						<option value="11Б">11Б</option>
+  						<option value="11В">11В</option>
+						<option value="11Г">11Г</option>
+					  	<option value="12А">12А</option>
+  						<option value="12Б">12Б</option>
+  						<option value="12В">12В</option>
+						<option value="12Г">12Г</option>
 					</Select>
 				</FormControl>
             )}
@@ -258,52 +295,56 @@ function BasicUsage() {
 
 		  <Field name="phone" >
             {({ field, form }) => (
-              <FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
-			  <FormLabel fontFamily="Rubik" htmlFor="email">Телефон</FormLabel>
+              <FormControl {...field} isRequired isInvalid={form.errors.phone && form.touched.phone}>
+			  <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="number">Телефон</FormLabel>
 			  <InputGroup>
 			  	<InputLeftElement children={<Icon name="phone" color="gray.300" />} />
-    			<Input type="phone" placeholder="Phone number" />
+    			<Input/>
   				</InputGroup>
               </FormControl>
             )}
           </Field>
 
-		  <Field name="tshirt">
-            {() => (
-				<FormControl isRequired>
-  					<FormLabel fontFamily="Rubik" htmlFor="tshirt">Размер тениска</FormLabel>
-  					<Select variant="outline" id="class" fontFamily="Rubik" placeholder="Избери размер">
-					  	<option value="option1">XS</option>
-  						<option value="option2">S</option>
-  						<option value="option3">M</option>
-						<option value="option4">L</option>
-					  	<option value="option5">XL</option>
-  						<option value="option6">XXL</option>
-					</Select>
-				</FormControl>
-            )}
-          </Field>
-
-		  <Field name="phone" >
+		  <Field name="alergies" >
             {({ field, form }) => (
-              <FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
-			  <FormLabel fontFamily="Rubik" htmlFor="email">Телефон</FormLabel>
-			  <InputGroup size="md">
-      <Input
-        pr="4.5rem"
-        type={show ? "text" : "password"}
-        placeholder="Enter password"
-      />
-      <InputRightElement width="4.5rem">
-        <Button h="1.75rem" size="sm" onClick={handleClick}>
-          {show ? "Hide" : "Show"}
-        </Button>
-      </InputRightElement>
-    </InputGroup>
+              <FormControl {...field} isInvalid={form.errors.alergies && form.touched.alergies}>
+			  <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Алергии</FormLabel>
+			  <Input type="text" id="alergies" variant="outline"/>
               </FormControl>
             )}
           </Field>
 
+		  <Field name="tshirt">
+            {({ field, form }) => (
+				<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
+  					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Размер тениска</FormLabel>
+  					<Select variant="outline" id="tshirt" type="text" fontFamily="Rubik" placeholder="Избери размер">
+					  	<option value="XS">XS</option>
+  						<option value="S">S</option>
+  						<option value="M">M</option>
+						<option value="L">L</option>
+					  	<option value="XL">XL</option>
+  						<option value="XXL">XXL</option>
+					</Select>
+				</FormControl>
+            )}
+          </Field>
+	<Field name="meat">
+            {({ field, form }) => (
+				<FormControl {...field}>
+				<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
+  				<Switch id="meat" />
+				</FormControl>
+            )}
+          </Field>
+		  <Field name="online">
+            {({ field, form }) => (
+				<FormControl>
+				<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
+  				<Switch id="online" />
+				</FormControl>
+            )}
+          </Field>
 
 		  <Button
             mt={4}
@@ -312,7 +353,7 @@ function BasicUsage() {
             isLoading={props.isSubmitting}
             type="submit"
           >
-            Submit
+            Регистрирай ме
           </Button>
         </form>
       )}
