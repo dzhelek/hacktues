@@ -44,20 +44,20 @@ import { Formik, Field, Form } from 'formik';
 import { useDisclosure } from "@chakra-ui/core";
 
 const MenuItems = ({ children }) => (
-	<Button _hover="transparent" fontFamily="Rubik" color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px">
+	<Button _active="transparent" _hover="transparent" fontFamily="Rubik" color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px">
     {children}
   </Button>
 );
 
 const Navbar = props => {
-  const [show, setShow] = React.useState(false);
-  const handleToggle = () => setShow(!show);
+  	const [show, setShow] = React.useState(false);
+  	const handleToggle = () => setShow(!show);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const firstField = React.useRef();
-  const btnRef = React.useRef();
-	
-  return (
+  	const { isOpen, onOpen, onClose } = useDisclosure();
+  	const firstField = React.useRef();
+  	const btnRef = React.useRef();
+
+  	return (
 	<header>
     <Flex as="nav" align="center" justify="space-between" padding="10px" bg="#a5cf9f" color="white"{...props}>
       	<Flex width="auto" align="center" ml={5} mr={5}>
@@ -70,7 +70,7 @@ const Navbar = props => {
         	</Link>
       	</Flex>
 
-      <Box display={{ "850px":"none", md: "flex" }} alignItems="center" flexGrow={1}>
+      <Flex flexWrap="wrap" display={{"450px":"none", sm:"none", md:"none", lg: "flex" }} alignItems="center" flexGrow={1}>
         <MenuItems><Link href="/schedule" ><a>Програма</a></Link></MenuItems>
         <MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
         	<Menu>
@@ -98,10 +98,10 @@ const Navbar = props => {
 			</Menu>
 		<MenuItems><Link href="/about"><a>За Hack TUES</a></Link></MenuItems>
 		<BasicUsage/>
-      </Box>
+      </Flex>
 
 
-	<Box width="auto" display={{ sm:"flex", md: "none" }}>
+	<Box width="auto" display={{ md:"flex", lg: "none" }}>
   	<Button  _focus="outline: none;" display="block" ref={btnRef} backgroundColor="transparent" variantColor="lightgrey" border="0px" onClick={onOpen}>
         <svg
           fill="white"
@@ -115,11 +115,11 @@ const Navbar = props => {
       </Box>
     </Flex>
     
-	<Flex display={{ "850px":"block", md: "none" }} width={{ "0em": "100%", md: "auto" }} alignItems="center" flexGrow={1}>
+	<Flex  display={{ md:"flex", lg: "none" }} width={{ "900px": "100%", md: "100%" }} alignItems="center" flexGrow={1}>
     	<Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         	<DrawerOverlay />
-        	<DrawerContent backgroundColor="lightgrey" color="lightgrey">
-          	<DrawerCloseButton border="0px" _focus="outline:hidden;" />
+        	<DrawerContent backgroundColor="#a5cf9f" color="#a5cf9f">
+          	<DrawerCloseButton border="0px" backgroundColor="#a5cf9f" _focus="outline:hidden;" />
           	<DrawerHeader color="black" fontWeight="400">Hack &nbsp;<span style={{"color":"green"}}>TUES 7</span></DrawerHeader>
 	  		<DrawerBody display="flex" flexDirection="column" flexWrap="wrap">
 	  			<MenuItems>
@@ -131,7 +131,7 @@ const Navbar = props => {
 				</MenuItems>
         	<MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
         		<Menu>
-        			<MenuButton as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
+        			<MenuButton  as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
     					Архив
   					</MenuButton>
   					<MenuList p="0">
@@ -147,10 +147,10 @@ const Navbar = props => {
     					Декларации
   					</MenuButton>
   					<MenuList p="0">
-    					<a href="http://hacktues.pythonanywhere.com/static/frontend/Declaracia_pylnoletni%20uchenici_v.2.docx"><MenuItem fontSize="1rem" color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за пълнолетни(docx)</MenuItem></a>
-    					<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_pylnoletni%20uchenici_v.2.pdf"><MenuItem fontSize="1rem" color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за пълнолетни(pdf)</MenuItem></a>
-    					<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_uchenici%20pod%2018_v.2.docx"><MenuItem fontSize="1rem"  color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за непълнолетни(docx)</MenuItem></a>
-    					<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_uchenici%20pod%2018_v.2.pdf"><MenuItem fontSize="1rem" color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за непълнолетни(pdf)</MenuItem></a>
+    					<a href="http://hacktues.pythonanywhere.com/static/frontend/Declaracia_pylnoletni%20uchenici_v.2.docx"><MenuItem fontSize="1rem" color="white" backgroundColor="#a5cf9f"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за пълнолетни(docx)</MenuItem></a>
+    					<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_pylnoletni%20uchenici_v.2.pdf"><MenuItem fontSize="1rem" color="white" backgroundColor="#a5cf9f"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за пълнолетни(pdf)</MenuItem></a>
+    					<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_uchenici%20pod%2018_v.2.docx"><MenuItem fontSize="1rem"  color="white" backgroundColor="#a5cf9f"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за непълнолетни(docx)</MenuItem></a>
+    					<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_uchenici%20pod%2018_v.2.pdf"><MenuItem fontSize="1rem" color="white" backgroundColor="#a5cf9f"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за непълнолетни(pdf)</MenuItem></a>
   					</MenuList>
 				</Menu>
 				<MenuItems>
@@ -178,7 +178,7 @@ function BasicUsage() {
 
     return (
       <>
-        <Button cursor="pointer" _hover="transparent" fontFamily="Rubik" color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
+        <Button marginLeft="auto" _active="transparent" cursor="pointer" _hover="transparent" fontFamily="Rubik" color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
 
         <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />

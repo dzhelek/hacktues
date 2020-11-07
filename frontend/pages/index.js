@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Sponsors from "../components/sponsor/sponsor"
 import Konami, {useKonami} from 'react-konami-code';
 import { useRouter } from 'next/router'
-
+import {useEffect} from 'react'
 
 const axios = require('axios');
 
@@ -26,7 +26,56 @@ export default function Home() {
 //     // always executed
 //   });
 
+useEffect(() => {
+    // .then(response => response.json())
+    // .then(data => console.log(data))
+    
+     const token = Buffer.from(`hacktues:Go Green`, 'utf8').toString('base64')
+    
+    // fetch("https://hacktues.pythonanywhere.com/",
+    //       {
+    //         method: 'GET',
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //           'Authorization': `Basic ${token}`,
+    //         }
+    //       }
+    //     )
+    //       .then(response => response.json())
+    //       .then(data => console.log(data))
+    //   })
 
+      axios.get('https://hacktues.pythonanywhere.com/', {
+        headers: {
+        'Authorization': `Basic ${token}`
+        }
+    //   })
+    // //   .then(function (response) {
+    // //     console.log(response);
+    // //   })
+    // //   .catch(function (error) {
+    // //     console.log(error);
+    // //   })
+    // //   .then(function () {
+    // //     // always executed
+    // //   }
+    //   )
+    });
+
+      axios.get('https://hacktues.pythonanywhere.com/teams/', {
+        headers: {
+        'Authorization': `Basic ${token}`
+        }
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      })});
 
 
     var router = useRouter()
