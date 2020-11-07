@@ -2,7 +2,6 @@ import '../styles/globals.css'
 import { ThemeProvider } from "@chakra-ui/core"
 import { theme } from "@chakra-ui/core";
 import 'pure-react-carousel/dist/react-carousel.es.css';
-
 import 'keen-slider/keen-slider.min.css'
 import Navbar from '../components/navbar/navbar'
 import Footer from '../components/footer/footer'

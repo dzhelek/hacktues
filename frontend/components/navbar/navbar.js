@@ -160,6 +160,13 @@ const Navbar = props => {
 						</a>
 					</Link>
 				</MenuItems>
+				<MenuItems>
+					<Link href="/registration">
+						<a>
+							Регистрация
+						</a>
+					</Link>
+				</MenuItems>
 			</DrawerBody>
         </DrawerContent>
     </Drawer>

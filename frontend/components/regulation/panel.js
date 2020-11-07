@@ -1,13 +1,10 @@
 import React from 'react'
-import { Box, Flex } from "@chakra-ui/core";
-import { Text } from '@chakra-ui/core'
-import { Divider, Accordion,
+import { Box, Flex, Text } from "@chakra-ui/core"
+import { Accordion,
     AccordionItem,
     AccordionHeader,
     AccordionPanel,
     AccordionIcon, } from "@chakra-ui/core";
-import ReactMarkdown from 'react-markdown'
-
 
 function GetPanelData(params) {
     let content = [];
@@ -28,7 +25,7 @@ const Panel = (props) => {
                 </Text>
             </AccordionHeader>
             <AccordionPanel pb={4}>
-            <Text paddingLeft="10px">
+            <Text paddingLeft={["0px","0px","0px","10px"]}>
                 {props.description}
             </Text>
             </AccordionPanel>
