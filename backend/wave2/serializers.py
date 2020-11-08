@@ -61,7 +61,7 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
             raise serializers.ValidationError(err)
 
 
-class TechnologySerializer(serializers.HyperlinkedModelSerializer):
+class TechnologySerializer(serializers.ModelSerializer):
     class Meta:
         model = Technology
         fields = '__all__'
