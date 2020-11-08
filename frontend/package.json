@@ -23,12 +23,15 @@
     "node-fetch": "^2.6.1",
     "pure-react-carousel": "^1.27.5",
     "react": "16.13.1",
+    "react-clamp": "^1.0.5",
+    "react-clamp-lines": "^3.0.2",
     "react-dom": "16.13.1",
     "react-easy-swipe": "0.0.21",
     "react-icons": "^3.11.0",
     "react-konami-code": "^2.0.1-beta.1",
     "react-lottie": "^1.2.3",
     "react-markdown": "^4.3.1",
+    "react-text-truncate": "^0.16.0",
     "remarkable": "^2.0.1"
   },
   "devDependencies": {

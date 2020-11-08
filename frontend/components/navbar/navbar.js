@@ -73,36 +73,23 @@ const Navbar = props => {
       <Flex flexWrap="wrap" display={{"450px":"none", sm:"none", md:"none", lg: "flex" }} alignItems="center" flexGrow={1}>
         <MenuItems><Link href="/schedule" ><a>Програма</a></Link></MenuItems>
         <MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
-        	<Menu>
-        		<MenuButton cursor="pointer" _hover="transparent" as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
-    				Архив
-  				</MenuButton>
-  				<MenuList _hover="transparent" p="0">
-    				<Link href="/archive/hacktues" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white" _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span></MenuItem></a></Link>
-    				<Link href="/archive/hacktues2" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="white"  _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span>&nbsp;<span>2</span></MenuItem></a></Link>
-    				<Link href="/archive/hacktues3" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#fff"}}>Hack</span>&nbsp;<span style={{"color":"#09c0de"}}>TUES</span >&nbsp;<span style={{"color":"#b2006e"}}>3</span></MenuItem></a></Link>
-    				<Link href="/archive/hacktues30" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#232323" _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"cyan"}}>Hack&nbsp;<sup>30x</sup>TUES</span></MenuItem></a></Link>
-					  <Link href="/archive/hacktues365" ><a><MenuItem fontSize="1.25rem" fontFamily="llpixel" fontWeight="400" color="black" backgroundColor="#343a40"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#d6c6ad"}}>Hack</span>&nbsp;<span style={{"color":"#99d02b"}}>&nbsp;TUES&nbsp;</span><span style={{"color":"#99d02b"}} ><sup>^365</sup></span></MenuItem></a></Link>
-  				</MenuList>
-			</Menu>
+		<MenuItems><Link href="/archive"><a>Архив</a></Link></MenuItems>
         	<Menu>
         		<MenuButton cursor="pointer" _hover="transparent" as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
     				Декларации
   				</MenuButton>
   				<MenuList p="0">
-    				<a href="http://hacktues.pythonanywhere.com/static/frontend/Declaracia_pylnoletni%20uchenici_v.2.docx"><MenuItem fontSize="1rem" color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за пълнолетни(docx)</MenuItem></a>
-    				<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_pylnoletni%20uchenici_v.2.pdf"><MenuItem fontSize="1rem" color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за пълнолетни(pdf)</MenuItem></a>
-    				<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_uchenici%20pod%2018_v.2.docx"><MenuItem fontSize="1rem"  color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за непълнолетни(docx)</MenuItem></a>
-    				<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_uchenici%20pod%2018_v.2.pdf"><MenuItem fontSize="1rem" color="white" backgroundColor="lightgrey"  _focus="outline: none;" border="0px" borderWidth="0px">Декларация за непълнолетни(pdf)</MenuItem></a>
+    				<a href="http://hacktues.pythonanywhere.com/static/frontend/Declaracia_pylnoletni%20uchenici_v.2.docx"><MenuItem fontSize="1rem" color="white" backgroundColor="#a5cf9f"   _focus="outline: none;" border="0px" borderWidth="0px">Декларация за пълнолетни(docx)</MenuItem></a>
+    				<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_pylnoletni%20uchenici_v.2.pdf"><MenuItem fontSize="1rem" color="white" backgroundColor="#a5cf9f"   _focus="outline: none;" border="0px" borderWidth="0px">Декларация за пълнолетни(pdf)</MenuItem></a>
+    				<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_uchenici%20pod%2018_v.2.docx"><MenuItem fontSize="1rem"  color="white" backgroundColor="#a5cf9f"   _focus="outline: none;" border="0px" borderWidth="0px">Декларация за непълнолетни(docx)</MenuItem></a>
+    				<a href="https://hacktues.pythonanywhere.com/static/frontend/Declaracia_uchenici%20pod%2018_v.2.pdf"><MenuItem fontSize="1rem" color="white"   backgroundColor="#a5cf9f"   _focus="outline: none;" border="0px" borderWidth="0px">Декларация за непълнолетни(pdf)</MenuItem></a>
   				</MenuList>
 			</Menu>
 		<MenuItems><Link href="/about"><a>За Hack TUES</a></Link></MenuItems>
 		<BasicUsage/>
       </Flex>
-
-
 	<Box width="auto" display={{ md:"flex", lg: "none" }}>
-  	<Button  _focus="outline: none;" display="block" ref={btnRef} backgroundColor="transparent" variantColor="lightgrey" border="0px" onClick={onOpen}>
+	<Button  _focus="outline: none;" display="block" ref={btnRef} backgroundColor="transparent" variantColor="lightgrey" border="0px" onClick={onOpen}>
         <svg
           fill="white"
           width="12px"
@@ -130,18 +117,7 @@ const Navbar = props => {
 					</Link>
 				</MenuItems>
         	<MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
-        		<Menu>
-        			<MenuButton  as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
-    					Архив
-  					</MenuButton>
-  					<MenuList p="0">
-    					<Link href="/archive/hacktues" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="200" color="black" backgroundColor="white" _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span></MenuItem></a></Link>
-    					<Link href="/archive/hacktues2" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="200" color="black" backgroundColor="white"  _focus="outline: none;" border="0px" borderWidth="0px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span>&nbsp;<span>2</span></MenuItem></a></Link>
-    					<Link href="/archive/hacktues3" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="200" color="black" backgroundColor="#232323"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#fff"}}>Hack</span>&nbsp;<span style={{"color":"#09c0de"}}>TUES</span >&nbsp;<span style={{"color":"#b2006e"}}>2</span></MenuItem></a></Link>
-    					<Link href="/archive/hacktues30" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="200" color="black" backgroundColor="#232323" _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"cyan"}}>Hack&nbsp;<sup>30x</sup>TUES</span></MenuItem></a></Link>
-					  	<Link href="/archive/hacktues365" ><a><MenuItem fontSize="1rem" fontFamily="llpixel" fontWeight="300" color="black" backgroundColor="#343a40"  _focus="outline: none;" border="0px" borderWidth="0px"><span style={{"color":"#d6c6ad"}}>Hack</span>&nbsp;<span style={{"color":"#99d02b"}}>&nbsp;TUES&nbsp;</span><span style={{"color":"#99d02b"}} ><sup>^365</sup></span></MenuItem></a></Link>
-  					</MenuList>
-				</Menu>
+        	<MenuItems><Link href="/archive"><a>Архив</a></Link></MenuItems>
         		<Menu>
         			<MenuButton as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
     					Декларации
