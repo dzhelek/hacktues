@@ -177,24 +177,23 @@ function BasicUsage() {
         			setTimeout(() => {
 							var data = JSON.stringify(values, null, 2)
 							const token = Buffer.from(cookies.get('auth')).toString('base64')
-							axios({
-									method: 'get',
-									url: 'https://hacktues.pythonanywhere.com/users/',
-									header: {'Content-Type': 'application/json',
-									 'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA0OTMxNjQ4LCJqdGkiOiI4ZmNiZmVkYWNiMDQ0OGZhODY4NDc5YjUzMzdiNGVkYiIsInVzZXJfaWQiOjN9.tbznOdT4XQzWOU60GlrkteI1e7RWXZangf2N_3vthr8`},
-									data: "xd"								
-		  							})
-		  							.then(function (response) {
-      									console.log(response);
-		    							// cookies.set('auth1', response.data.access, { path: '/' })
-		  							})
-		  							.catch(function (error) {
-										console.log(error);
-		  							})
-		  							.then(function () {
-									console.log(cookies.get('auth'))
-									// console.log(cookies.get('auth1'))
-		  							})
+        axios({
+          method: 'get',
+          url: 'https://hacktues.pythonanywhere.com/users/',
+          headers: 
+          { "Content-type": "Application/json",
+            "Authorization": `Bearer ${cookies.get('auth')}`}
+            })
+            .then(function (response) {
+                console.log(response);
+              // cookies.set('auth1', response.data.access, { path: '/' })
+            })
+            .catch(function (error) {
+            console.log(error);
+            })
+            .then(function () {
+            console.log(cookies.get('auth'))
+            })
           									actions.setSubmitting(false)
         								}, 1000)
       							}}>
@@ -204,7 +203,7 @@ function BasicUsage() {
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Име (на кирилица)</FormLabel>
-                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="name" />
+                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="first_name" />
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
@@ -213,7 +212,7 @@ function BasicUsage() {
             {({ field, form }) => (
               <FormControl  isRequired isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Фамилия (на кирилица)</FormLabel>
-                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="lastname" />
+                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="last_name" />
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}

@@ -17,6 +17,7 @@
     "emotion-theming": "10.0.27",
     "formik": "^2.2.1",
     "framer-motion": "latest",
+    "jwt-decode": "^3.1.1",
     "keen-slider": "^5.2.4",
     "lottie-web": "^5.7.3",
     "markdown-to-jsx": "^7.0.1",
