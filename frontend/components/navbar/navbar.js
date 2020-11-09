@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Box, Heading, Flex, Text, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/core";
 import Link from 'next/link'
 import {
@@ -40,8 +40,11 @@ import {
   } from "@chakra-ui/core";
 
 import { Formik, Field, Form } from 'formik';
-
 import { useDisclosure } from "@chakra-ui/core";
+const axios = require('axios');
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 const MenuItems = ({ children }) => (
 	<Button _active="transparent" _hover="transparent" fontFamily="Rubik" color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px">
@@ -154,10 +157,10 @@ const Navbar = props => {
 
 
 function BasicUsage() {
+
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	
 	const [show, setShow] = React.useState(false);
-  	const handleClick = () => setShow(!show);
+	const handleClick = () => setShow(!show);
 
     return (
       <>
@@ -172,11 +175,29 @@ function BasicUsage() {
 			<Formik initialValues={{ name: "", email: "" }} 
 				onSubmit={(values, actions) => {
         			setTimeout(() => {
-          			alert(JSON.stringify(values))
-          			actions.setSubmitting(false)
-        		}, 1000)
-      		}}
-    		>
+							var data = JSON.stringify(values, null, 2)
+							const token = Buffer.from(cookies.get('auth')).toString('base64')
+							axios({
+									method: 'get',
+									url: 'https://hacktues.pythonanywhere.com/users/',
+									header: {'Content-Type': 'application/json',
+									 'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA0OTMxNjQ4LCJqdGkiOiI4ZmNiZmVkYWNiMDQ0OGZhODY4NDc5YjUzMzdiNGVkYiIsInVzZXJfaWQiOjN9.tbznOdT4XQzWOU60GlrkteI1e7RWXZangf2N_3vthr8`},
+									data: "xd"								
+		  							})
+		  							.then(function (response) {
+      									console.log(response);
+		    							// cookies.set('auth1', response.data.access, { path: '/' })
+		  							})
+		  							.catch(function (error) {
+										console.log(error);
+		  							})
+		  							.then(function () {
+									console.log(cookies.get('auth'))
+									// console.log(cookies.get('auth1'))
+		  							})
+          									actions.setSubmitting(false)
+        								}, 1000)
+      							}}>
     {props => (
         <form onSubmit={props.handleSubmit}>
           <Field name="name">
