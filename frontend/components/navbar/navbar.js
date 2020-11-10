@@ -175,31 +175,52 @@ function BasicUsage() {
 			<Formik initialValues={{ name: "", email: "" }} 
 				onSubmit={(values, actions) => {
         			setTimeout(() => {
-							var data = JSON.stringify(values, null, 2)
-							const token = Buffer.from(cookies.get('auth')).toString('base64')
-        axios({
-          method: 'get',
-          url: 'https://hacktues.pythonanywhere.com/users/',
-          headers: 
-          { "Content-type": "Application/json",
-            "Authorization": `Bearer ${cookies.get('auth')}`}
-            })
-            .then(function (response) {
-                console.log(response);
-              // cookies.set('auth1', response.data.access, { path: '/' })
-            })
-            .catch(function (error) {
-            console.log(error);
-            })
-            .then(function () {
-            console.log(cookies.get('auth'))
-            })
+							var data = JSON.stringify(values, null, 1)
+        					axios({
+        						method: 'post',
+        						url: 'https://hacktues.pythonanywhere.com/users/',
+        						headers: 
+        						{ "Content-type": "Application/json",
+        						  "Authorization": `Bearer ${cookies.get('auth')}`},
+								data: data  
+								  },)
+        					    .then(function (response) {
+        					        console.log(response);
+        					      // cookies.set('auth1', response.data.access, { path: '/' })
+        					    })
+        					    .catch(function (error) {
+        					    console.log(error);
+        					    })
+        					    .then(function () {
+        					    console.log(cookies.get('auth'))
+
+								axios({
+        						method: 'get',
+        						url: 'https://hacktues.pythonanywhere.com/users/',
+        						headers: 
+        						{ "Content-type": "Application/json",
+        						  "Authorization": `Bearer ${cookies.get('auth')}`}
+								  },)
+
+
+        					    })							
+											console.log(JSON.stringify(values, null, 1))
           									actions.setSubmitting(false)
         								}, 1000)
       							}}>
     {props => (
         <form onSubmit={props.handleSubmit}>
-          <Field name="name">
+		<Field name="username">
+            {({ field, form }) => (
+              <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
+                <FormLabel paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Username</FormLabel>
+                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="username" />
+                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+              </FormControl>
+            )}
+          </Field>
+
+          <Field name="first_name">
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Име (на кирилица)</FormLabel>
@@ -208,7 +229,7 @@ function BasicUsage() {
               </FormControl>
             )}
           </Field>
-		  <Field name="lastname">
+		  <Field name="last_name">
             {({ field, form }) => (
               <FormControl  isRequired isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Фамилия (на кирилица)</FormLabel>
@@ -266,31 +287,31 @@ function BasicUsage() {
             )}
           </Field>
 
-		  <Field name="class">
+		  <Field name="form">
             {({ field, form }) => (
 				<FormControl {...field} isRequired>
   					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="country">Клас</FormLabel>
-  					<Select variant="outline" id="class" fontFamily="Rubik" placeholder="Избери клас">
-					  	<option value="8A">8А</option>
-  						<option value="8Б">8Б</option>
-  						<option value="8В">8В</option>
-						<option value="8Г">8Г</option>
-					  	<option value="9А">9А</option>
-  						<option value="9Б">9Б</option>
-  						<option value="9В">9В</option>
-						<option value="9Г">9Г</option>
-					  	<option value="10А">10А</option>
-  						<option value="10Б">10Б</option>
-  						<option value="10В">10В</option>
-						<option value="10Г">10Г</option>
-					  	<option value="11А">11А</option>
-  						<option value="11Б">11Б</option>
-  						<option value="11В">11В</option>
-						<option value="11Г">11Г</option>
-					  	<option value="12А">12А</option>
-  						<option value="12Б">12Б</option>
-  						<option value="12В">12В</option>
-						<option value="12Г">12Г</option>
+  					<Select variant="outline" id="form" fontFamily="Rubik" placeholder="Избери клас">
+					  	<option value="8a">8А</option>
+  						<option value="8b">8Б</option>
+  						<option value="8v">8В</option>
+						<option value="8g">8Г</option>
+					  	<option value="9a">9А</option>
+  						<option value="9b">9Б</option>
+  						<option value="9v">9В</option>
+						<option value="9g">9Г</option>
+					  	<option value="10a">10А</option>
+  						<option value="10b">10Б</option>
+  						<option value="10v">10В</option>
+						<option value="10g">10Г</option>
+					  	<option value="11a">11А</option>
+  						<option value="11b">11Б</option>
+  						<option value="11v">11В</option>
+						<option value="11g">11Г</option>
+					  	<option value="12a">12А</option>
+  						<option value="12b">12Б</option>
+  						<option value="12v">12В</option>
+						<option value="12g">12Г</option>
 					</Select>
 				</FormControl>
             )}
@@ -317,32 +338,32 @@ function BasicUsage() {
             )}
           </Field>
 
-		  <Field name="tshirt">
+		  <Field name="tshirt_size">
             {({ field, form }) => (
 				<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
   					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Размер тениска</FormLabel>
-  					<Select variant="outline" id="tshirt" type="text" fontFamily="Rubik" placeholder="Избери размер">
-					  	<option value="XS">XS</option>
-  						<option value="S">S</option>
-  						<option value="M">M</option>
-						<option value="L">L</option>
-					  	<option value="XL">XL</option>
-  						<option value="XXL">XXL</option>
+  					<Select variant="outline" id="tshirt_size" type="text" fontFamily="Rubik" placeholder="Избери размер">
+					  	{/* <option value="XS">XS</option> */}
+  						<option value="s">S</option>
+  						<option value="m">M</option>
+						<option value="l">L</option>
+					  	<option value="xl">XL</option>
+  						{/* <option value="XL">XXL</option> */}
 					</Select>
 				</FormControl>
             )}
           </Field>
-	<Field name="meat">
+	{/* <Field name="food_preferences">
             {({ field, form }) => (
 				<FormControl {...field}>
 				<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
-  				<Switch id="meat" />
+  				<Switch id="food_preferences" />
 				</FormControl>
             )}
-          </Field>
+          </Field> */}
 		  <Field name="online">
             {({ field, form }) => (
-				<FormControl>
+				<FormControl {...field}>
 				<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
   				<Switch id="online" />
 				</FormControl>
