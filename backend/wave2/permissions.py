@@ -16,6 +16,9 @@ class UserPermissions(permissions.BasePermission):
     registered user - get, put*, delete*
     """
     def has_permission(self, request, view):
+        if not request.data.get('username'):
+            return True
+
         if request.method == 'POST':
             return request.user.is_staff  # only special users / unregistered
 

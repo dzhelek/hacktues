@@ -46,7 +46,7 @@ class TeamViewSet(ModelViewSet):
             new_captain.is_captain = True
             request.user.save()
             new_captain.save()
-            return Response({'status': 'OK', 'details': 'captain changed'})
+            return Response({'status': 'done', 'details': 'captain changed'})
         else:
             return Response({'status': 'ready', 'details': 'pick a user'})
 
@@ -60,3 +60,26 @@ class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated, UserPermissions]
+
+    @action(detail=True, methods=['post', 'get'],
+            permission_classes=[IsAuthenticated, UserPermissions])
+    def leave_team(self, request, pk=None):
+        user = User.objects.get(id=pk)
+        self.check_object_permissions(request, user)
+        if request.method == 'POST':
+            team = user.team_set.first()
+            was_confirmed = team.confirmed
+            user.team_set.clear()
+            if team.confirmed and not team.is_confirmed:
+                team.is_full = False
+                team.confirmed = False
+                team.save()
+                ready_team = Team.objects.filter(ready__lte=timezone.now()).first()
+                if ready_team:
+                    ready_team.ready = None
+                    ready_team.confirmed = True
+                    ready_team.save()
+
+            return Response({'status': 'done', 'details': 'team leaved'})
+        else:
+            return Response({'status': 'ready', 'details': 'leaving team'})
