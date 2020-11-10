@@ -30,38 +30,45 @@ const customTheme = {
   },
 };
 
-function MyApp({ Component, pageProps }) {
-
-  useEffect(() => {
-		axios({
+function checkToken(exp) {
+    if (Date.now() <= exp.exp * 1000) {
+		console.log(true, 'token is not expired')
+		console.log(exp.exp * 1000 - Date.now());
+	}
+	else { 
+	  
+		console.log(false, 'token is expired')
+		console.log(cookies.get('auth'));
+		 axios({
 			method: 'post',
 			url: 'https://hacktues.pythonanywhere.com/token/',
 			header: 'Content-Type: application/json',
 			data: {
-				"username": "hacktues",
-			  	"password": "Go Green"
-			}
-		  })
-		  	.then(function (response) {
-		    	  cookies.set('auth', response.data.access, { path: '/' })
-		  	})
-		  	.catch(function (error) {
-				console.log(error);
-		  	})
-		  	.then(function () {
-          var decode
-          // console.log(cookies.get('auth'))
-          decode = jwt_decode(cookies.get('auth'));
-          console.log(decode);
-        })})
+			"username": "hacktues",
+			"password": "Go Green"
+		}
+		})
+		  .then(function (response) {
+			  cookies.set('auth', response.data.access, { path: '/' })
+			  cookies.set('refresh', response.data.refresh, { path: '/' })
+			  console.log("new auth: " + cookies.get('auth'));
+		})
+    	
+  }}
+
+function MyApp({ Component, pageProps }) {
+
+  	useEffect(() => {
+		checkToken(jwt_decode(cookies.get('auth')))
+	})
         
 
-  return (
-   <ThemeProvider theme={customTheme}>
-    <Navbar/>
-    <Component {...pageProps} />
-    <Footer/>
-   </ThemeProvider>) 
+  	return (
+  	<ThemeProvider theme={customTheme}>
+  		<Navbar/>
+  	  	<Component {...pageProps} />
+  	  	<Footer/>
+  	</ThemeProvider>) 
 }
 
 export default MyApp
