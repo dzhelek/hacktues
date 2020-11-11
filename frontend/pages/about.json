@@ -5,68 +5,41 @@
             {
                 "name": "Захари Момчилов",
                 "class":"11Г",
-                "picture":""
+                "picture":"https://hacktues.pythonanywhere.com/static/frontend/hari.png"
             },
             {
                 "name": "Йоан Джелекарски",
                 "class":"11Г",
-                "picture":""
+                "picture":"https://hacktues.pythonanywhere.com/static/frontend/yoan.jpg"
             }
         ]
     },
-    {
-        "id": "PR",
-        "winners": [
-            {
-                "name": "Гергана Узунова",
-                "class":"11Г",
-                "picture":""
-            },
-            {
-                "name": "",
-                "class":"",
-                "picture":""
-            }
-        ]},
     {
         "id": "Спонсори",
         "winners": [
             {
                 "name": "Ния Маркова",
                 "class":"11Г",
-                "picture":""
+                "picture":"https://hacktues.pythonanywhere.com/static/frontend/niya.jpg"
             },
             {
                 "name": "Теодора Стоичкова",
                 "class":"11Г",
-                "picture":""
+                "picture":"https://hacktues.pythonanywhere.com/static/frontend/tedi.jpg"
             }
         ]},
-    {
-        "id": "Логистика",
-        "winners": [
-            {
-                "name": "Славянка Йовчева",
-                "class":"11Г",
-                "picture":""
-            },
-            {
-                "name": "Виолета Кабаджова",
-                "class":"11А",
-                "picture":""
-            }]},
             {
         "id": "Логистика",
         "winners": [
             {
                 "name": "Славянка Йовчева",
                 "class":"11Г",
-                "picture":""
+                "picture":"https://hacktues.pythonanywhere.com/static/frontend/slavi.jpg"
             },
             {
                 "name": "Виолета Кабаджова",
                 "class":"11А",
-                "picture":""
+                "picture":"https://hacktues.pythonanywhere.com/static/frontend/vili.jpeg"
             }]},
         {
             "id": "Дизайн",
@@ -74,10 +47,10 @@
                 {
                     "name": "Кайра Бояджиева",
                     "class":"10в",
-                    "picture":""
+                    "picture":"https://hacktues.pythonanywhere.com/static/frontend/kayra.jpg"
                 },
                 {
-                    "name": "Виолета Кабаджова",
+                    "name": "Ивайла Панайотова",
                     "class":"9в",
                     "picture":""
                 }]},
@@ -87,12 +60,15 @@
             {
                 "name": "Виктория Димитрова",
                 "class":"11Г",
-                "picture":""
-            },
-            {
-                "name": "",
-                "class":"",
-                "picture":""
+                "picture":"https://hacktues.pythonanywhere.com/static/frontend/viki.jpg"
             }
-        ]}
+        ]},{
+            "id": "PR",
+            "winners": [
+                {
+                    "name": "Гергана Узунова",
+                    "class":"11Г",
+                    "picture":"https://hacktues.pythonanywhere.com/static/frontend/geri.jpg"
+                }
+            ]}
 ]

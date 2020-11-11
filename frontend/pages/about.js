@@ -1,21 +1,31 @@
 import React from 'react'
 import { Flex, Text } from "@chakra-ui/core";
 import Card from '../components/about/card'
+import archive from "./about.json";
+
+var stringArchive = JSON.stringify(archive);
+var data = JSON.parse(stringArchive);
 
 
 const GetCards = (props) =>{
 
-    var i
+    var i,j
     var cards = []
+    var counter = 0
     for(i = 0; i < props.length; i++){
-        cards.push(<Card name={props.name} position={props.position} class={props.class}/>)
+        for(j = 0; j < props[i].winners.length; j++){
+            counter++
+            cards.push(<Card key={counter} position={props[i].id} picture={props[i].winners[j].picture} name={props[i].winners[j].name} class={props[i].winners[j].class}/>)
+            // console.log(props[i].id);
+        }
     }
 
+    return cards
 }
 
 const Panel = (props) => {
     return(
-        <Flex paddingBottom={["160px", "160px", "100px", "100px"]}>
+        <Flex flexDirection="column" flexWrap="wrap" paddingBottom={["160px", "160px", "150px", "150px"]}>
         <Flex display="block" pt="10px" pl="10px" pr="10px" marginLeft={["10%", "10%", "100px", "100px"]} marginRight={["10%", "10%", "100px", "100px"]} marginTop="5%"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
             <Text paddingLeft="10px">
             <span style={{"font-size":"25px","fontFamily":"llpixel"}}>Hack&nbsp;</span>
@@ -31,9 +41,9 @@ const Panel = (props) => {
 <br></br><br></br>Всяка година Hack TUES се организира от координационен екип доброволци от 11-ти клас, който се грижи за цялостната организация на събитието под менторството на АЗТУЕС и ръководството на ТУЕС.
 &nbsp;<br></br><br></br><b>Поради</b>&nbsp;наложеното извънредно положение в страната заради COVID-19 пандемията, тазгодишното издание на Hack TUES 6, първоначално планирано за 12-15 март, се отлага за 1-11 октомври.
             </Text>
-
-
-
+        </Flex>
+        <Flex rounded="lg" marginTop="5%" backgroundColor="white" marginLeft={["10%", "10%", "100px", "150px"]} marginRight={["10%", "10%", "100px", "150px"]} alignSelf="stretch" justifyContent="center" flexDirection="row" flexWrap="wrap">
+            {GetCards(data)}
         </Flex>
         </Flex>
     );
