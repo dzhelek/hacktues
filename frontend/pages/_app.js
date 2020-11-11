@@ -32,8 +32,8 @@ const customTheme = {
 
 function checkToken(exp) {
     if (Date.now() <= exp.exp * 1000) {
-		console.log(true, 'token is not expired')
-		console.log(exp.exp * 1000 - Date.now());
+		// console.log(true, 'token is not expired')
+		// console.log(exp.exp * 1000 - Date.now());
 	}
 	else { 
 	  
@@ -51,7 +51,7 @@ function checkToken(exp) {
 		  .then(function (response) {
 			  cookies.set('auth', response.data.access, { path: '/' })
 			  cookies.set('refresh', response.data.refresh, { path: '/' })
-			  console.log("new auth: " + cookies.get('auth'));
+			//   console.log("new auth: " + cookies.get('auth'));
 		})
     	
   }}
@@ -59,8 +59,24 @@ function checkToken(exp) {
 function MyApp({ Component, pageProps }) {
 
   	useEffect(() => {
+		if(!cookies.get('auth')){
+			axios({
+				method: 'post',
+				url: 'https://hacktues.pythonanywhere.com/token/',
+				header: 'Content-Type: application/json',
+				data: {
+				"username": "hacktues",
+				"password": "Go Green"
+			}
+			})
+			  .then(function (response) {
+				  cookies.set('auth', response.data.access, { path: '/' })
+				  cookies.set('refresh', response.data.refresh, { path: '/' })
+			})
+		}
+		else{
 		checkToken(jwt_decode(cookies.get('auth')))
-	})
+	  }})
         
 
   	return (
