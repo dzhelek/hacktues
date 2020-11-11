@@ -1,12 +1,20 @@
 
-import { Box, Heading, Flex, Text, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/core";
-import { Formik, Field, Form } from 'formik';
+import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/core";
+import { Formik, Field } from 'formik';
 import {
 	FormControl,
 	FormLabel,
 	FormErrorMessage,
 	FormHelperText,
  } from "@chakra-ui/core";
+
+const axios = require('axios');
+import Cookies from 'universal-cookie';
+import {PhoneIcon} from '@chakra-ui/icons'
+const cookies = new Cookies();
+ 
+
+
 export default function Regulation() {
     
 	const [show, setShow] = React.useState(false);
@@ -15,30 +23,56 @@ export default function Regulation() {
     return (
     <Box pb="25px">
         <Box pl="25px" pr="25px" pt="25px" ml={["25px","100px", "200px","250px","300px","600px"]} mr={["25px","100px", "200px","250px","300px","600px"]} pb="25px" rounded="lg" backgroundColor="#ffff" mb={["160px", "150px"]} mt={["50px", "50px", "50px","100px"]}>
-            <Formik initialValues={{ name: "", email: "" }} 
+        <Formik initialValues={{ name: "", email: "" }} 
 				onSubmit={(values, actions) => {
         			setTimeout(() => {
-          			alert(JSON.stringify(values))
-          			actions.setSubmitting(false)
-        		}, 1000)
-      		}}
-    		>
+							var data = JSON.stringify(values, null, 1)
+        					axios({
+        						method: 'post',
+        						url: 'https://hacktues.pythonanywhere.com/users/',
+        						headers: 
+        						{ "Content-type": "Application/json",
+        						  "Authorization": `Bearer ${cookies.get('auth')}`},
+								data: data  
+								  },)
+        					    .then(function (response) {
+        					        console.log(response);
+        					      // cookies.set('auth1', response.data.access, { path: '/' })
+        					    })
+        					    .catch(function (error) {
+        					    console.log(error);
+        					    })
+        					    .then(function () {
+        					    console.log(cookies.get('auth'))
+
+								axios({
+        						method: 'get',
+        						url: 'https://hacktues.pythonanywhere.com/users/',
+        						headers: 
+        						{ "Content-type": "Application/json",
+        						  "Authorization": `Bearer ${cookies.get('auth')}`}
+								  },)
+        					    })							
+											console.log(JSON.stringify(values, null, 1))
+          									actions.setSubmitting(false)
+        								}, 1000)
+      							}}>
     {props => (
         <form onSubmit={props.handleSubmit}>
-          <Field name="name">
+          <Field initialValues={{first_name: '', last_name: '', email: '', password: ''}} name="first_name">
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Име (на кирилица)</FormLabel>
-                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="name" />
+                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="first_name" />
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
           </Field>
-		  <Field name="lastname">
+		  <Field name="last_name">
             {({ field, form }) => (
               <FormControl  isRequired isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Фамилия (на кирилица)</FormLabel>
-                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="lastname" />
+                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="last_name" />
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
@@ -47,7 +81,7 @@ export default function Regulation() {
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="email">Имейл</FormLabel>
-                <Input {...field} type="email"/>
+                <Input {...field} id="email" type="email"/>
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
@@ -62,7 +96,15 @@ export default function Regulation() {
               </FormControl>
             )}
           </Field>
-			
+		  <Field name="username">
+            {({ field, form }) => (
+              <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
+                <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Discord username</FormLabel>
+                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="username" />
+                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+              </FormControl>
+            )}
+          </Field>
 		  <Field name="password" >
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
@@ -92,31 +134,31 @@ export default function Regulation() {
             )}
           </Field>
 
-		  <Field name="class">
+		  <Field name="form">
             {({ field, form }) => (
 				<FormControl {...field} isRequired>
   					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="country">Клас</FormLabel>
-  					<Select variant="outline" id="class" fontFamily="Rubik" placeholder="Избери клас">
-					  	<option value="8A">8А</option>
-  						<option value="8Б">8Б</option>
-  						<option value="8В">8В</option>
-						<option value="8Г">8Г</option>
-					  	<option value="9А">9А</option>
-  						<option value="9Б">9Б</option>
-  						<option value="9В">9В</option>
-						<option value="9Г">9Г</option>
-					  	<option value="10А">10А</option>
-  						<option value="10Б">10Б</option>
-  						<option value="10В">10В</option>
-						<option value="10Г">10Г</option>
-					  	<option value="11А">11А</option>
-  						<option value="11Б">11Б</option>
-  						<option value="11В">11В</option>
-						<option value="11Г">11Г</option>
-					  	<option value="12А">12А</option>
-  						<option value="12Б">12Б</option>
-  						<option value="12В">12В</option>
-						<option value="12Г">12Г</option>
+  					<Select variant="outline" id="form" fontFamily="Rubik" placeholder="Избери клас">
+					  	<option value="8a">8А</option>
+  						<option value="8b">8Б</option>
+  						<option value="8v">8В</option>
+						<option value="8g">8Г</option>
+					  	<option value="9a">9А</option>
+  						<option value="9b">9Б</option>
+  						<option value="9v">9В</option>
+						<option value="9g">9Г</option>
+					  	<option value="10a">10А</option>
+  						<option value="10b">10Б</option>
+  						<option value="10v">10В</option>
+						<option value="10g">10Г</option>
+					  	<option value="11a">11А</option>
+  						<option value="11b">11Б</option>
+  						<option value="11v">11В</option>
+						<option value="11g">11Г</option>
+					  	<option value="12a">12А</option>
+  						<option value="12b">12Б</option>
+  						<option value="12v">12В</option>
+						<option value="12g">12Г</option>
 					</Select>
 				</FormControl>
             )}
@@ -127,7 +169,7 @@ export default function Regulation() {
               <FormControl {...field} isRequired isInvalid={form.errors.phone && form.touched.phone}>
 			  <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="number">Телефон</FormLabel>
 			  <InputGroup>
-			  	<InputLeftElement children={<Icon name="phone" color="gray.300" />} />
+			  	<InputLeftElement children={<PhoneIcon color="gray.300" />} />
     			<Input/>
   				</InputGroup>
               </FormControl>
@@ -143,34 +185,36 @@ export default function Regulation() {
             )}
           </Field>
 
-		  <Field name="tshirt">
+		  <Field name="tshirt_size">
             {({ field, form }) => (
 				<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
   					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Размер тениска</FormLabel>
-  					<Select variant="outline" id="tshirt" type="text" fontFamily="Rubik" placeholder="Избери размер">
-					  	<option value="XS">XS</option>
-  						<option value="S">S</option>
-  						<option value="M">M</option>
-						<option value="L">L</option>
-					  	<option value="XL">XL</option>
-  						<option value="XXL">XXL</option>
+  					<Select variant="outline" id="tshirt_size" type="text" fontFamily="Rubik" placeholder="Избери размер">
+  						<option value="s">S</option>
+  						<option value="m">M</option>
+						<option value="l">L</option>
+					  	<option value="xl">XL</option>
 					</Select>
 				</FormControl>
             )}
           </Field>
-	<Field name="meat">
-            {({ field, form }) => (
-				<FormControl {...field}>
-				<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
-  				<Switch id="meat" />
+	<Field name="food_preferences">
+	{({ field, form }) => (
+				<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
+  					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
+  					<Select variant="outline" id="food_preferences" type="text" fontFamily="Rubik" placeholder="Избери размер">
+  						<option value={0}>Да</option>
+  						<option value={2}>Не, веган съм</option>
+						<option value={1}>Не, вегетарианец съм</option>
+					</Select>
 				</FormControl>
             )}
           </Field>
-		  <Field name="online">
+		  <Field name="is_active">
             {({ field, form }) => (
-				<FormControl>
+				<FormControl {...field}>
 				<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
-  				<Switch _focus={{"background-color":"transparent"}} id="online" />
+  				<Switch id="is_active" />
 				</FormControl>
             )}
           </Field>

@@ -44,7 +44,7 @@ import { useDisclosure } from "@chakra-ui/core";
 const axios = require('axios');
 import Cookies from 'universal-cookie';
 import { ChevronDownIcon } from "@chakra-ui/icons";
-
+import {PhoneIcon} from '@chakra-ui/icons'
 const cookies = new Cookies();
 
 const MenuItems = ({ children }) => (
@@ -209,7 +209,7 @@ function BasicUsage() {
       							}}>
     {props => (
         <form onSubmit={props.handleSubmit}>
-          <Field name="first_name">
+          <Field initialValues={{first_name: '', last_name: '', email: '', password: ''}} name="first_name">
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Име (на кирилица)</FormLabel>
@@ -266,7 +266,7 @@ function BasicUsage() {
 		isRequired {...field} isInvalid={form.errors.password && form.touched.password}
       />
       <InputRightElement width="4.5rem">
-        <Button fontFamily="Rubik" fontSize="15px" border="0" colorScheme="green" _focus="none" h="1.75rem" size="sm" onClick={handleClick}>
+        <Button fontFamily="Rubik" fontSize="12px" border="0" colorScheme="green" _focus="none" h="25px" onClick={handleClick}>
           {show ? "Hide" : "Show"}
         </Button>
       </InputRightElement>
@@ -319,7 +319,7 @@ function BasicUsage() {
               <FormControl {...field} isRequired isInvalid={form.errors.phone && form.touched.phone}>
 			  <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="number">Телефон</FormLabel>
 			  <InputGroup>
-			  	<InputLeftElement children={<Icon name="phone" color="gray.300" />} />
+			  	<InputLeftElement children={<PhoneIcon color="gray.300" />} />
     			<Input/>
   				</InputGroup>
               </FormControl>
@@ -352,7 +352,7 @@ function BasicUsage() {
 	{({ field, form }) => (
 				<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
   					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
-  					<Select variant="outline" id="food_preferences" type="text" fontFamily="Rubik" placeholder="Избери размер">
+  					<Select variant="outline" id="food_preferences" type="text" fontFamily="Rubik" placeholder="">
   						<option value={0}>Да</option>
   						<option value={2}>Не, веган съм</option>
 						<option value={1}>Не, вегетарианец съм</option>
