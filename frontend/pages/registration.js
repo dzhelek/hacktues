@@ -74,7 +74,7 @@ export default function Regulation() {
 		isRequired {...field} isInvalid={form.errors.password && form.touched.password}
       />
       <InputRightElement width="4.5rem">
-        <Button fontFamily="Rubik" fontSize="15px" border="0" variantColor="green" _focus="none" h="1.75rem" size="sm" onClick={handleClick}>
+        <Button fontFamily="Rubik" fontSize="15px" border="0" colorScheme="green" _focus="none" h="1.75rem" size="sm" onClick={handleClick}>
           {show ? "Hide" : "Show"}
         </Button>
       </InputRightElement>
@@ -177,7 +177,7 @@ export default function Regulation() {
 
 		  <Button
             mt={4}
-            variantColor="green"
+            colorScheme="green"
 			border="0"
             isLoading={props.isSubmitting}
             type="submit"

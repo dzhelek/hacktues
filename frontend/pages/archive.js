@@ -1,4 +1,4 @@
-import { Flex, Text, Divider, Button, PseudoBox} from '@chakra-ui/core'
+import { Flex, Text, Divider, Button} from '@chakra-ui/core'
 import archive from "./archive/archive.json";
 import TextTruncate from 'react-text-truncate';
 import Link from 'next/link'
@@ -20,7 +20,7 @@ export default function Archive() {
 					<TextTruncate pl="15px" pr="15px" w="100%" line={4} element="p" truncateText="..." text={data[0].description}/>
 				</Flex>
 				<Link href="/archive/hacktues">
-					<a><PseudoBox as="button" bg="#446576" fontFamily="Rubik" fontWeight="600" fontSize="1rem" fontWeight="semibold" rounded="md" color="white" h="2.5rem" px={4} ml={3} border="0" variantColor="#09c0de" color="#fff" ml="15px" >Научи повече</PseudoBox></a>
+					<a><Button as="button" bg="#446576" fontFamily="Rubik" fontWeight="600" fontSize="1rem" fontWeight="semibold" rounded="md" color="white" h="2.5rem" px={4} ml={3} border="0" colorScheme="#09c0de" color="#fff" ml="15px" >Научи повече</Button></a>
 				</Link>
             </Flex>
             <Flex mt="25px" ml="50px" mr="50px" fontFamily="Rubik" h={["325px","325px","300px","300px"]} flexDirection="column" flexWrap="wrap" w={["auto","400px","500px","500px"]} backgroundColor="white">
@@ -34,7 +34,7 @@ export default function Archive() {
 					<TextTruncate pl="15px" pr="15px" w="100%" line={4} element="p" truncateText="..." text={data[1].description}/>
 				</Flex>
 				<Link href="/archive/hacktues2">
-					<a><PseudoBox as="button" bg="#446576" fontFamily="Rubik" fontWeight="600" fontSize="1rem" fontWeight="semibold" rounded="md" color="white" h="2.5rem" px={4} ml={3} border="0" variantColor="#09c0de" color="#fff" ml="15px" >Научи повече</PseudoBox></a>
+					<a><Button as="button" bg="#446576" fontFamily="Rubik" fontWeight="600" fontSize="1rem" fontWeight="semibold" rounded="md" color="white" h="2.5rem" px={4} ml={3} border="0" colorScheme="#09c0de" color="#fff" ml="15px" >Научи повече</Button></a>
 				</Link>
             </Flex>
             <Flex mt="25px" ml="50px" mr="50px" fontFamily="Rubik" h={["325px","325px","300px","300px"]} flexDirection="column" flexWrap="wrap" w={["auto","400px","500px","500px"]} backgroundColor="#232323">
@@ -48,7 +48,7 @@ export default function Archive() {
 					<TextTruncate style={{"color":"white"}} pl="15px" pr="15px" w="100%" line={4} element="p" truncateText="..." text={data[1].description}/>
 				</Flex>
 				<Link href="/archive/hacktues3">
-					<a><PseudoBox as="button" bg="#09c0de" fontFamily="Rubik" fontWeight="600" fontSize="1rem" fontWeight="semibold" rounded="md" color="white" h="2.5rem" px={4} ml={3} border="0" variantColor="#09c0de" color="#fff" ml="15px" >Научи повече</PseudoBox></a>
+					<a><Button as="button" bg="#09c0de" fontFamily="Rubik" fontWeight="600" fontSize="1rem" fontWeight="semibold" rounded="md" color="white" h="2.5rem" px={4} ml={3} border="0" colorScheme="#09c0de" color="#fff" ml="15px" >Научи повече</Button></a>
 				</Link>
             </Flex>
             <Flex mt="25px" ml="50px" mr="50px" fontFamily="Rubik" h={["325px","325px","300px","300px"]} flexDirection="column" flexWrap="wrap" w={["auto","400px","500px","500px"]} backgroundColor="#232323">
@@ -62,7 +62,7 @@ export default function Archive() {
 					<TextTruncate style={{"color":"white"}} pl="15px" pr="15px" w="100%" line={4} element="p" truncateText="..." text={data[2].description}/>
 				</Flex>
 				<Link href="/archive/hacktues30">
-					<a><PseudoBox as="button" bg="#09c0de" fontFamily="Rubik" fontWeight="600" fontSize="1rem" fontWeight="semibold" rounded="md" color="white" h="2.5rem" px={4} ml={3} border="0" variantColor="#09c0de" color="#fff" ml="15px" >Научи повече</PseudoBox></a>
+					<a><Button as="button" bg="#09c0de" fontFamily="Rubik" fontWeight="600" fontSize="1rem" fontWeight="semibold" rounded="md" color="white" h="2.5rem" px={4} ml={3} border="0" colorScheme="#09c0de" color="#fff" ml="15px" >Научи повече</Button></a>
 				</Link>
             </Flex>
             <Flex mt="25px" ml="50px" mr="50px" fontFamily="Rubik" h={["325px","325px","300px","300px"]} flexDirection="column" flexWrap="wrap" w={["auto","400px","500px","500px"]} backgroundColor="#343a40">
@@ -76,7 +76,7 @@ export default function Archive() {
 					<TextTruncate style={{"color":"white"}} pl="15px" pr="15px" w="100%" line={4} element="p" truncateText="..." text={data[3].description}/>
 				</Flex>
 				<Link href="/archive/hacktues365">
-					<a><PseudoBox as="button" bg="#99d02b" fontFamily="Rubik" fontWeight="600" fontSize="1rem" fontWeight="semibold" rounded="md" color="white" h="2.5rem" px={4} ml={3} border="0" variantColor="#09c0de" color="#fff" ml="15px" >Научи повече</PseudoBox></a>
+					<a><Button as="button" bg="#99d02b" fontFamily="Rubik" fontWeight="600" fontSize="1rem" fontWeight="semibold" rounded="md" color="white" h="2.5rem" px={4} ml={3} border="0" colorScheme="#09c0de" color="#fff" ml="15px" >Научи повече</Button></a>
 				</Link>
             </Flex>
         </Flex>

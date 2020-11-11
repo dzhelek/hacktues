@@ -13,7 +13,7 @@ const Entry = props => (
         {time}
         <Box order="3"  alignSelf="center">
             <Link href={props.link} isExternal>
-                <Button variant="solid" borderWidth="0px" variantColor="green" mt="1rem" size="md" >{props.emoji}{props.place}</Button>
+                <Button variant="solid" borderWidth="0px" colorScheme="green" mt="1rem" size="md" >{props.emoji}{props.place}</Button>
             </Link>
         </Box>
     </Flex>

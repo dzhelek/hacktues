@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { Box, Heading, Flex, Text, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/core";
+import { Box, Heading, Flex, Text, Button, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/core";
 import Link from 'next/link'
 import {
   Menu,
@@ -43,6 +43,7 @@ import { Formik, Field, Form } from 'formik';
 import { useDisclosure } from "@chakra-ui/core";
 const axios = require('axios');
 import Cookies from 'universal-cookie';
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 const cookies = new Cookies();
 
@@ -73,12 +74,12 @@ const Navbar = props => {
         	</Link>
       	</Flex>
 
-      <Flex flexWrap="wrap" display={{"450px":"none", sm:"none", md:"none", lg: "flex" }} alignItems="center" flexGrow={1}>
+      <Flex flexWrap="wrap" display={{base:"none", sm:"none", md:"none", lg: "flex" }} alignItems="center" flexGrow={1}>
         <MenuItems><Link href="/schedule" ><a>Програма</a></Link></MenuItems>
         <MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
 		<MenuItems><Link href="/archive"><a>Архив</a></Link></MenuItems>
         	<Menu>
-        		<MenuButton cursor="pointer" _hover="transparent" as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
+        		<MenuButton cursor="pointer" _hover="background:transparent;" as={Button} color="white" background="transparent" _focus="outline: none; background:transparent;" border="0px" borderWidth="0px" rightIcon={<ChevronDownIcon/>}>
     				Декларации
   				</MenuButton>
   				<MenuList p="0">
@@ -92,7 +93,7 @@ const Navbar = props => {
 		<BasicUsage/>
       </Flex>
 	<Box width="auto" display={{ md:"flex", lg: "none" }}>
-	<Button  _focus="outline: none;" display="block" ref={btnRef} backgroundColor="transparent" variantColor="lightgrey" border="0px" onClick={onOpen}>
+	<Button  _focus="outline: none;" display="block" ref={btnRef} backgroundColor="transparent" colorScheme="lightgrey" border="0px" onClick={onOpen}>
         <svg
           fill="white"
           width="12px"
@@ -105,12 +106,12 @@ const Navbar = props => {
       </Box>
     </Flex>
     
-	<Flex  display={{ md:"flex", lg: "none" }} width={{ "900px": "100%", md: "100%" }} alignItems="center" flexGrow={1}>
+	<Flex  display={{ md:"flex", lg: "none" }} width={{ xl: "100%", md: "100%" }} alignItems="center" flexGrow={1}>
     	<Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         	<DrawerOverlay />
         	<DrawerContent backgroundColor="#a5cf9f" color="#a5cf9f">
           	<DrawerCloseButton border="0px" backgroundColor="#a5cf9f" _focus="outline:hidden;" />
-          	<DrawerHeader color="black" fontWeight="400">Hack &nbsp;<span style={{"color":"green"}}>TUES 7</span></DrawerHeader>
+          	<DrawerHeader color="black" fontFamily="llpixel" fontWeight="400">Hack &nbsp;<span style={{"color":"green"}}>TUES 7</span></DrawerHeader>
 	  		<DrawerBody display="flex" flexDirection="column" flexWrap="wrap">
 	  			<MenuItems>
 					<Link href="/schedule" >
@@ -122,7 +123,7 @@ const Navbar = props => {
         	<MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
         	<MenuItems><Link href="/archive"><a>Архив</a></Link></MenuItems>
         		<Menu>
-        			<MenuButton as={Button} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px" rightIcon="chevron-down">
+        			<MenuButton as={Button} rightIcon={<ChevronDownIcon />} color="white" bg="transparent" _focus="outline: none;" border="0px" borderWidth="0px">
     					Декларации
   					</MenuButton>
   					<MenuList p="0">
@@ -201,8 +202,6 @@ function BasicUsage() {
         						{ "Content-type": "Application/json",
         						  "Authorization": `Bearer ${cookies.get('auth')}`}
 								  },)
-
-
         					    })							
 											console.log(JSON.stringify(values, null, 1))
           									actions.setSubmitting(false)
@@ -210,16 +209,6 @@ function BasicUsage() {
       							}}>
     {props => (
         <form onSubmit={props.handleSubmit}>
-		<Field name="username">
-            {({ field, form }) => (
-              <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Username</FormLabel>
-                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="username" />
-                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-              </FormControl>
-            )}
-          </Field>
-
           <Field name="first_name">
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
@@ -242,7 +231,7 @@ function BasicUsage() {
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="email">Имейл</FormLabel>
-                <Input {...field} type="email"/>
+                <Input {...field} id="email" type="email"/>
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
@@ -257,7 +246,15 @@ function BasicUsage() {
               </FormControl>
             )}
           </Field>
-			
+		  <Field name="username">
+            {({ field, form }) => (
+              <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
+                <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Discord username</FormLabel>
+                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="username" />
+                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+              </FormControl>
+            )}
+          </Field>
 		  <Field name="password" >
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
@@ -269,7 +266,7 @@ function BasicUsage() {
 		isRequired {...field} isInvalid={form.errors.password && form.touched.password}
       />
       <InputRightElement width="4.5rem">
-        <Button fontFamily="Rubik" fontSize="15px" border="0" variantColor="green" _focus="none" h="1.75rem" size="sm" onClick={handleClick}>
+        <Button fontFamily="Rubik" fontSize="15px" border="0" colorScheme="green" _focus="none" h="1.75rem" size="sm" onClick={handleClick}>
           {show ? "Hide" : "Show"}
         </Button>
       </InputRightElement>
@@ -343,36 +340,38 @@ function BasicUsage() {
 				<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
   					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Размер тениска</FormLabel>
   					<Select variant="outline" id="tshirt_size" type="text" fontFamily="Rubik" placeholder="Избери размер">
-					  	{/* <option value="XS">XS</option> */}
   						<option value="s">S</option>
   						<option value="m">M</option>
 						<option value="l">L</option>
 					  	<option value="xl">XL</option>
-  						{/* <option value="XL">XXL</option> */}
 					</Select>
 				</FormControl>
             )}
           </Field>
-	{/* <Field name="food_preferences">
-            {({ field, form }) => (
-				<FormControl {...field}>
-				<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
-  				<Switch id="food_preferences" />
+	<Field name="food_preferences">
+	{({ field, form }) => (
+				<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
+  					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
+  					<Select variant="outline" id="food_preferences" type="text" fontFamily="Rubik" placeholder="Избери размер">
+  						<option value={0}>Да</option>
+  						<option value={2}>Не, веган съм</option>
+						<option value={1}>Не, вегетарианец съм</option>
+					</Select>
 				</FormControl>
             )}
-          </Field> */}
-		  <Field name="online">
+          </Field>
+		  <Field name="is_active">
             {({ field, form }) => (
 				<FormControl {...field}>
 				<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
-  				<Switch id="online" />
+  				<Switch id="is_active" />
 				</FormControl>
             )}
           </Field>
 
 		  <Button
             mt={4}
-            variantColor="green"
+            colorScheme="green"
 			border="0"
             isLoading={props.isSubmitting}
             type="submit"

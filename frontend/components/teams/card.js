@@ -12,7 +12,7 @@ const Card = (props) => {
     for(i = 0; i < (props.label.length); i++){
         for(j = 0; j < labels.length; j++){
           if(props.label[i] == labels[j].id){
-            label.push(<Tag mr="5px" variantColor={labels[j].color} key={j}><TagLabel fontFamily="Rubik" >{labels[j].label}</TagLabel></Tag>)
+            label.push(<Tag mr="5px" colorScheme={labels[j].color} key={j}><TagLabel fontFamily="Rubik" >{labels[j].label}</TagLabel></Tag>)
       }
     }
   }

@@ -1,6 +1,6 @@
 import '../styles/globals.css'
-import { ThemeProvider } from "@chakra-ui/core"
-import { theme } from "@chakra-ui/core";
+import { ChakraProvider, ThemeProvider } from "@chakra-ui/core"
+import { extendTheme } from "@chakra-ui/core";
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import 'keen-slider/keen-slider.min.css'
 import Navbar from '../components/navbar/navbar'
@@ -15,20 +15,28 @@ import jwt_decode from "jwt-decode";
 // axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 // axios.defaults.headers.post['X-CSRF-Token'] = response.data._csrf
 // const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA0OTM2NzgxLCJqdGkiOiJhMDIxMGJkNzE3Mjk0MDNkYWU3YmM0ZjZkY2M1YmZhYiIsInVzZXJfaWQiOjN9.AnVWwl07Qfg_hdeid8Utoz31XXNn95TGl17lSGMuvF0"
+import { createBreakpoints } from "@chakra-ui/theme-tools"
 
+// Then add your custom breakpoints as key-value pairs
+const breakpoints = createBreakpoints({
+  sm: "30em",
+  md: "48em",
+  lg: "62em",
+  xl: "80em",
+  x1: "450px",
+  x2: "900px"
+})
 const cookies = new Cookies();
 
-const customTheme = {
-  ...theme,
-  colors: {
-    ...theme.colors,
-    brand: {
-      900: "#1a365d",
-      800: "#153e75",
-			700: "#2a69ac",
-    },
-  },
-};
+const theme = extendTheme({
+	styles: {
+	  global: {
+		body: {
+		  bg: ("https://hacktues.pythonanywhere.com/static/frontend/background.png"),
+		},
+		},
+	  },
+	})
 
 function checkToken(exp) {
     if (Date.now() <= exp.exp * 1000) {
@@ -80,11 +88,11 @@ function MyApp({ Component, pageProps }) {
         
 
   	return (
-  	<ThemeProvider theme={customTheme}>
+  	<ChakraProvider resetCSS={false} theme={theme}>
   		<Navbar/>
   	  	<Component {...pageProps} />
   	  	<Footer/>
-  	</ThemeProvider>) 
+  	</ChakraProvider>) 
 }
 
 export default MyApp
