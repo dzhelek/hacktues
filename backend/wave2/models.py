@@ -84,6 +84,7 @@ class User(AbstractUser):
                                         choices=FOOD_PREFERENCES, default='0')
     tshirt_size = models.CharField(max_length=5, choices=SIZES)
     alergies = models.TextField(blank=True, null=True)
+    online = models.BooleanField(default=False)
 
     is_captain = models.BooleanField(default=False)
 
