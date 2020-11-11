@@ -1,5 +1,17 @@
 import React from 'react'
 import { Flex, Text } from "@chakra-ui/core";
+import Card from '../components/about/card'
+
+
+const GetCards = (props) =>{
+
+    var i
+    var cards = []
+    for(i = 0; i < props.length; i++){
+        cards.push(<Card name={props.name} position={props.position} class={props.class}/>)
+    }
+
+}
 
 const Panel = (props) => {
     return(
@@ -19,6 +31,9 @@ const Panel = (props) => {
 <br></br><br></br>Всяка година Hack TUES се организира от координационен екип доброволци от 11-ти клас, който се грижи за цялостната организация на събитието под менторството на АЗТУЕС и ръководството на ТУЕС.
 &nbsp;<br></br><br></br><b>Поради</b>&nbsp;наложеното извънредно положение в страната заради COVID-19 пандемията, тазгодишното издание на Hack TUES 6, първоначално планирано за 12-15 март, се отлага за 1-11 октомври.
             </Text>
+
+
+
         </Flex>
         </Flex>
     );
