@@ -1,10 +1,27 @@
 import About from "./about"
-import { Box } from "@chakra-ui/core";
-import Link from 'next/link'
-import Sponsors from "../components/sponsor/sponsor"
-import Konami from 'react-konami-code';
+import * as React from "react"
+import { Box, Slide, Button } from "@chakra-ui/core";
 import { useRouter } from 'next/router'
-import {useEffect} from 'react'
+import Cookies from 'universal-cookie';
+import axios from 'axios'
+const cookies = new Cookies();
+import { useControllableState } from "@chakra-ui/core"
+import Konami from 'react-konami-code';
+
+function getNewToken() {
+	axios({
+		method: 'post',
+		url: 'https://hacktues.pythonanywhere.com/token/',
+		header: 'Content-Type: application/json',
+		data: {"username": "hacktues","password": "Go Green"}
+	})
+	.then(function (response) {
+		cookies.set('auth', response.data.access, { path: '/' })
+		cookies.set('refresh', response.data.refresh, { path: '/' })
+		//   console.log("new auth: " + cookies.get('auth'));
+	}
+	)
+}
 
 export default function Home() {
 
@@ -17,6 +34,6 @@ export default function Home() {
         <Box>
             {/* <Sponsors/> */}
             <Konami code={[71,71,87,80]} action={easterEgg}/>
-            </Box>
+        </Box>
     );
 }

@@ -1,5 +1,22 @@
 [
     {
+    "id": "Координатор",
+    "winners": [
+        {
+            "name": "Виктория Димитрова",
+            "class":"11Г",
+            "picture":"https://hacktues.pythonanywhere.com/static/frontend/viki.jpg"
+        }
+    ]},{
+        "id": "PR",
+        "winners": [
+            {
+                "name": "Гергана Узунова",
+                "class":"11Г",
+                "picture":"https://hacktues.pythonanywhere.com/static/frontend/geri.jpg"
+            }
+        ]},
+    {
         "id": "IT",
         "winners": [
             {
@@ -46,29 +63,12 @@
             "winners": [
                 {
                     "name": "Кайра Бояджиева",
-                    "class":"10в",
+                    "class":"10В",
                     "picture":"https://hacktues.pythonanywhere.com/static/frontend/kayra.jpg"
                 },
                 {
                     "name": "Ивайла Панайотова",
-                    "class":"9в",
-                    "picture":""
-                }]},
-    {
-        "id": "Координатор",
-        "winners": [
-            {
-                "name": "Виктория Димитрова",
-                "class":"11Г",
-                "picture":"https://hacktues.pythonanywhere.com/static/frontend/viki.jpg"
-            }
-        ]},{
-            "id": "PR",
-            "winners": [
-                {
-                    "name": "Гергана Узунова",
-                    "class":"11Г",
-                    "picture":"https://hacktues.pythonanywhere.com/static/frontend/geri.jpg"
-                }
-            ]}
+                    "class":"9В",
+                    "picture":"https://hacktues.pythonanywhere.com/static/frontend/ivayla.jpg"
+                }]}
 ]

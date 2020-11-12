@@ -2,8 +2,6 @@ import { Box, Flex, Text, Image } from "@chakra-ui/core";
 
 const Card = (props) => {
 
-	console.log(props);
-
   var color;
   
 	switch(props.position){
