@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { ChakraProvider, Box, Slide, Button } from "@chakra-ui/core"
+import { ChakraProvider, Box, Slide, Button, Text, Link, Flex } from "@chakra-ui/core"
 import { extendTheme } from "@chakra-ui/core";
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import 'keen-slider/keen-slider.min.css'
@@ -47,39 +47,38 @@ function checkToken(exp) {
 
 function MyApp({ Component, pageProps }) {
 
-    const [value, setValue] = useControllableState({defaultValue: true})
-
   	useEffect(() => {
-		if(!cookies.get('auth')){
-			console.log("xd");
-			// getNewToken()
-		}
-		else{
-		checkToken(jwt_decode(cookies.get('auth')))
-		}})
+		if(cookies.get('auth')){checkToken(jwt_decode(cookies.get('auth')))}
+	})
 
   	return (
   	<ChakraProvider resetCSS={false} theme={theme}>
   		<Navbar/>
   	  	<Component {...pageProps} />
-			<Box>{() => {if(!cookies.get('auth')){
-				console.log("XDDD");
-				<Slide direction="bottom" in={value} style={{ zIndex: 10 }}>
-					<Box
-					  p="40px"
-					  color="white"
-					  mt="4"
-					  bg="teal.500"
-					  rounded="md"
-					  shadow="md"
-					>
-					  <Button onClick={() => setValue(false)}></Button>
-					</Box>
-				  </Slide>
-				}}}
-				</Box>
+			<Box>
+			<Cookie/>
+			</Box>
   	  	<Footer/>
   	</ChakraProvider>) 
+}
+
+const Cookie = () => {
+	
+	const [value, setValue] = useControllableState({defaultValue: true})
+	
+	if(!cookies.get('auth')){
+		return(
+			<Slide direction="bottom" in={value} style={{zIndex:10}}>
+				<Flex flexDirection="row" flexWrap="wrap" p="40px" color="white" mt="4" mr="50px" ml="50px" rounded="lg" bg="#a5cf9f" shadow="md">
+					<Text>Съгласявам се с <Link>Terms of Service</Link> на HackTUES 7</Text>
+					<Button ml="auto" border="0" colorScheme="white" backgroundColor="transparent" onClick={() => {setValue(false); getNewToken()}}>Съгласявам се</Button>
+				</Flex>
+			</Slide>
+		)
+	}
+	else{
+		return(<Box display="none"></Box>)
+	}
 }
 
 function getNewToken() {
