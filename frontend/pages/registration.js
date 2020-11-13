@@ -218,7 +218,7 @@ export default function Regulation() {
 				{({ field, form }) => (
 					<FormControl {...field}>
 					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">is_active(testing purposes)</FormLabel>
-					<Switch id="is_active" />
+					<Switch _focus={{boxShadow: 0}} id="is_active" />
 					</FormControl>
 				)}
 			</Field>

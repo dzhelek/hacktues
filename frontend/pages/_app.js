@@ -29,6 +29,7 @@ function checkToken(exp) {
     if (Date.now() <= exp.exp * 1000) {
 		console.log(true, 'token is not expired')
 		// console.log(exp.exp * 1000 - Date.now());
+		console.log(cookies.get('auth'));
 	}
 	else{
 		console.log(false, 'token is expired')

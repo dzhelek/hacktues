@@ -11,7 +11,6 @@ import {ArrowForwardIcon, ArrowBackIcon} from '@chakra-ui/icons'
 var emojiLaptop = <IoIosLaptop/>;
 var emojiPin = <IoMdPin/>;
 var TechPark = "https://goo.gl/maps/dtZjXyfVKV42cetB9"
-
 const day1 = [
   { title: 'Официално откриване на събитието', notime:0, time1: '17:30', time2:'18:00', link: TechPark, emoji:emojiPin, place:"Sofia Tech Park",}, 
   { title: 'Образователна лекция', notime:0, time1: '18:15', time2: '19:00', link: TechPark, emoji: emojiPin, place:"Sofia Tech Park",}, 
@@ -45,7 +44,7 @@ export default function Schedule(){
 
   	return (
       <div style={{"position": "relative", "paddingTop":"50px"}} className="navigation-wrapper">
-    	<Box paddingBottom={["50px","50px","250px","250px"]} ref={sliderRef} className="keen-slider">
+    	<Box paddingBottom={["50px","50px","100px","100px", "200px"]} ref={sliderRef} className="keen-slider">
     		<div  className={"keen-slider__slide number-slide1"}>{GetEntry(day1)}</div>
     		<div  className={"keen-slider__slide number-slide2"}>{GetEntry(day2)}</div>
     	</Box>
@@ -62,7 +61,7 @@ export default function Schedule(){
         </>
       )}
       {slider && (
-      <Box display={["block", "block", "block", "none"]}>
+      <Box display={["block", "block", "block", "block", "none"]}>
         <div style={{"justifyContent": "center", "textAlign":"center"}} className="dots">
           {[...Array(slider.details().size).keys()].map((idx) => {
             return (
@@ -94,17 +93,17 @@ function GetEntry(props) {
 function ArrowLeft(props) {
   const disabeld = props.disabled ? " arrow--disabled" : "";
   return (
-    <Box left="450px" style={{"height":"250px", "width":"100px", "position":"absolute", "top":"50%", "transform":"translateY(-50%)"}}>
-      <IconButton border="0" _focus={{outline:"none"}} display={["none","none","none","none","block"]} size="lg" backgroundColor="white" color="green.500" onClick={props.onClick} className={"arrow arrow--left" + disabeld} icon={<ArrowBackIcon height="35px" width="35px"/>} />
-    </Box>
+    	<Box left="450px" style={{height:"auto", width:"auto", position:"absolute", top:"50%", transform:"translateY(-50%)"}}>
+      		<IconButton border="0" _hover={{background:"white"}} _focus={{outline:"none"}} display={{base:"none",sm:"none",md:"none",lg:"none",xl:"block"}} size="lg" backgroundColor="white" color="green.500" onClick={props.onClick} className={"arrow arrow--left" + disabeld} icon={<ArrowBackIcon height="35px" width="35px"/>} />
+    	</Box>
   );
 }
 
 function ArrowRight(props) {
-  const disabeld = props.disabled ? " arrow--disabled" : "";
-  return (
-    <Box right="450px" style={{"height":"250px", "width":"30px", "position":"absolute", "top":"50%", "left":"auto", "transform":"translateY(-50%)"}}>
-    <IconButton border="0" _focus={{outline:"none"}} display={["none","none","none","none","block"]} size="lg" backgroundColor="white" color="green.500" onClick={props.onClick} className={"arrow arrow--left" + disabeld} icon={<ArrowForwardIcon height="35px" width="35px" />} />
-  </Box>
+  	const disabeld = props.disabled ? " arrow--disabled" : "";
+  	return (
+    	<Box minW="1091" right="450px" style={{height:"auto", width:"auto", position:"absolute", top:"50%", left:"auto", transform:"translateY(-50%)"}}>
+      		<IconButton border="0" _hover={{background:"white"}} _focus={{outline:"none"}} display={{base:"none",sm:"none",md:"none",lg:"none",xl:"block"}} size="lg" backgroundColor="white" color="green.500" onClick={props.onClick} className={"arrow arrow--left" + disabeld} icon={<ArrowForwardIcon height="35px" width="35px" />} />
+  		</Box>
   );
 }

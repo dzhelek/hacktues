@@ -17,7 +17,6 @@ export default function Teams() {
             <Card label={label} size={label.length}/>
             <Card label={label} size={label.length}/>
             <Card label={label} size={label.length}/>
-
         </Flex>
     )
 }

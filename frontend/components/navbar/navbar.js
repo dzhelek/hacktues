@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { Box, Heading, Flex, Text, Button, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/core";
+import { Box, Heading, Flex, Text, Button, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch, ButtonGroup } from "@chakra-ui/core";
 import Link from 'next/link'
 import {
   Menu,
@@ -17,7 +17,7 @@ import {
 	FormLabel,
 	FormErrorMessage,
 	FormHelperText,
- } from "@chakra-ui/core";
+} from "@chakra-ui/core";
 
 import {
 	Modal,
@@ -27,7 +27,7 @@ import {
 	ModalFooter,
 	ModalBody,
 	ModalCloseButton,
-  } from "@chakra-ui/core";
+} from "@chakra-ui/core";
 
 import {
 	Drawer,
@@ -37,17 +37,28 @@ import {
 	DrawerOverlay,
 	DrawerContent,
 	DrawerCloseButton,
-  } from "@chakra-ui/core";
+} from "@chakra-ui/core";
+
+import {
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+	PopoverHeader,
+	PopoverBody,
+	PopoverFooter,
+	PopoverArrow,
+	PopoverCloseButton,
+} from "@chakra-ui/popover"
+
 
 import { Formik, Field, Form } from 'formik';
 import { useDisclosure } from "@chakra-ui/core";
 const axios = require('axios');
 import Cookies from 'universal-cookie';
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import {PhoneIcon} from '@chakra-ui/icons'
-const cookies = new Cookies();
+import {PhoneIcon, ViewIcon, ViewOffIcon} from '@chakra-ui/icons'
 
-// style={{"_active":"transparent", "_hover":"transparent", "_focus":{"outline":"none"}}}
+const cookies = new Cookies();
 
 const MenuItems = ({ children }) => (
 	<Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} _focus={{outline:"none"}} fontFamily="Rubik" color="white" bg="transparent" border="0px" borderWidth="0px">
@@ -81,7 +92,7 @@ const Navbar = props => {
         <MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
 		<MenuItems><Link href="/archive"><a>Архив</a></Link></MenuItems>
         	<Menu>
-        		<MenuButton cursor="pointer" _hover={{bg:"transparent"}} as={Button} color="white" background="transparent" _focus={{outline: "none", bg:"transparent"}} border="0px" borderWidth="0px" rightIcon={<ChevronDownIcon/>}>
+        		<MenuButton cursor="pointer" _hover={{bg:"transparent"}}  _active={{background:"#a5cf9f"}} as={Button} color="white" background="transparent" _focus={{outline: "none", bg:"transparent"}} border="0px" borderWidth="0px" rightIcon={<ChevronDownIcon/>}>
     				Декларации
   				</MenuButton>
   				<MenuList p="0">
@@ -92,7 +103,8 @@ const Navbar = props => {
   				</MenuList>
 			</Menu>
 		<MenuItems><Link href="/about"><a>За Hack TUES</a></Link></MenuItems>
-		<BasicUsage/>
+		<Login/>
+		<Register/>
       </Flex>
 	<Box width="auto" display={{ md:"flex", lg: "none" }}>
 	<Button  _focus={{outline: "none"}} display="block" ref={btnRef} backgroundColor="transparent" colorScheme="lightgrey" border="0px" onClick={onOpen}>
@@ -112,20 +124,20 @@ const Navbar = props => {
     	<Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         	<DrawerOverlay />
         	<DrawerContent backgroundColor="#a5cf9f" color="#a5cf9f">
-          	<DrawerCloseButton border="0px" backgroundColor="#a5cf9f" _focus={{outline: "none"}} />
+          	<DrawerCloseButton border="0px" color="white" backgroundColor="#a5cf9f" _focus={{outline: "none"}} />
           	<DrawerHeader color="black" fontFamily="llpixel" fontWeight="400">Hack &nbsp;<span style={{"color":"green"}}>TUES 7</span></DrawerHeader>
 	  		<DrawerBody display="flex" flexDirection="column" flexWrap="wrap">
 	  			<MenuItems>
 					<Link href="/schedule" >
-						<a>
+						<a onClick={onClose}>
 							Програма
 						</a>
 					</Link>
 				</MenuItems>
-        	<MenuItems><Link href="/regulation"><a>Регламент</a></Link></MenuItems>
-        	<MenuItems><Link href="/archive"><a>Архив</a></Link></MenuItems>
+        	<MenuItems><Link href="/regulation"><a onClick={onClose}>Регламент</a></Link></MenuItems>
+        	<MenuItems><Link href="/archive"><a onClick={onClose}>Архив</a></Link></MenuItems>
         		<Menu>
-        			<MenuButton as={Button} rightIcon={<ChevronDownIcon />} color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px">
+        			<MenuButton rightIcon={<ChevronDownIcon />} as={Button} _active={{background:"#a5cf9f"}}  _hover={{background:"#a5cf9f"}} color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px">
     					Декларации
   					</MenuButton>
   					<MenuList p="0">
@@ -137,14 +149,14 @@ const Navbar = props => {
 				</Menu>
 				<MenuItems>
 					<Link href="/about">
-						<a>
+						<a onClick={onClose}>
 							За Hack TUES
 						</a>
 					</Link>
 				</MenuItems>
 				<MenuItems>
 					<Link href="/registration">
-						<a>
+						<a onClick={onClose}>
 							Регистрация
 						</a>
 					</Link>
@@ -159,7 +171,7 @@ const Navbar = props => {
 
 
 
-function BasicUsage() {
+function Register() {
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [show, setShow] = React.useState(false);
@@ -167,7 +179,7 @@ function BasicUsage() {
 
     return (
       <>
-        <Button marginLeft="auto" _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
+        <Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
 
         <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
@@ -265,7 +277,7 @@ function BasicUsage() {
 		<Input pr="4.5rem" type={show ? "text" : "password"} isRequired {...field} isInvalid={form.errors.password && form.touched.password}/>
 			<InputRightElement width="4.5rem">
 				<Button fontFamily="Rubik" fontSize="15px" border="0" colorScheme="green" _focus={{outline:"none"}} h="1.75rem" size="sm" onClick={handleClick}>
-					{show ? "Hide" : "Show"}
+					{show ? <ViewIcon/> : <ViewOffIcon/>}
 				</Button>
 			</InputRightElement>
 			</InputGroup>
@@ -395,6 +407,97 @@ function BasicUsage() {
       </>
     );
   }
+
+
+  function Login() {
+
+
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [show, setShow] = React.useState(false);
+	const handleClick = () => setShow(!show);
+
+	return (
+	  	<Popover autoFocus="false" placement="bottom">
+			<PopoverTrigger>
+		  		<Button marginLeft="auto" _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" >Логин</Button>
+			</PopoverTrigger>
+			<PopoverContent color="white" bg="white" borderColor="#a5cf9f">
+		  		<PopoverArrow />
+		  			<PopoverBody>
+					  <Formik initialValues={{ username: "", password: "" }} 
+				onSubmit={(values, actions) => {
+        			setTimeout(() => {
+							var data = JSON.stringify(values, null, 1)
+        					axios({
+        						method: 'post',
+        						url: 'https://hacktues.pythonanywhere.com/token/',
+        						headers: 
+        						{ "Content-type": "Application/json"},
+								data: data  
+								  },)
+        					    .then(function (response) {
+        					        console.log(response);
+        					      	cookies.set('auth', response.data.access, { path: '/' })
+									cookies.set('refresh', response.data.refresh, { path: '/' })
+        					    })
+        					    .catch(function (error) {
+        					    console.log(error);
+        					    })
+        					    .then(function () {
+        					    console.log(cookies.get('auth'))
+
+								// axios({
+        						// method: 'get',
+        						// url: 'https://hacktues.pythonanywhere.com/users/',
+        						// headers: 
+        						// { "Content-type": "Application/json",
+        						//   "Authorization": `Bearer ${cookies.get('auth')}`}
+								//   },)
+        					    })							
+											console.log(JSON.stringify(values, null, 1))
+          									actions.setSubmitting(false)
+        								}, 1000)
+      							}}>
+    {props => (
+				<form onSubmit={props.handleSubmit}>
+				<Field name="username">
+    		        {({ field, form }) => (
+    		          	<FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
+    		            	<FormLabel paddingTop="15px" color="black" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">
+									Discord username
+							</FormLabel>
+    		            	<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="username" />
+    		            	<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+    		          	</FormControl>
+    		        )}
+    		    </Field>
+					<Field name="password" >
+						{({ field, form }) => (
+						<FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
+							<FormLabel paddingTop="15px" paddingBottom="5px" color="black" fontFamily="Rubik" fontSize="15px" htmlFor="password">
+								Парола
+							</FormLabel>
+							<InputGroup size="md">
+								<Input pr="4.5rem" type={show ? "text" : "password"} isRequired {...field} isInvalid={form.errors.password && form.touched.password}/>
+									<InputRightElement width="4.5rem">
+										<Button fontFamily="Rubik" fontSize="15px" border="0" colorScheme="green" _focus={{outline:"none"}} h="1.75rem" size="sm" onClick={handleClick}>
+											{show ? <ViewIcon/> : <ViewOffIcon/>}
+										</Button>
+									</InputRightElement>
+								</InputGroup>
+						</FormControl>)}
+					</Field>
+					<Button mt={4} colorScheme="green" border="0" isLoading={props.isSubmitting} type="submit">
+						Логин
+					</Button>
+        		</form>
+      			)}
+    			</Formik>
+			</PopoverBody>
+		</PopoverContent>
+	</Popover>
+	)
+}
 
 
 export default Navbar;

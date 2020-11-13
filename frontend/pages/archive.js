@@ -8,7 +8,7 @@ var data = JSON.parse(stringArchive);
 
 export default function Archive() {
     return (
-        <Flex justifyContent="center" flexDirection={["column","column","column","row"]} flexWrap="wrap" pb={["300px", "150px"]} pt="25px">
+        <Flex justifyContent="center" alignItems="center" flexDirection={["column","column","column","row"]} flexWrap="wrap" pb={["300px", "300px", "300px", "200px"]} pt="25px">
             <Flex mt="25px" ml="50px" mr="50px" fontFamily="Rubik" h={["325px","325px","300px","300px"]} flexDirection="column" flexWrap="wrap" w={["auto","400px","500px","500px"]} backgroundColor="white">
 				<Flex>
 				<Text m="0" pt="20px" pb="20px" pl="15px" fontFamily="llpixel" fontWeight="400" fontSize="30px"><span>Hack</span>&nbsp;<span style={{"color":"#446576"}}>TUES</span></Text>

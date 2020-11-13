@@ -28,8 +28,8 @@ const GetCards = (props) =>{
 
 const Panel = (props) => {
     return(
-        <Flex flexDirection="column" flexWrap="wrap" paddingBottom={["160px", "160px", "150px", "150px"]}>
-        <Flex display="block" pt="10px" pl="10px" pr="10px" marginLeft={["10%", "10%", "100px", "100px"]} marginRight={["10%", "10%", "100px", "100px"]} marginTop="5%"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
+        <Flex flexDirection="column" flexWrap="wrap" paddingBottom={["250px", "160px", "150px", "150px"]}>
+        <Flex display="block" pt="10px" pl="10px" pr="10px" marginLeft={["20px", "20px", "100px", "100px"]} marginRight={["20px", "20px", "100px", "100px"]} marginTop="5%"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
             <Text paddingLeft="10px">
             <span style={{"font-size":"25px","fontFamily":"llpixel"}}>Hack&nbsp;</span>
                 <span style={{"font-size":"25px","font-family":"llpixel","color":"green"}}>
@@ -43,7 +43,7 @@ const Panel = (props) => {
 &nbsp;<br></br><br></br><b>Поради</b>&nbsp;наложеното извънредно положение в страната заради COVID-19 пандемията, тазгодишното издание на Hack TUES 6, първоначално планирано за 12-15 март, се отлага за 1-11 октомври.
             </Text>
         </Flex>
-        <Flex rounded="lg" marginTop="5%" backgroundColor="white" marginLeft={["10%", "10%", "100px", "150px"]} marginRight={["10%", "10%", "100px", "150px"]} alignSelf="stretch" justifyContent="center" flexDirection="row" flexWrap="wrap">
+        <Flex rounded="lg" marginTop="5%" backgroundColor="white" marginLeft={["20px", "20px", "100px", "100px"]} marginRight={["20px", "20px", "100px", "100px"]} alignSelf="stretch" justifyContent="center" flexDirection="row" flexWrap="wrap">
             {GetCards(data)}
         </Flex>
         </Flex>
