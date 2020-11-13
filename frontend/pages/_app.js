@@ -14,14 +14,6 @@ import { useControllableState } from "@chakra-ui/core"
 
 const cookies = new Cookies();
 
-const breakpoints = createBreakpoints({
-  sm: "30em",
-  md: "48em",
-  lg: "62em",
-  xl: "80em",
-  x1: "450px",
-  x2: "900px"
-})
 
 const theme = extendTheme({
 	styles: {
@@ -56,7 +48,7 @@ function MyApp({ Component, pageProps }) {
   		<Navbar/>
   	  	<Component {...pageProps} />
 			<Box>
-			<Cookie/>
+			<Cookie></Cookie>
 			</Box>
   	  	<Footer/>
   	</ChakraProvider>) 
@@ -77,7 +69,7 @@ const Cookie = () => {
 		)
 	}
 	else{
-		return(<Box display="none"></Box>)
+		return(<Box display="none">{"xd"}</Box>)
 	}
 }
 

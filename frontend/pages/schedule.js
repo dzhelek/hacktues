@@ -95,7 +95,7 @@ function ArrowLeft(props) {
   const disabeld = props.disabled ? " arrow--disabled" : "";
   return (
     <Box left="450px" style={{"height":"250px", "width":"100px", "position":"absolute", "top":"50%", "transform":"translateY(-50%)"}}>
-      <IconButton border="0" _focus="outline:none;" display={["none","none","none","none","block"]} size="lg" backgroundColor="white" color="green.500" onClick={props.onClick} className={"arrow arrow--left" + disabeld} icon={<ArrowBackIcon height="35px" width="35px"/>} />
+      <IconButton border="0" _focus={{outline:"none"}} display={["none","none","none","none","block"]} size="lg" backgroundColor="white" color="green.500" onClick={props.onClick} className={"arrow arrow--left" + disabeld} icon={<ArrowBackIcon height="35px" width="35px"/>} />
     </Box>
   );
 }
@@ -104,7 +104,7 @@ function ArrowRight(props) {
   const disabeld = props.disabled ? " arrow--disabled" : "";
   return (
     <Box right="450px" style={{"height":"250px", "width":"30px", "position":"absolute", "top":"50%", "left":"auto", "transform":"translateY(-50%)"}}>
-    <IconButton border="0" _focus="outline:none;" display={["none","none","none","none","block"]} size="lg" backgroundColor="white" color="green.500" onClick={props.onClick} className={"arrow arrow--left" + disabeld} icon={<ArrowForwardIcon height="35px" width="35px" />} />
+    <IconButton border="0" _focus={{outline:"none"}} display={["none","none","none","none","block"]} size="lg" backgroundColor="white" color="green.500" onClick={props.onClick} className={"arrow arrow--left" + disabeld} icon={<ArrowForwardIcon height="35px" width="35px" />} />
   </Box>
   );
 }

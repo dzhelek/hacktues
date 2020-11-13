@@ -55,74 +55,70 @@ export default function Regulation() {
         					    })							
 											console.log(JSON.stringify(values, null, 1))
           									actions.setSubmitting(false)
-        								}, 1000)
+        								}, 1001)
       							}}>
-    {props => (
-        <form onSubmit={props.handleSubmit}>
-          <Field initialValues={{first_name: '', last_name: '', email: '', password: ''}} name="first_name">
-            {({ field, form }) => (
-              <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Име (на кирилица)</FormLabel>
-                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="first_name" />
-                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-              </FormControl>
-            )}
-          </Field>
-		  <Field name="last_name">
-            {({ field, form }) => (
-              <FormControl  isRequired isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Фамилия (на кирилица)</FormLabel>
-                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="last_name" />
-                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-              </FormControl>
-            )}
-          </Field>
-		  <Field name="email">
-            {({ field, form }) => (
-              <FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
-                <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="email">Имейл</FormLabel>
-                <Input {...field} id="email" type="email"/>
-                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-              </FormControl>
-            )}
-          </Field>
+			{props => (
+				<form onSubmit={props.handleSubmit}>
+				<Field initialValues={{first_name: '', last_name: '', email: '', password: ''}} name="first_name">
+					{({ field, form }) => (
+					<FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
+						<FormLabel paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Име (на кирилица)</FormLabel>
+						<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="first_name" />
+						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+					</FormControl>
+					)}
+          		</Field>
+				<Field name="last_name">
+					{({ field, form }) => (
+					<FormControl  isRequired isInvalid={form.errors.name && form.touched.name}>
+						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Фамилия (на кирилица)</FormLabel>
+						<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="last_name" />
+						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+					</FormControl>
+					)}
+				</Field>
+				<Field name="email">
+					{({ field, form }) => (
+					<FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
+						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="email">Имейл</FormLabel>
+						<Input {...field} id="email" type="email"/>
+						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+					</FormControl>
+					)}
+				</Field>
 
-		  <Field name="reemail">
-            {({ field, form }) => (
-              <FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
-                <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Повторете имейла</FormLabel>
-                <Input type="text"/>
-                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-              </FormControl>
-            )}
+				<Field name="reemail">
+					{({ field, form }) => (
+					<FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
+						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Повторете имейла</FormLabel>
+						<Input type="text"/>
+						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+					</FormControl>
+					)}
           </Field>
 		  <Field name="username">
             {({ field, form }) => (
               <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Discord username</FormLabel>
-                <Input _focus="none" outline="lightgrey" variant="outline" {...field} id="username" />
+                <Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="username" />
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
           </Field>
-		  <Field name="password" >
-            {({ field, form }) => (
-              <FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
-			  <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Парола</FormLabel>
-			  <InputGroup size="md">
-      <Input
-        pr="4.5rem"
-        type={show ? "text" : "password"}
-		isRequired {...field} isInvalid={form.errors.password && form.touched.password}
-      />
-      <InputRightElement width="4.5rem">
-        <Button fontFamily="Rubik" fontSize="15px" border="0" colorScheme="green" _focus="none" h="1.75rem" size="sm" onClick={handleClick}>
-          {show ? "Hide" : "Show"}
-        </Button>
-      </InputRightElement>
-    </InputGroup>
-    </FormControl>)}
-    </Field>
+			<Field name="password" >
+				{({ field, form }) => (
+				<FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
+				<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Парола</FormLabel>
+				<InputGroup size="md">
+		<Input pr="4.5rem" type={show ? "text" : "password"} isRequired {...field} isInvalid={form.errors.password && form.touched.password}/>
+			<InputRightElement width="4.5rem">
+				<Button fontFamily="Rubik" fontSize="15px" border="0" colorScheme="green" _focus={{outline:"none"}} h="1.75rem" size="sm" onClick={handleClick}>
+					{show ? "Hide" : "Show"}
+				</Button>
+			</InputRightElement>
+			</InputGroup>
+		</FormControl>)}
+		</Field>
 
 		  <Field name="repassword">
             {({ field, form }) => (
@@ -164,70 +160,78 @@ export default function Regulation() {
             )}
           </Field>
 
-		  <Field name="phone" >
-            {({ field, form }) => (
-              <FormControl {...field} isRequired isInvalid={form.errors.phone && form.touched.phone}>
-			  <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="number">Телефон</FormLabel>
-			  <InputGroup>
-			  	<InputLeftElement children={<PhoneIcon color="gray.300" />} />
-    			<Input/>
-  				</InputGroup>
-              </FormControl>
+		  	<Field name="phone" >
+            	{({ field, form }) => (
+              	<FormControl {...field} isRequired isInvalid={form.errors.phone && form.touched.phone}>
+			  	<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="number">Телефон</FormLabel>
+			  	<InputGroup>
+			  		<InputLeftElement children={<PhoneIcon color="gray.300" />} />
+    				<Input/>
+  					</InputGroup>
+              	</FormControl>
             )}
-          </Field>
+          	</Field>
 
-		  <Field name="alergies" >
-            {({ field, form }) => (
-              <FormControl {...field} isInvalid={form.errors.alergies && form.touched.alergies}>
-			  <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Алергии</FormLabel>
-			  <Input type="text" id="alergies" variant="outline"/>
-              </FormControl>
-            )}
-          </Field>
+			<Field name="alergies" >
+				{({ field, form }) => (
+				<FormControl {...field} isInvalid={form.errors.alergies && form.touched.alergies}>
+				<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Алергии</FormLabel>
+				<Input type="text" id="alergies" variant="outline"/>
+				</FormControl>
+				)}
+			</Field>
+			<Field name="tshirt_size">
+				{({ field, form }) => (
+					<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
+						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Размер тениска</FormLabel>
+						<Select variant="outline" id="tshirt_size" type="text" fontFamily="Rubik" placeholder="Избери размер">
+							<option value="s">S</option>
+							<option value="m">M</option>
+							<option value="l">L</option>
+							<option value="xl">XL</option>
+						</Select>
+					</FormControl>
+				)}
+			</Field>
+				<Field name="food_preferences">
+				{({ field, form }) => (
+							<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
+								<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
+								<Select variant="outline" id="food_preferences" type="text" fontFamily="Rubik" placeholder="Избери размер">
+									<option value={0}>Да</option>
+									<option value={2}>Не, веган съм</option>
+									<option value={1}>Не, вегетарианец съм</option>
+								</Select>
+							</FormControl>
+						)}
+					</Field>
+			<Field name="online">
+				{({ field, form }) => (
+					<FormControl {...field}>
+					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
+					<Switch id="online" />
+					</FormControl>
+				)}
+			</Field>
 
-		  <Field name="tshirt_size">
-            {({ field, form }) => (
-				<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
-  					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Размер тениска</FormLabel>
-  					<Select variant="outline" id="tshirt_size" type="text" fontFamily="Rubik" placeholder="Избери размер">
-  						<option value="s">S</option>
-  						<option value="m">M</option>
-						<option value="l">L</option>
-					  	<option value="xl">XL</option>
-					</Select>
-				</FormControl>
-            )}
-          </Field>
-	<Field name="food_preferences">
-	{({ field, form }) => (
-				<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
-  					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
-  					<Select variant="outline" id="food_preferences" type="text" fontFamily="Rubik" placeholder="Избери размер">
-  						<option value={0}>Да</option>
-  						<option value={2}>Не, веган съм</option>
-						<option value={1}>Не, вегетарианец съм</option>
-					</Select>
-				</FormControl>
-            )}
-          </Field>
-		  <Field name="is_active">
-            {({ field, form }) => (
-				<FormControl {...field}>
-				<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
-  				<Switch id="is_active" />
-				</FormControl>
-            )}
-          </Field>
+			<Field name="is_active">
+				{({ field, form }) => (
+					<FormControl {...field}>
+					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">is_active(testing purposes)</FormLabel>
+					<Switch id="is_active" />
+					</FormControl>
+				)}
+			</Field>
 
-		  <Button
-            mt={4}
-            colorScheme="green"
-			border="0"
-            isLoading={props.isSubmitting}
-            type="submit"
-          >
-            Регистрирай ме
-          </Button>
+			<Button
+				mt={4}
+				colorScheme="green"
+				border="0"
+				isLoading={props.isSubmitting}
+				type="submit"
+			>
+				Регистрирай ме
+			</Button>
         </form>
       )}
     </Formik>

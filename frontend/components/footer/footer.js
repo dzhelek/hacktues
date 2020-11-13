@@ -8,16 +8,16 @@ const Footer = (props) => {
     <Box display="block" h="auto" w="100%" mt="-100px" justifyContent="center" position="absolute" bottom="0" paddingLeft="10px" paddingRight="10px"  borderColor="black" borderWidth="10px" background="#a5cf9f">
         <Flex justifyContent="center" flexDirection={["column","row","row","row"]} flexWrap="wrap">
             <Text mb="0" wordBreak="break-all" fontSize={"6px","14px"} alignSelf="center" fontWeight="300" color="black" mb={["0","0","0","25px"]} pl="2" pt="2" pb="2" as="h4" lineHeight="tight">
-                <Link paddingRight="10px" _focus="outline: none;" href="https://instagram.com/hacktues">
+                <Link paddingRight="10px" _focus={{outline:"none"}} href="https://instagram.com/hacktues">
                     <Icon as={FiFacebook} width="24px" height="24px"></Icon>
                 </Link>
-                <Link paddingRight="10px" _focus="outline: none;" href="https://facebook.com/hacktues">
+                <Link paddingRight="10px" _focus={{outline:"none"}} href="https://facebook.com/hacktues">
                     <Icon as={FiInstagram} background="transparent" width="24px" height="24px"></Icon>
                 </Link>
-                <Link paddingRight="10px" _focus="outline: none;" href="https://www.youtube.com/channel/UCQcbYkAKPEgfjzvwb2sUWSQ">
+                <Link paddingRight="10px" _focus={{outline:"none"}} href="https://www.youtube.com/channel/UCQcbYkAKPEgfjzvwb2sUWSQ">
                     <Icon as={FiYoutube} background="transparent" width="24px" height="24px"></Icon>
                 </Link>
-                <Link paddingRight="10px" _focus="outline: none;" href="mailto:hacktues@elsys-bg.org">
+                <Link paddingRight="10px" _focus={{outline:"none"}} href="mailto:hacktues@elsys-bg.org">
                     <Icon as={FiMail} background="transparent" width="24px" height="24px"></Icon>
                 </Link>
             </Text>

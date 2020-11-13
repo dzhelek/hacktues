@@ -52,13 +52,13 @@ const Entry = props => {
                 <Image h="100px" objectFit="contain" width="100%" src={props.logo}></Image>
             </Link>
         </Box>
-		<IconButton outline="none" border="0" _focus="none"  aria-label="Search database" icon="search" backgroundColor="transparent" onClick={onOpen}/>
+		<IconButton outline="none" border="0" _focus={{outline:"none"}}  aria-label="Search database" icon="search" backgroundColor="transparent" onClick={onOpen}/>
 		<div className="packet">
             {(() => {
 				if(props.packet == "alpha" ){
 					packet = <Modal isOpen={isOpen} onClose={onClose}><ModalContent>
         			  <ModalHeader backgroundColor="red" fontFamily="Rubik">Alpha</ModalHeader>
-        			  <ModalCloseButton _focus="none" backgroundColor="transparent" border="0" />
+        			  <ModalCloseButton _focus={{outline:"none"}} backgroundColor="transparent" border="0" />
         			  <ModalBody backgroundColor="red">
         			    <Text>3 kila banani</Text>
         			  </ModalBody>
@@ -67,7 +67,7 @@ const Entry = props => {
                 else if(props.packet == "beta")
 					{packet = <Modal isOpen={isOpen} onClose={onClose}><ModalContent>
         			  <ModalHeader fontFamily="Rubik">Beta</ModalHeader>
-        			  <ModalCloseButton _focus="none" backgroundColor="transparent" border="0" />
+        			  <ModalCloseButton _focus={{outline:"none"}} backgroundColor="transparent" border="0" />
         			  <ModalBody>
         			    <Text> 2 kila banani</Text>
         			  </ModalBody>
@@ -76,7 +76,7 @@ const Entry = props => {
 					else if(props.packet == "gamma")
 					{packet = <Modal isOpen={isOpen} onClose={onClose}><ModalContent>
         			  <ModalHeader fontFamily="Rubik">Gamma</ModalHeader>
-        			  <ModalCloseButton _focus="none" backgroundColor="transparent" border="0" />
+        			  <ModalCloseButton _focus={{outline:"none"}} backgroundColor="transparent" border="0" />
         			  <ModalBody>
         			    <Text> 1 kilo banani ;)</Text>
         			  </ModalBody>
