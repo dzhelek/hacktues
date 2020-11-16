@@ -51,13 +51,9 @@ class User(AbstractUser):
     AbstractUser._meta.get_field('first_name').blank = False
     AbstractUser._meta.get_field('last_name').blank = False
     AbstractUser._meta.get_field('email').blank = False
+    AbstractUser._meta.get_field('email')._unique = True
+    AbstractUser._meta.get_field('email').null = True
     AbstractUser._meta.get_field('password').blank = True
-
-    AbstractUser._meta.get_field('is_active').default = False
-
-    AbstractUser._meta.get_field('username').validators = (
-        [RegexValidator(regex=r'^.+#\d{4}$')]  # username#1234
-    )
 
     FORMS = [
         ('8a', '8 A'), ('8b', '8 B'), ('8v', '8 V'), ('8g', '8 G'),
@@ -78,18 +74,20 @@ class User(AbstractUser):
         ('xl', 'XL'),
     ]
 
+    USERNAME_FIELD = 'email'
+
     technologies = models.ManyToManyField(Technology, blank=True)
     form = models.CharField(max_length=4, choices=FORMS)
     food_preferences = models.CharField(max_length=15,
                                         choices=FOOD_PREFERENCES, default='0')
     tshirt_size = models.CharField(max_length=5, choices=SIZES)
     alergies = models.TextField(blank=True, null=True)
-    online = models.BooleanField(default=False)
-
+    discord_id = models.BigIntegerField(unique=True, null=True)
+    is_online = models.BooleanField(default=False)
     is_captain = models.BooleanField(default=False)
 
     REQUIRED_FIELDS = [
-        'first_name', 'last_name', 'email', 'form', 'tshirt_size',
+        'first_name', 'last_name', 'form', 'tshirt_size',
     ]
 
 
