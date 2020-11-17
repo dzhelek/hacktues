@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Box, Heading, Flex, Text, Button, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch, ButtonGroup } from "@chakra-ui/core";
 import Link from 'next/link'
 import {
@@ -50,13 +50,16 @@ import {
 	PopoverCloseButton,
 } from "@chakra-ui/popover"
 
+import jwt_decode from 'jwt-decode'
 
 import { Formik, Field, Form } from 'formik';
-import { useDisclosure } from "@chakra-ui/core";
+import { useDisclosure, useControllableState } from "@chakra-ui/core";
 const axios = require('axios');
 import Cookies from 'universal-cookie';
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {PhoneIcon, ViewIcon, ViewOffIcon} from '@chakra-ui/icons'
+
+import Router from 'next/router'
 
 const cookies = new Cookies();
 
@@ -74,6 +77,25 @@ const Navbar = props => {
   	const firstField = React.useRef();
   	const btnRef = React.useRef();
 
+	var login;
+
+	function handleChildClick(event) {
+		login = <MenuItems><Link href="/profile" ><a>Профил</a></Link></MenuItems>
+		Router.reload(window.location.pathname);
+   }
+
+//    console.log(props.loggedin);
+	if(props.loggedin){
+		login = <MenuItems><Link href="/profile" ><a>Профил</a></Link></MenuItems>
+	}
+	else{
+		login = 
+			<>
+				<Login logIn={handleChildClick} />
+				<Register/>
+			</>;
+	}
+		
   	return (
 	<header>
     <Flex as="nav" align="center" justify="space-between" padding="10px" bg="#a5cf9f" color="white"{...props}>
@@ -103,8 +125,9 @@ const Navbar = props => {
   				</MenuList>
 			</Menu>
 		<MenuItems><Link href="/about"><a>За Hack TUES</a></Link></MenuItems>
-		<Login/>
-		<Register/>
+		{/* <LoginStatus cookie={token}/> */}
+		{login}
+		{/* <Parent/> */}
       </Flex>
 	<Box width="auto" display={{ md:"flex", lg: "none" }}>
 	<Button  _focus={{outline: "none"}} display="block" ref={btnRef} backgroundColor="transparent" colorScheme="lightgrey" border="0px" onClick={onOpen}>
@@ -121,7 +144,7 @@ const Navbar = props => {
     </Flex>
     
 	<Flex  display={{ md:"flex", lg: "none" }} width={{ xl: "100%", md: "100%" }} alignItems="center" flexGrow={1}>
-    	<Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
+    	<Drawer size="xs" isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         	<DrawerOverlay />
         	<DrawerContent backgroundColor="#a5cf9f" color="#a5cf9f">
           	<DrawerCloseButton border="0px" color="white" backgroundColor="#a5cf9f" _focus={{outline: "none"}} />
@@ -154,13 +177,7 @@ const Navbar = props => {
 						</a>
 					</Link>
 				</MenuItems>
-				<MenuItems>
-					<Link href="/registration">
-						<a onClick={onClose}>
-							Регистрация
-						</a>
-					</Link>
-				</MenuItems>
+				{login}
 			</DrawerBody>
         </DrawerContent>
     </Drawer>
@@ -171,7 +188,7 @@ const Navbar = props => {
 
 
 
-function Register() {
+function Register(props) {
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [show, setShow] = React.useState(false);
@@ -181,9 +198,9 @@ function Register() {
       <>
         <Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
 
-        <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
+        <Modal motionPreset="slideInBottom" style={{width:"1000px"}} closeOnOverlayClick={false} isOpen={isOpen} size="xl" onEsc={onClose} onClose={onClose}>
+          <ModalOverlay/>
+          <ModalContent style={{width:"1000px", minWidth:"55rem"}}>
             <ModalHeader fontFamily="Rubik">Регистрация</ModalHeader>
             <ModalCloseButton _focus={{outline: "none"}} backgroundColor="transparent" border="white" />
             <ModalBody>
@@ -222,11 +239,11 @@ function Register() {
         								}, 1000)
       							}}>
     {props => (
-				<form onSubmit={props.handleSubmit}>
+				<form style={{display:"flex",flexDirection:"row",flexWrap:"wrap"}} onSubmit={props.handleSubmit}>
 				<Field initialValues={{first_name: '', last_name: '', email: '', password: ''}} name="first_name">
 					{({ field, form }) => (
-					<FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
-						<FormLabel paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Име (на кирилица)</FormLabel>
+					<FormControl mr="5px" flex="1 1 400px" isRequired isInvalid={form.errors.name && form.touched.name}>
+						<FormLabel fontFamily="Rubik" fontSize="15px" htmlFor="text">Име (на кирилица)</FormLabel>
 						<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="first_name" />
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
@@ -234,8 +251,8 @@ function Register() {
           		</Field>
 				<Field name="last_name">
 					{({ field, form }) => (
-					<FormControl  isRequired isInvalid={form.errors.name && form.touched.name}>
-						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Фамилия (на кирилица)</FormLabel>
+					<FormControl flex="1 1 400px" isRequired isInvalid={form.errors.name && form.touched.name}>
+						<FormLabel fontFamily="Rubik" fontSize="15px" htmlFor="text">Фамилия (на кирилица)</FormLabel>
 						<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="last_name" />
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
@@ -243,7 +260,7 @@ function Register() {
 				</Field>
 				<Field name="email">
 					{({ field, form }) => (
-					<FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
+					<FormControl flex="1 1 120px" isRequired isInvalid={form.errors.email && form.touched.email}>
 						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="email">Имейл</FormLabel>
 						<Input {...field} id="email" type="email"/>
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
@@ -253,7 +270,7 @@ function Register() {
 
 				<Field name="reemail">
 					{({ field, form }) => (
-					<FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
+					<FormControl flex="1 1 120px" isRequired isInvalid={form.errors.email && form.touched.email}>
 						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Повторете имейла</FormLabel>
 						<Input type="text"/>
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
@@ -262,7 +279,7 @@ function Register() {
           </Field>
 		  <Field name="username">
             {({ field, form }) => (
-              <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
+              <FormControl flex="1 1 120px" isRequired isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Discord username</FormLabel>
                 <Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="username" />
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
@@ -271,22 +288,22 @@ function Register() {
           </Field>
 			<Field name="password" >
 				{({ field, form }) => (
-				<FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
+				<FormControl flex="1 1 120px" isRequired isInvalid={form.errors.phone && form.touched.phone}>
 				<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Парола</FormLabel>
 				<InputGroup size="md">
 		<Input pr="4.5rem" type={show ? "text" : "password"} isRequired {...field} isInvalid={form.errors.password && form.touched.password}/>
 			<InputRightElement width="4.5rem">
 				<Button fontFamily="Rubik" fontSize="15px" border="0" colorScheme="green" _focus={{outline:"none"}} h="1.75rem" size="sm" onClick={handleClick}>
-					{show ? <ViewIcon/> : <ViewOffIcon/>}
+					{show ? <ViewOffIcon/> : <ViewIcon/>}
 				</Button>
 			</InputRightElement>
 			</InputGroup>
 		</FormControl>)}
 		</Field>
 
-		  <Field name="repassword">
+		  <Field  name="repassword">
             {({ field, form }) => (
-              <FormControl {...field} isRequired isInvalid={form.errors.password && form.touched.password}>
+              <FormControl flex="1 1 120px" {...field} isRequired isInvalid={form.errors.password && form.touched.password}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Повторете паролата</FormLabel>
                 <Input type="password"/>
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
@@ -296,7 +313,7 @@ function Register() {
 
 		  <Field name="form">
             {({ field, form }) => (
-				<FormControl {...field} isRequired>
+				<FormControl flex="1 1 120px" {...field} isRequired>
   					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="country">Клас</FormLabel>
   					<Select variant="outline" id="form" fontFamily="Rubik" placeholder="Избери клас">
 					  	<option value="8a">8А</option>
@@ -324,7 +341,7 @@ function Register() {
             )}
           </Field>
 
-		  	<Field name="phone" >
+		  	<Field flex="1 1 120px" name="phone" >
             	{({ field, form }) => (
               	<FormControl {...field} isRequired isInvalid={form.errors.phone && form.touched.phone}>
 			  	<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="number">Телефон</FormLabel>
@@ -336,7 +353,7 @@ function Register() {
             )}
           	</Field>
 
-			<Field name="alergies" >
+			<Field flex="1 1 120px" name="alergies" >
 				{({ field, form }) => (
 				<FormControl {...field} isInvalid={form.errors.alergies && form.touched.alergies}>
 				<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Алергии</FormLabel>
@@ -344,7 +361,7 @@ function Register() {
 				</FormControl>
 				)}
 			</Field>
-			<Field name="tshirt_size">
+			<Field flex="1 1 120px" name="tshirt_size">
 				{({ field, form }) => (
 					<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
 						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Размер тениска</FormLabel>
@@ -357,11 +374,11 @@ function Register() {
 					</FormControl>
 				)}
 			</Field>
-				<Field name="food_preferences">
+				<Field flex="1 1 120px" name="food_preferences">
 				{({ field, form }) => (
 							<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
 								<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
-								<Select variant="outline" id="food_preferences" type="text" fontFamily="Rubik" placeholder="Избери размер">
+								<Select variant="outline" id="food_preferences" type="text" fontFamily="Rubik" placeholder="">
 									<option value={0}>Да</option>
 									<option value={2}>Не, веган съм</option>
 									<option value={1}>Не, вегетарианец съм</option>
@@ -369,7 +386,7 @@ function Register() {
 							</FormControl>
 						)}
 					</Field>
-			<Field name="online">
+			<Field flex="1 1 120px" name="online">
 				{({ field, form }) => (
 					<FormControl {...field}>
 					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
@@ -378,7 +395,7 @@ function Register() {
 				)}
 			</Field>
 
-			<Field name="is_active">
+			<Field flex="1 1 120px" name="is_active">
 				{({ field, form }) => (
 					<FormControl {...field}>
 					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">is_active(testing purposes)</FormLabel>
@@ -387,13 +404,7 @@ function Register() {
 				)}
 			</Field>
 
-			<Button
-				mt={4}
-				colorScheme="green"
-				border="0"
-				isLoading={props.isSubmitting}
-				type="submit"
-			>
+			<Button mt={4} colorScheme="green" border="0" isLoading={props.isSubmitting} type="submit">
 				Регистрирай ме
 			</Button>
         </form>
@@ -409,20 +420,23 @@ function Register() {
   }
 
 
-  function Login() {
-
+  function Login({logIn}) {
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [show, setShow] = React.useState(false);
 	const handleClick = () => setShow(!show);
 
-	return (
+	function handleClicked(event) {
+		logIn(true);
+   }
+
+	return(
 	  	<Popover autoFocus="false" placement="bottom">
 			<PopoverTrigger>
 		  		<Button marginLeft="auto" _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" >Логин</Button>
 			</PopoverTrigger>
 			<PopoverContent color="white" bg="white" borderColor="#a5cf9f">
-		  		<PopoverArrow />
+		  		<PopoverArrow/>
 		  			<PopoverBody>
 					  <Formik initialValues={{ username: "", password: "" }} 
 				onSubmit={(values, actions) => {
@@ -439,41 +453,31 @@ function Register() {
         					        console.log(response);
         					      	cookies.set('auth', response.data.access, { path: '/' })
 									cookies.set('refresh', response.data.refresh, { path: '/' })
+									handleClicked()
         					    })
         					    .catch(function (error) {
         					    console.log(error);
         					    })
-        					    .then(function () {
-        					    console.log(cookies.get('auth'))
-
-								// axios({
-        						// method: 'get',
-        						// url: 'https://hacktues.pythonanywhere.com/users/',
-        						// headers: 
-        						// { "Content-type": "Application/json",
-        						//   "Authorization": `Bearer ${cookies.get('auth')}`}
-								//   },)
-        					    })							
 											console.log(JSON.stringify(values, null, 1))
-          									actions.setSubmitting(false)
-        								}, 1000)
+											actions.setSubmitting(false)
+        								}, 1000);
       							}}>
     {props => (
 				<form onSubmit={props.handleSubmit}>
-				<Field name="username">
+				<Field name="email">
     		        {({ field, form }) => (
-    		          	<FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
+    		          	<FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
     		            	<FormLabel paddingTop="15px" color="black" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">
 									Discord username
 							</FormLabel>
-    		            	<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="username" />
-    		            	<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+    		            	<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="email" />
+    		            	<FormErrorMessage>{form.errors.email}</FormErrorMessage>
     		          	</FormControl>
     		        )}
     		    </Field>
 					<Field name="password" >
 						{({ field, form }) => (
-						<FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
+						<FormControl isRequired isInvalid={form.errors.password && form.touched.password}>
 							<FormLabel paddingTop="15px" paddingBottom="5px" color="black" fontFamily="Rubik" fontSize="15px" htmlFor="password">
 								Парола
 							</FormLabel>
@@ -498,6 +502,5 @@ function Register() {
 	</Popover>
 	)
 }
-
 
 export default Navbar;

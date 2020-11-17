@@ -6,8 +6,7 @@ import Numbers  from "../../components/archive/numbers"
 import archive from "./archive.json";
 import { AiOutlineTeam, AiOutlineUser, AiOutlineGift} from 'react-icons/ai';
 
-var stringArchive = JSON.stringify(archive);
-var data = JSON.parse(stringArchive);
+var data = JSON.parse(JSON.stringify(archive));
 
 const Hacktues = ({currData}) => {     
     return(
@@ -31,15 +30,6 @@ const Hacktues = ({currData}) => {
                 <Text textAlign="center"  color="black" fontWeight="semibold" as="h1" fontWeight="400" ><AiOutlineTeam/> {currData.teams}</Text>
                 </Flex>
         </Flex>
-        
-        
-        
-        
-        
-        
-        
-        
-        
         {/* <Numbers padding="1%" allParticipants={currData.allParticipants} teams={currData.teams} valuedProjects={currData.valuedProjects}/> */}
         <About description={currData.description}/>
     </Flex>

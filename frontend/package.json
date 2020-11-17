@@ -16,6 +16,7 @@
     "framer": "^1.2.9",
     "framer-motion": "latest",
     "jwt-decode": "^3.1.1",
+    "jwt-simple": "^0.5.6",
     "keen-slider": "^5.2.4",
     "lottie-web": "^5.7.3",
     "markdown-to-jsx": "^7.0.1",
