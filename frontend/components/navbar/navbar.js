@@ -69,6 +69,20 @@ const MenuItems = ({ children }) => (
   </Button>
 );
 
+function Logout() {
+	axios({
+		method: 'post',
+		url: 'https://hacktues.pythonanywhere.com/token/',
+		header: 'Content-Type: application/json',
+		data: {"email": "hacktues","password": "Go Green"}
+	})
+	.then(function (response) {
+		cookies.set('auth', response.data.access, { path: '/' })
+		cookies.set('refresh', response.data.refresh, { path: '/' })
+		Router.reload(window.location.pathname);
+	})
+}
+
 const Navbar = props => {
   	const [show, setShow] = React.useState(false);
   	const handleToggle = () => setShow(!show);
@@ -78,15 +92,18 @@ const Navbar = props => {
   	const btnRef = React.useRef();
 
 	var login;
+	var logout;
 
 	function handleChildClick(event) {
-		login = <MenuItems><Link href="/profile" ><a>Профил</a></Link></MenuItems>
+		login = <ProfileButton marginLeft="auto"/>
+		logout = <LogoutButton/>
 		Router.reload(window.location.pathname);
    }
 
-//    console.log(props.loggedin);
+
 	if(props.loggedin){
-		login = <MenuItems><Link href="/profile" ><a>Профил</a></Link></MenuItems>
+		login = <ProfileButton/>
+		logout = <LogoutButton/>
 	}
 	else{
 		login = 
@@ -127,6 +144,7 @@ const Navbar = props => {
 		<MenuItems><Link href="/about"><a>За Hack TUES</a></Link></MenuItems>
 		{/* <LoginStatus cookie={token}/> */}
 		{login}
+		{logout}
 		{/* <Parent/> */}
       </Flex>
 	<Box width="auto" display={{ md:"flex", lg: "none" }}>
@@ -143,10 +161,10 @@ const Navbar = props => {
       </Box>
     </Flex>
     
-	<Flex  display={{ md:"flex", lg: "none" }} width={{ xl: "100%", md: "100%" }} alignItems="center" flexGrow={1}>
-    	<Drawer size="xs" isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
+	<Flex display={{ md:"flex", lg: "none" }} width={{ xl: "100%", md: "100%" }} alignItems="center" flexGrow={1}>
+    	<Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         	<DrawerOverlay />
-        	<DrawerContent backgroundColor="#a5cf9f" color="#a5cf9f">
+        	<DrawerContent style={{width:"200px", minWidth:"1rem"}} backgroundColor="#a5cf9f" color="#a5cf9f">
           	<DrawerCloseButton border="0px" color="white" backgroundColor="#a5cf9f" _focus={{outline: "none"}} />
           	<DrawerHeader color="black" fontFamily="llpixel" fontWeight="400">Hack &nbsp;<span style={{"color":"green"}}>TUES 7</span></DrawerHeader>
 	  		<DrawerBody display="flex" flexDirection="column" flexWrap="wrap">
@@ -178,6 +196,7 @@ const Navbar = props => {
 					</Link>
 				</MenuItems>
 				{login}
+				{logout}
 			</DrawerBody>
         </DrawerContent>
     </Drawer>
@@ -186,7 +205,17 @@ const Navbar = props => {
   )
 };
 
+function ProfileButton(props){
+	return(
+	<Button marginLeft={["none","none","none","auto"]} _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px"><Link href="/profile" ><a>Профил</a></Link></Button>
+	)
+}
 
+function LogoutButton(params) {
+	return(
+	<Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" onClick={Logout} ><Link href="/" ><a>Излез</a></Link></Button>
+	)
+}
 
 function Register(props) {
 
@@ -433,7 +462,7 @@ function Register(props) {
 	return(
 	  	<Popover autoFocus="false" placement="bottom">
 			<PopoverTrigger>
-		  		<Button marginLeft="auto" _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" >Логин</Button>
+		  		<Button marginLeft="auto" _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" >Влез</Button>
 			</PopoverTrigger>
 			<PopoverContent color="white" bg="white" borderColor="#a5cf9f">
 		  		<PopoverArrow/>

@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { ChakraProvider, Box, Slide, Button, Text, Link, Flex } from "@chakra-ui/core"
+import { ChakraProvider, Box, Slide,SlideFade, Button, Text, Link, Flex } from "@chakra-ui/core"
 import { extendTheme } from "@chakra-ui/core";
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import 'keen-slider/keen-slider.min.css'
@@ -78,19 +78,21 @@ const Cookie = ({cookieConsent}) => {
 	}
 
 	if(!cookies.get('auth')){
+		if(!cookies.get('CookieConsent')){
 		return(
-			<Slide direction="bottom" in={value} style={{zIndex:10}}>
+			<Slide direction="bottom" in={value} style={{zIndex:10, bottom: "100px"}}>
 				<Flex flexDirection="row" flexWrap="wrap" p="40px" color="white" mt="4" mr="50px" ml="50px" rounded="lg" bg="#a5cf9f" shadow="md">
 					<Text>Съгласявам се с <Link>Terms of Service</Link> на HackTUES 7</Text>
 					<Button ml="auto" border="0" colorScheme="white" backgroundColor="transparent" onClick={() => {setValue(false); cookieConsentHandler();getNewToken()}}>Съгласявам се</Button>
 				</Flex>
 			</Slide>
 		)
-	}
-	else{
-		return(<Box display="none">{"xd"}</Box>)
+		
 	}
 }
+	return(<Box display="none">{"xd"}</Box>)
+}
+
 
 function getNewToken() {
 	axios({

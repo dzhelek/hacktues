@@ -22,7 +22,7 @@ const panels = [
 export default function Regulation() {
     return (
         <Box pb={["160px", "150px"]} pt="50px">
-            <Accordion allowMultiple={true} defaultIndex={[0]} >
+            <Accordion allowToggle allowMultiple defaultIndex={[0]} >
                 <GetPanelData lenght={panels.length} panels={panels}/>
             </Accordion>
         </Box>
