@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }) {
 				checkToken(jwt_decode(cookies.get('auth')))
 				if(jwt_decode(cookies.get('auth')).user_id != 3){
 					setLogin(1)
-					// getUsers()
+					getUsers()
 			}
 		}
 		else{
@@ -90,7 +90,7 @@ const Cookie = ({cookieConsent}) => {
 		
 	}
 }
-	return(<Box display="none">{"xd"}</Box>)
+	return(<Box display="none"></Box>)
 }
 
 

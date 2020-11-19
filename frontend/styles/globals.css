@@ -17,9 +17,17 @@ body {
   padding: 0;
   margin: 0;
   font-family: -Rubik, llpixel, sans-serif, LLPixel;
-  background: url("https://hacktues.pythonanywhere.com/static/frontend/background.svg") no-repeat fixed center;
   font-weight: 300;
   font-size: 1rem;
+
+
+
+
+  background: url("https://hacktues.pythonanywhere.com/static/frontend/background.svg") no-repeat center center fixed;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;  
 }
 
 a {
@@ -29,10 +37,4 @@ a {
 
 * {
   box-sizing: border-box;
-}
-
-.carousel__dot-group {
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 150px;
 }

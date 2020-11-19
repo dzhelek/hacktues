@@ -10,12 +10,12 @@ import {
 
 const axios = require('axios');
 import Cookies from 'universal-cookie';
-import {PhoneIcon} from '@chakra-ui/icons'
+import {PhoneIcon, ViewIcon, ViewOffIcon} from '@chakra-ui/icons'
 const cookies = new Cookies();
  
 
 
-export default function Regulation() {
+export default function Registration() {
     
 	const [show, setShow] = React.useState(false);
     const handleClick = () => setShow(!show);
@@ -63,7 +63,7 @@ export default function Regulation() {
 					{({ field, form }) => (
 					<FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
 						<FormLabel paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Име (на кирилица)</FormLabel>
-						<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="first_name" />
+						<Input _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="first_name" />
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
@@ -72,7 +72,7 @@ export default function Regulation() {
 					{({ field, form }) => (
 					<FormControl  isRequired isInvalid={form.errors.name && form.touched.name}>
 						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Фамилия (на кирилица)</FormLabel>
-						<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="last_name" />
+						<Input _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="last_name" />
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
@@ -81,7 +81,7 @@ export default function Regulation() {
 					{({ field, form }) => (
 					<FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
 						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="email">Имейл</FormLabel>
-						<Input {...field} id="email" type="email"/>
+						<Input _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="email" type="email"/>
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
@@ -91,29 +91,20 @@ export default function Regulation() {
 					{({ field, form }) => (
 					<FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
 						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Повторете имейла</FormLabel>
-						<Input type="text"/>
+						<Input _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} type="text"/>
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
-          </Field>
-		  <Field name="username">
-            {({ field, form }) => (
-              <FormControl isRequired isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Discord username</FormLabel>
-                <Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="username" />
-                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-              </FormControl>
-            )}
           </Field>
 			<Field name="password" >
 				{({ field, form }) => (
 				<FormControl isRequired isInvalid={form.errors.phone && form.touched.phone}>
 				<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Парола</FormLabel>
 				<InputGroup size="md">
-		<Input pr="4.5rem" type={show ? "text" : "password"} isRequired {...field} isInvalid={form.errors.password && form.touched.password}/>
+		<Input pr="4.5rem" type={show ? "text" : "password"} isRequired {...field} isInvalid={form.errors.password && form.touched.password} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field}/>
 			<InputRightElement width="4.5rem">
 				<Button fontFamily="Rubik" fontSize="15px" border="0" colorScheme="green" _focus={{outline:"none"}} h="1.75rem" size="sm" onClick={handleClick}>
-					{show ? "Hide" : "Show"}
+				{show ? <ViewOffIcon/> : <ViewIcon/>}
 				</Button>
 			</InputRightElement>
 			</InputGroup>
@@ -124,7 +115,7 @@ export default function Regulation() {
             {({ field, form }) => (
               <FormControl {...field} isRequired isInvalid={form.errors.password && form.touched.password}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Повторете паролата</FormLabel>
-                <Input type="password"/>
+                <Input _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} type="password"/>
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
@@ -134,7 +125,7 @@ export default function Regulation() {
             {({ field, form }) => (
 				<FormControl {...field} isRequired>
   					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="country">Клас</FormLabel>
-  					<Select variant="outline" id="form" fontFamily="Rubik" placeholder="Избери клас">
+  					<Select borderRadius={0} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} variant="outline" id="form" fontFamily="Rubik" placeholder="Избери клас">
 					  	<option value="8a">8А</option>
   						<option value="8b">8Б</option>
   						<option value="8v">8В</option>
@@ -166,7 +157,7 @@ export default function Regulation() {
 			  	<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="number">Телефон</FormLabel>
 			  	<InputGroup>
 			  		<InputLeftElement children={<PhoneIcon color="gray.300" />} />
-    				<Input/>
+    				<Input _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="phone"/>
   					</InputGroup>
               	</FormControl>
             )}
@@ -176,7 +167,7 @@ export default function Regulation() {
 				{({ field, form }) => (
 				<FormControl {...field} isInvalid={form.errors.alergies && form.touched.alergies}>
 				<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Алергии</FormLabel>
-				<Input type="text" id="alergies" variant="outline"/>
+				<Input type="text" id="alergies"  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field}/>
 				</FormControl>
 				)}
 			</Field>
@@ -184,7 +175,7 @@ export default function Regulation() {
 				{({ field, form }) => (
 					<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
 						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Размер тениска</FormLabel>
-						<Select variant="outline" id="tshirt_size" type="text" fontFamily="Rubik" placeholder="Избери размер">
+						<Select borderRadius={0} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} variant="outline" id="tshirt_size" type="text" fontFamily="Rubik" placeholder="Избери размер">
 							<option value="s">S</option>
 							<option value="m">M</option>
 							<option value="l">L</option>
@@ -197,7 +188,7 @@ export default function Regulation() {
 				{({ field, form }) => (
 							<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
 								<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
-								<Select variant="outline" id="food_preferences" type="text" fontFamily="Rubik" placeholder="Избери размер">
+								<Select borderRadius={0}  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} variant="outline" id="food_preferences" type="text" fontFamily="Rubik" placeholder="Избери размер">
 									<option value={0}>Да</option>
 									<option value={2}>Не, веган съм</option>
 									<option value={1}>Не, вегетарианец съм</option>

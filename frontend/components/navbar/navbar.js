@@ -95,7 +95,7 @@ const Navbar = props => {
 	var logout;
 
 	function handleChildClick(event) {
-		login = <ProfileButton marginLeft="auto"/>
+		login = <ProfileButton marginLeft={["none","none","none","auto"]}/>
 		logout = <LogoutButton/>
 		Router.reload(window.location.pathname);
    }
@@ -109,7 +109,7 @@ const Navbar = props => {
 		login = 
 			<>
 				<Login logIn={handleChildClick} />
-				<Register/>
+				<MenuItems><Link href="/registration"><a onClick={onClose}>Регистрация</a></Link></MenuItems>
 			</>;
 	}
 		
@@ -272,26 +272,26 @@ function Register(props) {
 				<Field initialValues={{first_name: '', last_name: '', email: '', password: ''}} name="first_name">
 					{({ field, form }) => (
 					<FormControl mr="5px" flex="1 1 400px" isRequired isInvalid={form.errors.name && form.touched.name}>
-						<FormLabel fontFamily="Rubik" fontSize="15px" htmlFor="text">Име (на кирилица)</FormLabel>
-						<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="first_name" />
+						<FormLabel fontFamily="Rubik" fontSize="15px">Име (на кирилица)</FormLabel>
+						<Input _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="first_name" />
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
           		</Field>
 				<Field name="last_name">
 					{({ field, form }) => (
-					<FormControl flex="1 1 400px" isRequired isInvalid={form.errors.name && form.touched.name}>
+					<FormControl mr="5px" flex="1 1 400px" isRequired isInvalid={form.errors.name && form.touched.name}>
 						<FormLabel fontFamily="Rubik" fontSize="15px" htmlFor="text">Фамилия (на кирилица)</FormLabel>
-						<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="last_name" />
+						<Input  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="last_name" />
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
 				</Field>
 				<Field name="email">
 					{({ field, form }) => (
-					<FormControl flex="1 1 120px" isRequired isInvalid={form.errors.email && form.touched.email}>
+					<FormControl mr="5px" flex="1 1 400px" isRequired isInvalid={form.errors.email && form.touched.email}>
 						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="email">Имейл</FormLabel>
-						<Input {...field} id="email" type="email"/>
+						<Input id="email" _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} type="email"/>
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
@@ -299,28 +299,19 @@ function Register(props) {
 
 				<Field name="reemail">
 					{({ field, form }) => (
-					<FormControl flex="1 1 120px" isRequired isInvalid={form.errors.email && form.touched.email}>
-						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Повторете имейла</FormLabel>
-						<Input type="text"/>
+					<FormControl borderTop={0} borderRight={0} borderLeft={0} mr="5px" flex="1 1 400px" isRequired isInvalid={form.errors.email && form.touched.email}>
+						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px">Повторете имейла</FormLabel>
+						<Input  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field}/>
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
           </Field>
-		  <Field name="username">
-            {({ field, form }) => (
-              <FormControl flex="1 1 120px" isRequired isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Discord username</FormLabel>
-                <Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="username" />
-                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-              </FormControl>
-            )}
-          </Field>
 			<Field name="password" >
 				{({ field, form }) => (
-				<FormControl flex="1 1 120px" isRequired isInvalid={form.errors.phone && form.touched.phone}>
+				<FormControl borderTop={0} borderRight={0} borderLeft={0} mr="5px" flex="1 1 400px" isRequired isInvalid={form.errors.phone && form.touched.phone}>
 				<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Парола</FormLabel>
 				<InputGroup size="md">
-		<Input pr="4.5rem" type={show ? "text" : "password"} isRequired {...field} isInvalid={form.errors.password && form.touched.password}/>
+		<Input pr="4.5rem" variant="flushed" type={show ? "text" : "password"} isRequired {...field} isInvalid={form.errors.password && form.touched.password}  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field}/>
 			<InputRightElement width="4.5rem">
 				<Button fontFamily="Rubik" fontSize="15px" border="0" colorScheme="green" _focus={{outline:"none"}} h="1.75rem" size="sm" onClick={handleClick}>
 					{show ? <ViewOffIcon/> : <ViewIcon/>}
@@ -332,9 +323,9 @@ function Register(props) {
 
 		  <Field  name="repassword">
             {({ field, form }) => (
-              <FormControl flex="1 1 120px" {...field} isRequired isInvalid={form.errors.password && form.touched.password}>
+              <FormControl mr="5px" flex="1 1 400px" {...field} isRequired isInvalid={form.errors.password && form.touched.password}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Повторете паролата</FormLabel>
-                <Input type="password"/>
+                <Input _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} type="password"/>
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
@@ -342,9 +333,9 @@ function Register(props) {
 
 		  <Field name="form">
             {({ field, form }) => (
-				<FormControl flex="1 1 120px" {...field} isRequired>
+				<FormControl mr="5px" flex="1 1 400px" {...field} isRequired>
   					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="country">Клас</FormLabel>
-  					<Select variant="outline" id="form" fontFamily="Rubik" placeholder="Избери клас">
+  					<Select borderRadius={0} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} variant="outline" id="form" fontFamily="Rubik" placeholder="Избери клас">
 					  	<option value="8a">8А</option>
   						<option value="8b">8Б</option>
   						<option value="8v">8В</option>
@@ -370,31 +361,31 @@ function Register(props) {
             )}
           </Field>
 
-		  	<Field flex="1 1 120px" name="phone" >
+		  	<Field name="phone" >
             	{({ field, form }) => (
-              	<FormControl {...field} isRequired isInvalid={form.errors.phone && form.touched.phone}>
+              	<FormControl mr="5px" flex="1 1 400px" {...field} isRequired isInvalid={form.errors.phone && form.touched.phone}>
 			  	<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="number">Телефон</FormLabel>
 			  	<InputGroup>
 			  		<InputLeftElement children={<PhoneIcon color="gray.300" />} />
-    				<Input/>
+    				<Input id="phone" _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field}/>
   					</InputGroup>
               	</FormControl>
             )}
           	</Field>
 
-			<Field flex="1 1 120px" name="alergies" >
+			<Field name="alergies" >
 				{({ field, form }) => (
-				<FormControl {...field} isInvalid={form.errors.alergies && form.touched.alergies}>
+				<FormControl mr="5px" flex="1 1 400px" {...field} isInvalid={form.errors.alergies && form.touched.alergies}>
 				<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Алергии</FormLabel>
-				<Input type="text" id="alergies" variant="outline"/>
+				<Input type="text" id="alergies"  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field}/>
 				</FormControl>
 				)}
 			</Field>
-			<Field flex="1 1 120px" name="tshirt_size">
+			<Field name="tshirt_size">
 				{({ field, form }) => (
-					<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
+					<FormControl mr="5px" flex="1 1 400px" {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
 						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Размер тениска</FormLabel>
-						<Select variant="outline" id="tshirt_size" type="text" fontFamily="Rubik" placeholder="Избери размер">
+						<Select borderRadius={0}  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="tshirt_size" type="text" fontFamily="Rubik" placeholder="Избери размер">
 							<option value="s">S</option>
 							<option value="m">M</option>
 							<option value="l">L</option>
@@ -403,11 +394,11 @@ function Register(props) {
 					</FormControl>
 				)}
 			</Field>
-				<Field flex="1 1 120px" name="food_preferences">
+				<Field name="food_preferences">
 				{({ field, form }) => (
-							<FormControl {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
+							<FormControl mr="5px" flex="1 1 400px" {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
 								<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
-								<Select variant="outline" id="food_preferences" type="text" fontFamily="Rubik" placeholder="">
+								<Select borderRadius={0}  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="food_preferences" type="text" fontFamily="Rubik" placeholder="">
 									<option value={0}>Да</option>
 									<option value={2}>Не, веган съм</option>
 									<option value={1}>Не, вегетарианец съм</option>
@@ -415,18 +406,18 @@ function Register(props) {
 							</FormControl>
 						)}
 					</Field>
-			<Field flex="1 1 120px" name="online">
+			<Field name="online">
 				{({ field, form }) => (
-					<FormControl {...field}>
+					<FormControl mr="5px" flex="1 1 400px" {...field}>
 					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
-					<Switch id="online" />
+					<Switch css={{boxShadow:"none"}} id="online" />
 					</FormControl>
 				)}
 			</Field>
 
-			<Field flex="1 1 120px" name="is_active">
+			<Field name="is_active">
 				{({ field, form }) => (
-					<FormControl {...field}>
+					<FormControl mr="5px" flex="1 1 400px" {...field}>
 					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">is_active(testing purposes)</FormLabel>
 					<Switch id="is_active" />
 					</FormControl>
@@ -462,7 +453,7 @@ function Register(props) {
 	return(
 	  	<Popover autoFocus="false" placement="bottom">
 			<PopoverTrigger>
-		  		<Button marginLeft="auto" _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" >Влез</Button>
+		  		<Button marginLeft={["none","none","none","auto"]} _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" >Влез</Button>
 			</PopoverTrigger>
 			<PopoverContent color="white" bg="white" borderColor="#a5cf9f">
 		  		<PopoverArrow/>
@@ -497,7 +488,7 @@ function Register(props) {
     		        {({ field, form }) => (
     		          	<FormControl isRequired isInvalid={form.errors.email && form.touched.email}>
     		            	<FormLabel paddingTop="15px" color="black" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">
-									Discord username
+									E-mail
 							</FormLabel>
     		            	<Input _focus={{outline:"none"}} outline="lightgrey" variant="outline" {...field} id="email" />
     		            	<FormErrorMessage>{form.errors.email}</FormErrorMessage>
