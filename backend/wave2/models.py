@@ -54,6 +54,7 @@ class User(AbstractUser):
     AbstractUser._meta.get_field('email')._unique = True
     AbstractUser._meta.get_field('email').null = True
     AbstractUser._meta.get_field('password').blank = True
+    AbstractUser._meta.get_field('username')._unique = False
 
     FORMS = [
         ('8a', '8 A'), ('8b', '8 B'), ('8v', '8 V'), ('8g', '8 G'),
@@ -76,6 +77,9 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
 
+    telephone = models.CharField(
+      max_length=9, validators=[RegexValidator(regex=r'^0\d{9}$')], blank=True
+    )
     technologies = models.ManyToManyField(Technology, blank=True)
     form = models.CharField(max_length=4, choices=FORMS)
     food_preferences = models.CharField(max_length=15,
