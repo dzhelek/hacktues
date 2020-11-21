@@ -1,10 +1,10 @@
 import React from 'react'
-import { Box, Flex, Text } from "@chakra-ui/core"
+import { Box, Flex, Text } from "@chakra-ui/react"
 import { Accordion,
     AccordionItem,
     AccordionButton,
     AccordionPanel,
-    AccordionIcon, } from "@chakra-ui/core";
+    AccordionIcon, } from "@chakra-ui/react";
 
 import {AddIcon, MinusIcon } from '@chakra-ui/icons'
 
