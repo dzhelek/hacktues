@@ -9,9 +9,6 @@ const axios = require('axios');
 
 export default function Reg(){
 
-	const [show, setShow] = React.useState(false);
-	const handleClick = () => setShow(!show);
-
     return(
     <Formik initialValues={{first_name: '', last_name: '', email: '', password: ''}}
 				onSubmit={(values, actions) => {
@@ -26,8 +23,9 @@ export default function Reg(){
 								data: data  
 								  },)
         					    .then(function (response) {
-        					        console.log(response);
-        					      // cookies.set('auth1', response.data.access, { path: '/' })
+        					        if(response.status == 201){
+										onClose()
+									}
         					    })
         					    .catch(function (error) {
         					    console.log(error);

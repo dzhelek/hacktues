@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { Box, Button, Input, InputGroup, InputRightElement, useToast } from "@chakra-ui/react";
 import { FormControl, FormLabel, FormErrorMessage, FormHelperText } from "@chakra-ui/react";
 
 import { Formik, Field, Form } from 'formik';
@@ -18,6 +18,7 @@ export default function Login({logIn}) {
 	const [show, setShow] = React.useState(false);
 	const handleClick = () => setShow(!show);
 
+	const toast = useToast()
 	return(
 	  	<Box backgroundColor="white" p="25px" mt="50px" ml="10px" mr="10px" rounded="lg">
 			<Formik initialValues={{ email: "", password: "" }} 
@@ -35,7 +36,13 @@ export default function Login({logIn}) {
 						console.log(response);
 					  	cookies.set('auth', response.data.access, { path: '/' })
 						cookies.set('refresh', response.data.refresh, { path: '/' })
-						Router.push('/')
+						toast({
+          title: "Влизането успешно.",
+          description: "Влизането в профила е успешно.",
+          status: "success",
+          duration: 9000
+        })
+				
 					})
 					.catch(function (error) {
 					console.log(error);
