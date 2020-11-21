@@ -1,5 +1,5 @@
-import { Box, Flex, Text } from "@chakra-ui/core";
-import { Tag, TagIcon, TagLabel, TagCloseButton, Icon, Link } from "@chakra-ui/core";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { Tag, TagIcon, TagLabel, TagCloseButton, Icon, Link } from "@chakra-ui/react";
 
 const Card = (props) => {
 

@@ -1,4 +1,4 @@
-import { Tag, TagIcon, TagLabel, TagCloseButton, Icon, Link } from "@chakra-ui/core";
+import { Tag, TagIcon, TagLabel, TagCloseButton, Icon, Link } from "@chakra-ui/react";
 import {MdBrush} from 'react-icons/md'
 import {FaAngular} from 'react-icons/fa'
 import {FiServer} from 'react-icons/fi'
