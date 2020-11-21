@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box, Text } from '@chakra-ui/core'
+import { Flex, Box, Text } from '@chakra-ui/react'
 import Card  from "../../components/archive/card"
 import About  from "../../components/archive/about"
 import Numbers  from "../../components/archive/numbers"
