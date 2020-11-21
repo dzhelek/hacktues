@@ -77,7 +77,7 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
 
-    telephone = models.CharField(
+    phone = models.CharField(
       max_length=9, validators=[RegexValidator(regex=r'^0\d{9}$')], blank=True
     )
     technologies = models.ManyToManyField(Technology, blank=True)

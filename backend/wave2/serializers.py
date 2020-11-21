@@ -72,7 +72,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ('url', 'is_active', 'first_name', 'last_name', 'email',
                   'technologies', 'form', 'food_preferences', 'tshirt_size',
-                  'alergies', 'is_online', 'password', 'team_set', 'discord_id')
+                  'alergies', 'is_online', 'password', 'phone',
+                  'team_set', 'discord_id')
         read_only_fields = 'team_set',
         extra_kwargs = {'password': {'write_only': True}}
 
