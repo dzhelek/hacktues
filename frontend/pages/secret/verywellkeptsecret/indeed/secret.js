@@ -1,6 +1,6 @@
 import Lottie from 'react-lottie';
 import * as animationData from './anim.json'
-import { Box } from "@chakra-ui/core";
+import { Box } from "@chakra-ui/react";
 import {useRouter} from "next/router"
 
 export default function Home() {
