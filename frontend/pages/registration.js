@@ -1,12 +1,12 @@
 
-import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/core";
+import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/react";
 import { Formik, Field } from 'formik';
 import {
 	FormControl,
 	FormLabel,
 	FormErrorMessage,
 	FormHelperText,
- } from "@chakra-ui/core";
+ } from "@chakra-ui/react";
 
 const axios = require('axios');
 import Cookies from 'universal-cookie';
