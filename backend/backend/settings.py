@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'wave2.apps.Wave2Config',
     'rest_framework',
     'corsheaders',
+    'django_email_verification',
 ]
 
 REST_FRAMEWORK = {
@@ -59,6 +60,17 @@ CORS_ALLOW_ALL_ORIGINS = True
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+EMAIL_ACTIVE_FIELD = 'is_active'
+EMAIL_SERVER = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_ADDRESS = 'joandzhel@gmail.com'
+EMAIL_FROM_ADDRESS = 'noreply@hacktues.com'
+EMAIL_PASSWORD = 'zakbrgqonxownnqy'
+EMAIL_MAIL_SUBJECT = 'hacktues mail confirmation'
+EMAIL_MAIL_HTML = 'mail_body.html'
+EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
+EMAIL_PAGE_DOMAIN = 'https://hacktues.pythonanywhere.com/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

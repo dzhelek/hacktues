@@ -3,3 +3,4 @@ djangorestframework==3.11.1
 mysqlclient==2.0.1
 django-cors-headers==3.5.0
 djangorestframework-simplejwt==4.5.0
+django-email-verification==0.0.7

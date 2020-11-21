@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.utils import timezone
+from django_email_verification import sendConfirm
 from rest_framework import serializers
 
 from .models import FieldValidationDate, SmallInteger, Team, Technology, User
@@ -74,13 +75,14 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
                   'technologies', 'form', 'food_preferences', 'tshirt_size',
                   'alergies', 'is_online', 'password', 'phone',
                   'team_set', 'discord_id')
-        read_only_fields = 'team_set',
+        read_only_fields = 'team_set', 'is_active'
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         instance = super().create(validated_data)
         instance.set_password(instance.password)
         instance.save()
+        sendConfirm(instance)
         return instance
 
     def update(self, instance, validated_data):
