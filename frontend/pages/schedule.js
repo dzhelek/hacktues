@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react'
 import Day from "../components/schedule/day"
 import { IoIosLaptop, IoMdPin } from "react-icons/io";
-import { Flex, Box, Button} from '@chakra-ui/core'
+import { Flex, Box, Button} from '@chakra-ui/react'
 import { AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
-import { IconButton } from "@chakra-ui/core"
+import { IconButton } from "@chakra-ui/react"
 
 import Entry from "../components/schedule/entry"
 import { useKeenSlider } from 'keen-slider/react'

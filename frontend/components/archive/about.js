@@ -1,12 +1,12 @@
 import React from 'react'
-import { Box, Collapse, Button, Text } from "@chakra-ui/core"
-import { useDisclosure } from "@chakra-ui/core"
+import { Box, Collapse, Button, Text } from "@chakra-ui/react"
+import { useDisclosure } from "@chakra-ui/react"
 const About = (props) => {
 
     const { isOpen, onToggle } = useDisclosure()
 
     return(
-    <Box backgroundColor="white" pt="10px" display="block" pb="25px" mb={["100px", "30px"]} borderColor="black" borderWidth="10px" rounded="lg" overflow="hidden">
+    <Box mr={["15px","15px","none","none"]} ml={["15px","15px","none","none"]} backgroundColor="white" pt="10px" display="block" pb="25px" mb={["100px", "30px"]} borderColor="black" borderWidth="10px" rounded="lg" overflow="hidden">
         <Text pl="25px" fontWeight="semibold" color="black" mt="1" as="h2" lineHeight="tight">
             За събитието
         </Text>

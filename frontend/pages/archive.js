@@ -1,4 +1,4 @@
-import { Flex, Text, Divider, Button} from '@chakra-ui/core'
+import { Flex, Text, Divider, Button} from '@chakra-ui/react'
 import archive from "./archive/archive.json";
 import TextTruncate from 'react-text-truncate';
 import Link from 'next/link'

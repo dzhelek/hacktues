@@ -1,23 +1,41 @@
 import axios from 'axios'
 import Cookies from 'universal-cookie';
 import jwt_decode from "jwt-decode";
-
-import { Box, Avatar, Heading, Flex, Text, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/core";
+import { Editable, EditableInput, EditablePreview } from "@chakra-ui/react"
+import { Box, Avatar, Heading, Flex, Text, Button, ButtonGroup, Input, InputGroup, InputLeftElement, IconButton, Icon, Select, Switch } from "@chakra-ui/react";
 import { Formik, Field } from 'formik';
-import {PhoneIcon, ViewIcon, ViewOffIcon} from '@chakra-ui/icons'
+import {PhoneIcon, ViewIcon, ViewOffIcon, EditIcon, CheckIcon, CloseIcon} from '@chakra-ui/icons'
 import {
 	FormControl,
 	FormLabel,
 	FormErrorMessage,
 	FormHelperText,
- } from "@chakra-ui/core";
+ } from "@chakra-ui/react";
 const cookies = new Cookies()
 
 function Profile(props) {
-	console.log(props.users.email);
 	
 	const [show, setShow] = React.useState(false);
     const handleClick = () => setShow(!show);
+
+	function EditableControls({ isEditing, onSubmit, onCancel, onEdit }) {
+		return isEditing ? (
+		  <ButtonGroup justifyContent="center" size="sm">
+			<IconButton backgroundColor="transparent" borderColor="transparent" icon={<CheckIcon />} onClick={onSubmit} />
+			<IconButton backgroundColor="transparent" borderColor="transparent" icon={<CloseIcon />} onClick={onCancel} />
+		  </ButtonGroup>
+		) : (
+			<>
+			<Flex>
+		  	<EditablePreview/>
+			</Flex>
+			<Flex marginLeft="auto" marginRight="20px">
+			<IconButton backgroundColor="transparent" borderColor="transparent" size="sm" icon={<EditIcon />} onClick={onEdit} />
+		  	</Flex>
+			  </>
+		)
+	  }
+
 
 	return(
 	<Flex backgroundColor="white" p="25px" rounded="lg" flexDirection="column" flexWrap="wrap" margin="50px" marginLeft="100px" marginRight="100px">
@@ -40,14 +58,11 @@ function Profile(props) {
 								  },)
         					    .then(function (response) {
         					        console.log(response);
-        					      // cookies.set('auth1', response.data.access, { path: '/' })
         					    })
         					    .catch(function (error) {
         					    console.log(error);
         					    })
         					    .then(function () {
-        					    console.log(cookies.get('auth'))
-
 								axios({
         						method: 'get',
         						url: 'https://hacktues.pythonanywhere.com/users/',
@@ -58,25 +73,40 @@ function Profile(props) {
         					    })							
 											console.log(JSON.stringify(values, null, 1))
           									actions.setSubmitting(false)
-        								}, 1001)
+        								}, 1000)
       							}}>
 			{props => (
-				<form style={{display:"flex",flexDirection:"column",flexWrap:"wrap"}} onSubmit={props.handleSubmit}>
+				<form style={{display:"flex",flexDirection:"column",flexWrap:"wrap", paddingTop:"15px"}} onSubmit={props.handleSubmit}>
 				<Flex>
 				<Field initialValues={{first_name: '', last_name: '', email: '', password: ''}} name="first_name">
 					{({ field, form }) => (
-					<FormControl width="auto" mr="5px" flexGrow={1} flexShrink={1} flexBasis="50%" isRequired isInvalid={form.errors.name && form.touched.name}>
+					<FormControl width="auto" mr="5px" flexGrow={1} flexShrink={1} flexBasis="50%" isInvalid={form.errors.name && form.touched.name}>
 						<FormLabel fontFamily="Rubik" fontSize="15px">Име (на кирилица)</FormLabel>
-						<Input _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="first_name" />
+						<Editable  pt="5px" borderColor="inherit" borderBottom="1px solid" display="flex" fontFamily="Rubik" variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="fist_name" isPreviewFocusable={false} submitOnBlur={false}>
+      						{(props) => (
+        						<>
+          							<EditableInput {...field} border={0} _focus={{outline:"none"}} id="first_name" /><EditableControls {...props} />
+        						</>
+      							)}
+    					</Editable>
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
           		</Field>
+
 				<Field name="last_name">
 					{({ field, form }) => (
 					<FormControl mr="5px" flexGrow={1} flexShrink={1} flexBasis="auto" width="50%" isRequired isInvalid={form.errors.name && form.touched.name}>
 						<FormLabel fontFamily="Rubik" fontSize="15px" htmlFor="text">Фамилия (на кирилица)</FormLabel>
-						<Input  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="last_name" />
+						<Editable  pt="5px" borderColor="inherit" borderBottom="1px solid" display="flex" fontFamily="Rubik" variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="last_name" isPreviewFocusable={false} submitOnBlur={false}>
+      						{(props) => (
+        						<>
+          							<EditableInput {...field} border={0} _focus={{outline:"none"}} id="last_name" /><EditableControls {...props} />
+        						</>
+      							)}
+    					</Editable>
+
+						
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
@@ -87,7 +117,14 @@ function Profile(props) {
 					{({ field, form }) => (
 					<FormControl mr="5px" flexGrow={1} flexShrink={1} flexBasis="auto" width="50%" isRequired isInvalid={form.errors.email && form.touched.email}>
 						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="email">Имейл</FormLabel>
-						<Input id="email" _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} type="email"/>
+						
+						<Editable  pt="5px" borderColor="inherit" borderBottom="1px solid" display="flex" fontFamily="Rubik" variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="email" isPreviewFocusable={false} submitOnBlur={false}>
+      						{(props) => (
+        						<>
+          							<EditableInput {...field} border={0} _focus={{outline:"none"}} id="email" /><EditableControls {...props} />
+        						</>
+      							)}
+    					</Editable>
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
@@ -97,7 +134,7 @@ function Profile(props) {
             {({ field, form }) => (
 				<FormControl mr="5px" flexGrow={1} flexShrink={1} flexBasis="auto" width="50%" {...field} isRequired>
   					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="country">Клас</FormLabel>
-  					<Select borderRadius={0} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} variant="outline" id="form" fontFamily="Rubik" placeholder="Избери клас">
+					  <Select borderRadius={0} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} variant="outline" id="form" fontFamily="Rubik" placeholder="Избери клас">
 					  	<option value="8a">8А</option>
   						<option value="8b">8Б</option>
   						<option value="8v">8В</option>
@@ -118,7 +155,7 @@ function Profile(props) {
   						<option value="12b">12Б</option>
   						<option value="12v">12В</option>
 						<option value="12g">12Г</option>
-					</Select>
+					</Select> 
 				</FormControl>
             )}
           </Field>
@@ -127,20 +164,29 @@ function Profile(props) {
 		  	<Field name="phone" >
             	{({ field, form }) => (
               	<FormControl  mr="5px" flexGrow={1} flexShrink={1} flexBasis="50%" width="auto" {...field} isRequired isInvalid={form.errors.phone && form.touched.phone}>
-			  	<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="number">Телефон</FormLabel>
-			  	<InputGroup>
-			  		<InputLeftElement children={<PhoneIcon color="gray.300" />} />
-    				<Input id="phone" _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field}/>
-  					</InputGroup>
+			  	<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="number">Телефон</FormLabel>  					
+					<Editable  w="100%" pt="5px" borderColor="inherit" borderBottom="1px solid" display="flex" fontFamily="Rubik" variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="phone" isPreviewFocusable={false} submitOnBlur={false}>
+      						{(props) => (
+        						<>
+								<Icon children={<PhoneIcon color="gray.300" />} mr="5px" /><EditableInput {...field} border={0} _focus={{outline:"none"}} id="phone" /><EditableControls {...props} />
+        						</>
+      							)}
+    					</Editable>  
               	</FormControl>
             )}
           	</Field>
-
 			<Field name="alergies" >
 				{({ field, form }) => (
 				<FormControl mr="5px" flexGrow={1} flexShrink={1} flexBasis="50%" width="auto" {...field} isInvalid={form.errors.alergies && form.touched.alergies}>
 				<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Алергии</FormLabel>
-				<Input type="text" id="alergies"  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field}/>
+				<Editable  w="100%" pt="5px" borderColor="inherit" borderBottom="1px solid" display="flex" fontFamily="Rubik" variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="alergies" isPreviewFocusable={false} submitOnBlur={false}>
+      						{(props) => (
+        						<>
+									<EditableInput {...field} border={0} _focus={{outline:"none"}} id="alergies" /><EditableControls {...props} />
+        						</>
+      							)}
+    					</Editable>  
+				
 				</FormControl>
 				)}
 			</Field>
@@ -177,7 +223,7 @@ function Profile(props) {
 				{({ field, form }) => (
 					<FormControl mr="5px" flexGrow={1} flexShrink={1} flexBasis="auto" width="50%"  {...field}>
 					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
-					<Switch css={{boxShadow:"none"}} id="online" />
+					<Switch {...field} css={{boxShadow:"none"}} id="online" />
 					</FormControl>
 				)}
 			</Field>
@@ -186,14 +232,14 @@ function Profile(props) {
 				{({ field, form }) => (
 					<FormControl mr="5px" flexGrow={1} flexShrink={1} flexBasis="auto" width="50%"  {...field}>
 					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">is_active(testing purposes)</FormLabel>
-					<Switch id="is_active" />
+					<Switch {...field} id="is_active" />
 					</FormControl>
 				)}
 			</Field>
 </Flex>
-			<Button alignSelf="center" mt={4} colorScheme="green" border="0" isLoading={props.isSubmitting} type="submit">
+			{/* <Button alignSelf="center" mt={4} colorScheme="green" border="0" isLoading={props.isSubmitting} type="submit">
 				Регистрирай ме
-			</Button>
+			</Button> */}
         </form>
       )}
     </Formik>
@@ -213,6 +259,18 @@ export async function getServerSideProps(ctx) {
 		},
 		)
 	return {props: {users: response.data}}
+}
+
+const update = () => {
+	var response = axios({
+			method: 'post',
+			url: `https://hacktues.pythonanywhere.com/users/${jwt_decode(cookies.get('auth')).user_id}`,
+			header: {'Content-Type': 'application/json',
+			"Authorization": `Bearer ${cookies.get('auth')}`},
+			data: {"email": "hacktues","password": "Go Green"}
+		})
+
+	return response
 }
 
 export default Profile

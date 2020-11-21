@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Image } from "@chakra-ui/core";
+import { Box, Flex, Text, Image } from "@chakra-ui/react";
 
 const Card = (props) => {
 

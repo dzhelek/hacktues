@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Box, Heading, Flex, Text, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/core";
+import { Box, Heading, Flex, Text, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch } from "@chakra-ui/react";
 
 import { FacebookProvider, Page } from 'react-facebook';
 

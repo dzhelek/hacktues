@@ -1,7 +1,6 @@
 import '../styles/globals.css'
-import { ChakraProvider, Box, Slide,SlideFade, Button, Text, Link, Flex } from "@chakra-ui/core"
-import { extendTheme } from "@chakra-ui/core";
-import 'pure-react-carousel/dist/react-carousel.es.css';
+import { ChakraProvider, Box, Slide,SlideFade, Button, Text, Link, Flex } from "@chakra-ui/react"
+import { extendTheme } from "@chakra-ui/react";
 import 'keen-slider/keen-slider.min.css'
 import Navbar from '../components/navbar/navbar'
 import Footer from '../components/footer/footer'
@@ -9,8 +8,8 @@ import React, {useEffect} from 'react'
 import Cookies from 'universal-cookie';
 import axios from 'axios'
 import jwt_decode from "jwt-decode";
-import { createBreakpoints } from "@chakra-ui/theme-tools"
-import { useControllableState } from "@chakra-ui/core"
+import { createBreakpoints } from "@chakra-ui/react"
+import { useControllableState } from "@chakra-ui/react"
 
 const cookies = new Cookies();
 
@@ -50,7 +49,7 @@ function MyApp({ Component, pageProps }) {
 				checkToken(jwt_decode(cookies.get('auth')))
 				if(jwt_decode(cookies.get('auth')).user_id != 3){
 					setLogin(1)
-					getUsers()
+					// getUsers()
 			}
 		}
 		else{
@@ -64,12 +63,12 @@ function MyApp({ Component, pageProps }) {
   	<ChakraProvider resetCSS={false} theme={theme}>
   		<Navbar loggedin={logged} />
   	  	<Component {...pageProps} />
-			<Cookie></Cookie>
+			<Cookie/>
   	  	<Footer/>
   	</ChakraProvider>) 
 }
 
-const Cookie = ({cookieConsent}) => {
+const Cookie = () => {
 	
 	const [value, setValue] = useControllableState({defaultValue: true})
 	
@@ -80,7 +79,7 @@ const Cookie = ({cookieConsent}) => {
 	if(!cookies.get('auth')){
 		if(!cookies.get('CookieConsent')){
 		return(
-			<Slide direction="bottom" in={value} style={{zIndex:10, bottom: "100px"}}>
+			<Slide direction="bottom" in={value} style={{zIndex:10, bottom:"150px"}}>
 				<Flex flexDirection="row" flexWrap="wrap" p="40px" color="white" mt="4" mr="50px" ml="50px" rounded="lg" bg="#a5cf9f" shadow="md">
 					<Text>Съгласявам се с <Link>Terms of Service</Link> на HackTUES 7</Text>
 					<Button ml="auto" border="0" colorScheme="white" backgroundColor="transparent" onClick={() => {setValue(false); cookieConsentHandler();getNewToken()}}>Съгласявам се</Button>
@@ -90,7 +89,7 @@ const Cookie = ({cookieConsent}) => {
 		
 	}
 }
-	return(<Box display="none"></Box>)
+	return(<Box></Box>)
 }
 
 

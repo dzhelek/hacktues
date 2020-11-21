@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Button, Text, Link } from "@chakra-ui/core";
+import { Flex, Box, Button, Text, Link } from "@chakra-ui/react";
 
 let time;
 

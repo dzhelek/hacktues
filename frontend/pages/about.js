@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Text } from "@chakra-ui/core";
+import { Flex, Text } from "@chakra-ui/react";
 import Card from '../components/about/card'
 import archive from "./about.json";
 
@@ -32,7 +32,7 @@ const Panel = (props) => {
         <Flex display="block" pt="10px" pl="10px" pr="10px" marginLeft={["20px", "20px", "100px", "100px"]} marginRight={["20px", "20px", "100px", "100px"]} marginTop="5%"  flexDirection="column" flexWrap="wrap" justifyContent="center" height="auto" borderColor="black" borderWidth="10px" rounded="lg" backgroundColor="white" overflow="hidden">
             <Text paddingLeft="10px">
             <span style={{"font-size":"25px","fontFamily":"llpixel"}}>Hack&nbsp;</span>
-                <span style={{"font-size":"25px","font-family":"llpixel","color":"green"}}>
+                <span style={{"fontSize":"25px","fontFamily":"llpixel","color":"green"}}>
                     TUES
                 </span>&nbsp;
                  е първият и единствен по рода си хакатон в България, организиран от ученици за ученици. Събитието стартира през 2015г. като инициатива на ученици от &nbsp;
