@@ -11,7 +11,10 @@ import {
 	FormErrorMessage,
 	FormHelperText,
  } from "@chakra-ui/react";
-const cookies = new Cookies()
+
+ import { useControllableProp, useControllableState } from "@chakra-ui/react"
+ const cookies = new Cookies()
+
 
 function Profile(props) {
 	
@@ -27,6 +30,53 @@ function Profile(props) {
 		) : (
 			<>
 			<Flex>
+		  	<EditablePreview/>
+			</Flex>
+			<Flex marginLeft="auto" marginRight="20px">
+			<IconButton backgroundColor="transparent" borderColor="transparent" size="sm" icon={<EditIcon />} onClick={onEdit} />
+		  	</Flex>
+			  </>
+		)
+	  }
+
+	  function EditableSelectControls({ isEditing, onSubmit, onCancel, onEdit, field }, def) {
+
+		const [value, setValue] = useControllableState({ defaultValue: def })
+ 		const handleChange = (e) => {
+    		setValue(e.target.value)
+  		}
+
+		return isEditing ? (
+		  <ButtonGroup justifyContent="center" size="sm">
+		  	 <Select value={value} onChange={handleChange} borderRadius={0} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} variant="outline" id="form" fontFamily="Rubik" placeholder="Избери клас">
+					  	<option value="8a">8А</option>
+  						<option value="8b">8Б</option>
+  						<option value="8v">8В</option>
+						<option value="8g">8Г</option>
+					  	<option value="9a">9А</option>
+  						<option value="9b">9Б</option>
+  						<option value="9v">9В</option>
+						<option value="9g">9Г</option>
+					  	<option value="10a">10А</option>
+  						<option value="10b">10Б</option>
+  						<option value="10v">10В</option>
+						<option value="10g">10Г</option>
+					  	<option value="11a">11А</option>
+  						<option value="11b">11Б</option>
+  						<option value="11v">11В</option>
+						<option value="11g">11Г</option>
+					  	<option value="12a">12А</option>
+  						<option value="12b">12Б</option>
+  						<option value="12v">12В</option>
+						<option value="12g">12Г</option>
+					</Select>
+			<IconButton backgroundColor="transparent" borderColor="transparent" icon={<CheckIcon />} onClick={onSubmit} />
+			<IconButton backgroundColor="transparent" borderColor="transparent" icon={<CloseIcon />} onClick={onCancel} />
+		  </ButtonGroup>
+		) : (
+			<>
+			<Flex>
+			<EditableInput {...field} border={0} _focus={{outline:"none"}} id="form" />
 		  	<EditablePreview/>
 			</Flex>
 			<Flex marginLeft="auto" marginRight="20px">
@@ -105,8 +155,6 @@ function Profile(props) {
         						</>
       							)}
     					</Editable>
-
-						
 						<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 					</FormControl>
 					)}
@@ -134,28 +182,14 @@ function Profile(props) {
             {({ field, form }) => (
 				<FormControl mr="5px" flexGrow={1} flexShrink={1} flexBasis="auto" width="50%" {...field} isRequired>
   					<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="country">Клас</FormLabel>
-					  <Select borderRadius={0} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} variant="outline" id="form" fontFamily="Rubik" placeholder="Избери клас">
-					  	<option value="8a">8А</option>
-  						<option value="8b">8Б</option>
-  						<option value="8v">8В</option>
-						<option value="8g">8Г</option>
-					  	<option value="9a">9А</option>
-  						<option value="9b">9Б</option>
-  						<option value="9v">9В</option>
-						<option value="9g">9Г</option>
-					  	<option value="10a">10А</option>
-  						<option value="10b">10Б</option>
-  						<option value="10v">10В</option>
-						<option value="10g">10Г</option>
-					  	<option value="11a">11А</option>
-  						<option value="11b">11Б</option>
-  						<option value="11v">11В</option>
-						<option value="11g">11Г</option>
-					  	<option value="12a">12А</option>
-  						<option value="12b">12Б</option>
-  						<option value="12v">12В</option>
-						<option value="12g">12Г</option>
-					</Select> 
+					<Editable  pt="5px" borderColor="inherit" borderBottom="1px solid" display="flex" fontFamily="Rubik" variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="email" isPreviewFocusable={false} submitOnBlur={false}>
+      						{(props) => (
+        						<>
+          							<EditableSelectControls {...props} />
+        						</>
+      							)}
+    				</Editable>
+
 				</FormControl>
             )}
           </Field>

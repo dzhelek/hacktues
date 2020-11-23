@@ -500,7 +500,13 @@ function Register(props) {
 						onClose(true)
 					})
 					.catch(function (error) {
-					console.log(error);
+						// console.log(error.response.data.detail);
+						toast({
+        					  title: "Влизането не е успешно.",
+        					  description: error.response.data.detail,
+        					  status: "error",
+        					  duration: 9000
+        					})
 					})
 								console.log(JSON.stringify(values, null, 1))
 								actions.setSubmitting(false)

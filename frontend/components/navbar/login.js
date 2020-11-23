@@ -29,13 +29,19 @@ export default function Log({logIn}){
 								data: data  
 								  },)
         					    .then(function (response) {
-        					        console.log(response);
-        					      	cookies.set('auth', response.data.access, { path: '/' })
-									cookies.set('refresh', response.data.refresh, { path: '/' })
-									handleClicked()
+        					        console.log(response.detail);
+        					      	// cookies.set('auth', response.data.access, { path: '/' })
+									// cookies.set('refresh', response.data.refresh, { path: '/' })
+									// handleClicked()
         					    })
         					    .catch(function (error) {
-        					    console.log(error);
+        					    // console.log(error.response);
+								toast({
+        					  			title: "Влизането не е успешно.",
+        					  			description: error.response.data.detail,
+        					  			status: "error",
+        					  			duration: 9000
+        					})
         					    })
 											console.log(JSON.stringify(values, null, 1))
 											actions.setSubmitting(false)
