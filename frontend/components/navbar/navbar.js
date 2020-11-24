@@ -248,6 +248,7 @@ function Register(props) {
 				onSubmit={(values, actions) => {
         			setTimeout(() => {
 							var data = JSON.stringify(values, null, 1)
+							console.log(data)
         					axios({
         						method: 'post',
         						url: 'https://hacktues.pythonanywhere.com/users/',
