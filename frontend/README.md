@@ -11,3 +11,8 @@
 
 # ideas
 - [] facebook post viewer
+
+
+# about page
+
+- [] line-height
