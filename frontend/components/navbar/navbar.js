@@ -19,9 +19,11 @@ import Link from 'next/link'
 import Reg from './form'
 import Log from './login'
 import { useRouter } from "next/router";
-
+import { Checkbox, CheckboxGroup } from "@chakra-ui/react"
 const cookies = new Cookies();
 const axios = require('axios');
+
+import styled from '@emotion/styled'
 
 const MenuItems = ({ children }) => (
 	<Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} _focus={{outline:"none"}} fontFamily="Rubik" color="white" bg="transparent" border="0px" borderWidth="0px">
@@ -53,6 +55,7 @@ const Navbar = props => {
   	const btnRef = React.useRef();
 
 	
+
 	const { isMobile } = useDeviceDetect();
 
 	var login;
@@ -332,7 +335,7 @@ function Register(props) {
 
 		  <Field name="repassword">
             {({ field, form }) => (
-              <FormControl flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px" {...field} isRequired isInvalid={form.errors.repassword && form.touched.repassword}>
+              <FormControl flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px" isRequired isInvalid={form.errors.repassword && form.touched.repassword}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Повторете паролата</FormLabel>
                 <Input _invalid={{boxShadow: "0 1px 0 0 #E53E3E", borderColor:"#E53E3E"}} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} type="password"/>
                 <FormErrorMessage>{form.errors.repassword}</FormErrorMessage>
@@ -406,37 +409,37 @@ function Register(props) {
 			</Field>
 				<Field name="food_preferences">
 				{({ field, form }) => (
-							<FormControl flexGrow={1} w={["100%","100%","100%","33%"]} w="33%" mr="5px" {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
+							<FormControl flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px" {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
 								<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
 								<Select borderRadius={0}  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="food_preferences" type="text" fontFamily="Rubik" placeholder="">
 									<option value={0}>Да</option>
-									<option value={2}>Не, веган съм</option>
-									<option value={1}>Не, вегетарианец съм</option>
+									<option value={"Vgn"}>Не, веган съм</option>
+									<option value={"Vgnt"}>Не, вегетарианец съм</option>
 								</Select>
 							</FormControl>
 						)}
 					</Field>
-			<Field name="online">
+			<Field name="is_online">
 				{({ field, form }) => (
-					<FormControl flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px" {...field}>
-					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
-					<Switch css={{boxShadow:"none"}} id="online" />
+					<FormControl display="flex" flexDirection="row" flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px" {...field}>
+					<FormLabel alignSelf="center" paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
+					<Switch colorScheme="green" alignSelf="center" css={{boxShadow:"none"}} id="is_online" />
 					</FormControl>
 				)}
 			</Field>
 
-			<Field name="is_active">
+			<Field name="regulation">
 				{({ field, form }) => (
-					<FormControl mr="5px" flexGrow={1} w={["100%","100%","100%","33%"]}{...field}>
-					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">is_active(testing purposes)</FormLabel>
-					<Switch id="is_active" />
+					<FormControl display="flex" flexDirection="row" flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px">
+					<CustomCheckbox jsx={{}} colorScheme="green" isRequired id="regulation" fontStyle="Rubik" >Съгласен съм с <Link href="/regulation"><a style={{color:"green", }} onClick={onClose}>регламента на хакатона</a></Link></CustomCheckbox>
 					</FormControl>
 				)}
 			</Field>
+
 
 			{/* <Button variant="ghost">Login with Discord</Button> */}
 
-			<Button mt={4} colorScheme="green" border="0"
+			<Button display="flex" flexGrow={1} w="33%" justifyContent="center" mt={4} colorScheme="green" border="0"
 			 isLoading={props.isSubmitting} type="submit"
 			>
 				Продължи
@@ -453,6 +456,12 @@ function Register(props) {
       </>
     );
 }
+
+const CustomCheckbox = styled(Checkbox)`
+  .chakra-checkbox__control{
+    color: beige;
+  }
+`
 
 
   function Login({logIn}) {

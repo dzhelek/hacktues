@@ -14,6 +14,15 @@ import {
 
 import { useControllableProp, useControllableState } from "@chakra-ui/react"
 
+import {
+	AlertDialog,
+	AlertDialogBody,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogContent,
+	AlertDialogOverlay,
+  } from "@chakra-ui/react"
+
 const cookies = new Cookies()
 
 import { useRouter } from "next/router";
@@ -92,6 +101,10 @@ function Profile(props) {
 		// router.reload()
 	}
 
+	const [isOpen, setIsOpen] = React.useState(false)
+	const onClose = () => setIsOpen(false)
+	const cancelRef = React.useRef()
+
 	return(
 	<Box paddingBottom="300px" maxW="960px" marginLeft="auto" marginRight="auto">
 	<Flex backgroundColor="white" p="25px" rounded="lg" flexDirection="column" flexWrap="wrap" margin="50px">
@@ -100,26 +113,14 @@ function Profile(props) {
 			<Text fontSize="md" pl="15px">{props.users.first_name}&nbsp;{props.users.last_name}</Text>
 		</Flex>
 
-		<Formik validationSchema={SignupSchema} initialValues={{ first_name: props.users.first_name , last_name: props.users.last_name, email: props.users.email, form: props.users.form, alergies:props.users.alergies, tshirt_size:props.users.tshirt_size, food_preferences:props.users.food_preferences, online:props.users.online, is_active:props.users.is_active }}> 
+		<Formik validationSchema={SignupSchema} initialValues={{ first_name: props.users.first_name , last_name: props.users.last_name, email: props.users.email, form: props.users.form, alergies:props.users.alergies, tshirt_size:props.users.tshirt_size, food_preferences:props.users.food_preferences, online:props.users.is_online}}> 
 			{(props) => (
 				<Form style={{display:"flex",flexDirection:"row",flexWrap:"wrap", paddingTop:"10px"}} onSubmit={props.handleSubmit}>
 				<Field validate={validateUsername} name="first_name">
-					{({ field, form, validateField}) => (
+					{({ field, form}) => (
 					<FormControl flexGrow={1} w={["100%","100%","33%","33%", "33%"]} mr="5px" isRequired isInvalid={form.errors.first_name && form.touched.first_name}>
 						<FormLabel fontFamily="Rubik" fontSize="15px">Име (на кирилица)</FormLabel>
-						<Editable 
-							onSubmit={(input) => { 
-								if(form.errors[field.name])
-									{
-										// console.log(form.isValid)
-										console.log(validateField(field.name))
-									}
-								else
-									{
-										handlePatch(input, field.name, form)
-									}
-								}
-							}
+						<Editable
 							pt="5px" borderColor="inherit" borderBottom="1px solid" display="flex" fontFamily="Rubik" variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="fist_name" isPreviewFocusable={false} submitOnBlur={false}>
       						{(props) => (
         						<>
@@ -249,10 +250,49 @@ function Profile(props) {
 				{({ field, form }) => (
 					<FormControl display="flex" flexDirection="row" flexGrow={1} w={["100%","100%","33%","33%"]} mr="5px" {...field}>
 					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
-					<Switch css={{boxShadow:"none", alignSelf: "center"}} id="online" />
+					<Switch {...field} css={{boxShadow:"none", alignSelf: "center"}} id="online" />
 					</FormControl>
 				)}
 			</Field>
+
+			{/* <Button mt={4} colorScheme="green" border="0"
+			 isLoading={props.isSubmitting} type="submit"
+			>
+				Продължи
+			</Button> */}
+
+
+			{/* <Button colorScheme="green" onClick={() => setIsOpen(true)}>
+		  Редактирай
+		</Button>
+  
+		<AlertDialog
+		  isOpen={isOpen}
+		  leastDestructiveRef={cancelRef}
+		  onClose={onClose}
+		>
+		  <AlertDialogOverlay>
+			<AlertDialogContent>
+			  <AlertDialogHeader fontSize="lg" fontWeight="bold">
+				Delete Customer
+			  </AlertDialogHeader>
+  
+			  <AlertDialogBody>
+				Are you sure? You can't undo this action afterwards.
+			  </AlertDialogBody>
+  
+			  <AlertDialogFooter>
+				<Button ref={cancelRef} onClick={onClose}>
+				  Cancel
+				</Button>
+				<Button colorScheme="red" mt={4} colorScheme="green" border="0"
+			 isLoading={props.isSubmitting} type="submit" onClick={onClose} ml={3}>
+				  Delete
+				</Button>
+			  </AlertDialogFooter>
+			</AlertDialogContent>
+		  </AlertDialogOverlay>
+		</AlertDialog> */}
         </Form>
       )}
     </Formik>
@@ -289,5 +329,4 @@ async function update(form, data) {
 		},
 		)	
 }
-
 export default Profile

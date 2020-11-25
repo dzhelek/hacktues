@@ -10,6 +10,7 @@ import axios from 'axios'
 import jwt_decode from "jwt-decode";
 import { createBreakpoints } from "@chakra-ui/react"
 import { useControllableState } from "@chakra-ui/react"
+import Terms from '../components/termsofservice/terms'
 
 const cookies = new Cookies();
 
@@ -79,11 +80,11 @@ const Cookie = () => {
 	if(!cookies.get('auth')){
 		if(!cookies.get('CookieConsent')){
 		return(
-			<Slide direction="bottom" in={value} style={{zIndex:10, bottom:"150px"}}>
-				<Flex flexDirection="row" flexWrap="wrap" p="40px" color="white" mt="4" mr="50px" ml="50px" rounded="lg" bg="#a5cf9f" shadow="md">
-					<Text>Съгласявам се с <Link>Terms of Service</Link> на HackTUES 7</Text>
-					<Button ml="auto" border="0" colorScheme="white" backgroundColor="transparent" onClick={() => {setValue(false); cookieConsentHandler();getNewToken()}}>Съгласявам се</Button>
-				</Flex>
+			<Slide direction="bottom" in={value} style={{zIndex:10}}>
+				<Flex pb={["50px","50px","20px","20px"]} mr="50px" marginLeft={["0","0","auto","auto"]} w={["100%","100%","33%","33%"]} flexDirection="column" flexWrap="wrap" mb={["0px","0px","150px","150px"]} paddingLeft="20px" paddingRight="20px" paddingTop="20px" color="white" mt="4" rounded="lg" bg="#a5cf9f" shadow="md">
+					<Text alignSelf="center">Съгласявам се с <Terms/> на HackTUES 7</Text>
+					<Button alignSelf="center" border="0" colorScheme="white" backgroundColor="transparent" onClick={() => {setValue(false); cookieConsentHandler();getNewToken()}}>Съгласявам се</Button>
+					</Flex>
 			</Slide>
 		)
 		

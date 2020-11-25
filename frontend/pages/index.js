@@ -1,5 +1,5 @@
 import About from "./about"
-import * as React from "react"
+import { useEffect } from "react"
 import { Box, Slide, Button } from "@chakra-ui/react";
 import { useRouter } from 'next/router'
 import {Link} from '@chakra-ui/react'
@@ -7,16 +7,21 @@ import Cookies from 'universal-cookie';
 import axios from 'axios'
 const cookies = new Cookies();
 import Konami from 'react-konami-code';
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 
 const DiscordOauth2 = require("discord-oauth2");
 const oauth = new DiscordOauth2();
 
 export default function Home() {
 
+    useEffect(() => {
+        router.prefetch('/secret/verywellkeptsecret/indeed/secret')
+      })
     var router = useRouter()
     const easterEgg = () => {
-		router.put("/secret/verywellkeptsecret/indeed/secret")
+		router.push("/secret/verywellkeptsecret/indeed/secret")
     }
+
     return( 
         <Box>
             <Konami code={[71,71,87,80]} action={easterEgg}/>

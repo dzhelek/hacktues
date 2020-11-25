@@ -21,20 +21,6 @@ const day1 = [
 const day2 = [
   { title: 'Работа по проектите', notime:1, emoji:emojiLaptop, place:"Онлайн",},];
 
-
-// export default function Schedule(){
-//   return (
-//     <Box pb="250px">
-//           <CarouselProvider isIntrinsicHeight="true" naturalSlideWidth={150} naturalSlideHeight={150} totalSlides={2}>
-//               <Slider moveThreshold="0.2">
-//               <Slide index={0}><Day schedule={day1} lenght={day1.length}/></Slide>
-//               <Slide index={1}><Day schedule={day2} lenght={day2.length}/></Slide>
-//             </Slider>
-//             </CarouselProvider>
-//       </Box>
-//   );
-// };
-
 export default function Schedule(){
 
   const [currentSlide, setCurrentSlide] = React.useState(0);
