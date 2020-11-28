@@ -82,7 +82,11 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         instance = super().create(validated_data)
         instance.set_password(instance.password)
         instance.save()
-        sendConfirm(instance)
+        try:
+            sendConfirm(instance)
+        except Exception as e:
+            with open('email_log.txt', 'a') as f:
+                f.write(e + '\n')
         return instance
 
     def update(self, instance, validated_data):

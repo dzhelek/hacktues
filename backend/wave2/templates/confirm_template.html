@@ -1,17 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Confirmation</title>
-    <style>
-        body{ color: blue; }
-    </style>
-</head>
-<body>
     {% if success %}
-        You have confirmed your account!
+        <meta http-equiv="refresh" content="0; https://hacktues-git-wave2.zaharymomchilov.vercel.app/email/successful/">
     {% else %}
-        Error, invalid token!
+        <meta http-equiv="refresh" content="0; https://hacktues-git-wave2.zaharymomchilov.vercel.app/email/error/">
     {% endif %}
-</body>
+</head>
 </html>
