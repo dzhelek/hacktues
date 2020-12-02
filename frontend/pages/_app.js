@@ -18,7 +18,10 @@ const theme = extendTheme({
 	styles: {
 	  global: {
 		body: {
-		  bg: ("https://hacktues.pythonanywhere.com/static/frontend/background.png"),
+		  bg: "https://hacktues.pythonanywhere.com/static/frontend/background.svg",
+		  backgroundRepeat: "no-repeat",
+		  backgroundPosition:"center",
+		  backgroundSize: "cover",
 		},
 		},
 	  },

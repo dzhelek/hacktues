@@ -512,14 +512,14 @@ const CustomCheckbox = styled(Checkbox)`
 						onClose(true)
 					})
 					.catch(function (error) {
-						// console.log(error.response.data.detail);
-						toast({
-        					  title: "Влизането не е успешно.",
-        					  description: error.response.data.detail,
-        					  status: "error",
-        					  duration: 9000
+						if (error.response) {
+							toast({
+        						title: "Влизането не е успешно.",
+        						description: error.response.data.detail,
+        						status: "error",
+        						duration: 9000
         					})
-					})
+						}})
 								console.log(JSON.stringify(values, null, 1))
 								actions.setSubmitting(false)
 							}, 1000);
