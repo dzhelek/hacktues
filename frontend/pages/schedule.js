@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import Day from "../components/schedule/day"
 import { IoIosLaptop, IoMdPin } from "react-icons/io";
-import { Flex, Box, Button} from '@chakra-ui/react'
+import { Flex, Box, Button, chakra} from '@chakra-ui/react'
 import { AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
 import { IconButton } from "@chakra-ui/react"
 
@@ -11,6 +11,7 @@ import {ArrowForwardIcon, ArrowBackIcon} from '@chakra-ui/icons'
 var emojiLaptop = <IoIosLaptop/>;
 var emojiPin = <IoMdPin/>;
 var TechPark = "https://goo.gl/maps/dtZjXyfVKV42cetB9"
+
 const day1 = [
   { title: 'Официално откриване на събитието', notime:0, time1: '17:30', time2:'18:00', link: TechPark, emoji:emojiPin, place:"Sofia Tech Park",}, 
   { title: 'Образователна лекция', notime:0, time1: '18:15', time2: '19:00', link: TechPark, emoji: emojiPin, place:"Sofia Tech Park",}, 
@@ -29,7 +30,7 @@ export default function Schedule(){
   const [sliderRef, slider] = useKeenSlider()
 
   	return (
-      <div style={{"position": "relative", "paddingTop":"50px"}} className="navigation-wrapper">
+      <div className="navigation-wrapper">
     	<Box paddingBottom={["50px","50px","100px","100px", "200px"]} ref={sliderRef} className="keen-slider">
     		<div  className={"keen-slider__slide number-slide1"}>{GetEntry(day1)}</div>
     		<div  className={"keen-slider__slide number-slide2"}>{GetEntry(day2)}</div>

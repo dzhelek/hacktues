@@ -7,7 +7,6 @@ import Cookies from 'universal-cookie';
 import axios from 'axios'
 const cookies = new Cookies();
 import Konami from 'react-konami-code';
-import MessengerCustomerChat from 'react-messenger-customer-chat';
 
 const DiscordOauth2 = require("discord-oauth2");
 const oauth = new DiscordOauth2();

@@ -268,15 +268,17 @@ function Register(props) {
         									  status: "success",
         									  duration: 9000
         									})
-											onClose(true)							
-										}
-        					    	})
+        					    	}})
         					    .catch(function (error) {
-        					    console.log(error);
-        					    })							
+									if (error.response) {
+										for (const [key, value] of Object.entries(error.response.data)) {
+  											console.log(`${key}: ${value}`);
+											actions.setFieldError(key, value)
+										}
+								}})						
 											console.log(JSON.stringify(values, null, 1))
           									actions.setSubmitting(false)
-        								}, 1000)
+        								}, 1000);
       							}}>
     {props => (
 				<form style={{display:"flex",flexDirection:"row",flexWrap:"wrap"}} onSubmit={props.handleSubmit}>
