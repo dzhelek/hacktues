@@ -16,3 +16,8 @@
 # about page
 
 - [] line-height
+
+
+# profile
+
+- [] if not logged in, redirect

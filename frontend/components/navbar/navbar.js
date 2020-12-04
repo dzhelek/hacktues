@@ -16,8 +16,6 @@ import * as Yup from 'yup';
 
 import Router from 'next/router'
 import Link from 'next/link'
-import Reg from './form'
-import Log from './login'
 import { useRouter } from "next/router";
 import { Checkbox, CheckboxGroup } from "@chakra-ui/react"
 const cookies = new Cookies();
@@ -53,8 +51,6 @@ const Navbar = props => {
   	const { isOpen, onOpen, onClose } = useDisclosure();
   	const firstField = React.useRef();
   	const btnRef = React.useRef();
-
-	
 
 	const { isMobile } = useDeviceDetect();
 
@@ -229,15 +225,6 @@ function Register(props) {
 				.matches(/^0\d{9}$/, 'използвай валиден телефон')
 	});
 
-
-	function validateUsername(value) {
-		let error;
-		if (value === 'admin') {
-		  error = 'Nice try!';
-		}
-		return error;
-	}
-
     return (
       <>
         <Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
@@ -269,6 +256,7 @@ function Register(props) {
         									  duration: 9000
         									})
         					    	}})
+									router.push('/')
         					    .catch(function (error) {
 									if (error.response) {
 										for (const [key, value] of Object.entries(error.response.data)) {

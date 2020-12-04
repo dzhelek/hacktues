@@ -1,5 +1,5 @@
 
-import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch, useToast } from "@chakra-ui/react";
+import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch, useToast, Checkbox, Link } from "@chakra-ui/react";
 import { Formik, Field } from 'formik';
 import {
 	FormControl,
@@ -13,6 +13,8 @@ import {PhoneIcon, ViewIcon, ViewOffIcon} from '@chakra-ui/icons'
 import { useRouter } from "next/router";
 const cookies = new Cookies();
 import * as Yup from 'yup';
+import { useDisclosure } from "@chakra-ui/react"
+import styled from '@emotion/styled'
 
 function equalTo(ref, msg) {
 	return Yup.mixed().test({
@@ -27,9 +29,12 @@ function equalTo(ref, msg) {
 	  },
 	});
   }
-  Yup.addMethod(Yup.string, 'equalTo', equalTo);
+
+Yup.addMethod(Yup.string, 'equalTo', equalTo);
+
 export default function Registration() {
 
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [show, setShow] = React.useState(false);
 	const handleClick = () => setShow(!show);
 
@@ -80,6 +85,7 @@ export default function Registration() {
 				onSubmit={(values, actions) => {
         			setTimeout(() => {
 							var data = JSON.stringify(values, null, 1)
+							console.log(data)
         					axios({
         						method: 'post',
         						url: 'https://hacktues.pythonanywhere.com/users/',
@@ -96,15 +102,18 @@ export default function Registration() {
         									  status: "success",
         									  duration: 9000
         									})
-										router.push('/')
-									}
-        					    })
+        					    	}})
+									router.push('/')
         					    .catch(function (error) {
-        					    console.log(error);
-        					    })							
+									if (error.response) {
+										for (const [key, value] of Object.entries(error.response.data)) {
+  											console.log(`${key}: ${value}`);
+											actions.setFieldError(key, value)
+										}
+								}})						
 											console.log(JSON.stringify(values, null, 1))
           									actions.setSubmitting(false)
-        								}, 1000)
+        								}, 1000);
       							}}>
     {props => (
 				<form style={{display:"flex",flexDirection:"row",flexWrap:"wrap"}} onSubmit={props.handleSubmit}>
@@ -163,7 +172,7 @@ export default function Registration() {
 
 		  <Field name="repassword">
             {({ field, form }) => (
-              <FormControl flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px" {...field} isRequired isInvalid={form.errors.repassword && form.touched.repassword}>
+              <FormControl flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px" isRequired isInvalid={form.errors.repassword && form.touched.repassword}>
                 <FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="password">Повторете паролата</FormLabel>
                 <Input _invalid={{boxShadow: "0 1px 0 0 #E53E3E", borderColor:"#E53E3E"}} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} type="password"/>
                 <FormErrorMessage>{form.errors.repassword}</FormErrorMessage>
@@ -237,37 +246,37 @@ export default function Registration() {
 			</Field>
 				<Field name="food_preferences">
 				{({ field, form }) => (
-							<FormControl flexGrow={1} w={["100%","100%","100%","33%"]} w="33%" mr="5px" {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
+							<FormControl flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px" {...field} isInvalid={form.errors.tshirt && form.touched.tshirt} isRequired>
 								<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Консумирате ли месо?</FormLabel>
 								<Select borderRadius={0}  _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="food_preferences" type="text" fontFamily="Rubik" placeholder="">
 									<option value={0}>Да</option>
-									<option value={2}>Не, веган съм</option>
-									<option value={1}>Не, вегетарианец съм</option>
+									<option value={"Vgn"}>Не, веган съм</option>
+									<option value={"Vgnt"}>Не, вегетарианец съм</option>
 								</Select>
 							</FormControl>
 						)}
 					</Field>
-			<Field name="online">
+			<Field name="is_online">
 				{({ field, form }) => (
-					<FormControl flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px" {...field}>
-					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
-					<Switch css={{boxShadow:"none"}} id="online" />
+					<FormControl display="flex" flexDirection="row" flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px" {...field}>
+					<FormLabel alignSelf="center" paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">Искам да съм изцяло онлайн</FormLabel>
+					<Switch colorScheme="green" alignSelf="center" css={{boxShadow:"none"}} id="is_online" />
 					</FormControl>
 				)}
 			</Field>
 
-			<Field name="is_active">
+			<Field name="regulation">
 				{({ field, form }) => (
-					<FormControl mr="5px" flexGrow={1} w={["100%","100%","100%","33%"]}{...field}>
-					<FormLabel paddingTop="15px" paddingBottom="10px" fontFamily="Rubik" fontSize="15px" htmlFor="text">is_active(testing purposes)</FormLabel>
-					<Switch id="is_active" />
+					<FormControl display="flex" flexDirection="row" flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px">
+					<CustomCheckbox jsx={{}} colorScheme="green" isRequired id="regulation" fontStyle="Rubik" >Съгласен съм с <Link href="/regulation"><a style={{color:"green", }} onClick={onClose}>регламента на хакатона</a></Link></CustomCheckbox>
 					</FormControl>
 				)}
 			</Field>
+
 
 			{/* <Button variant="ghost">Login with Discord</Button> */}
 
-			<Button mt={4} colorScheme="green" border="0"
+			<Button display="flex" flexGrow={1} w="33%" justifyContent="center" mt={4} colorScheme="green" border="0"
 			 isLoading={props.isSubmitting} type="submit"
 			>
 				Продължи
@@ -278,4 +287,10 @@ export default function Registration() {
     </Formik>
 		</Box>
 	</Box>
-    );}
+	);}
+	
+	const CustomCheckbox = styled(Checkbox)`
+  .chakra-checkbox__control{
+    color: beige;
+  }
+`

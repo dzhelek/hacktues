@@ -4,19 +4,18 @@ import jwt_decode from "jwt-decode";
 import {Box, Avatar, Flex, Text, Input, InputGroup, InputLeftElement, Select, Switch, useToast } from "@chakra-ui/react";
 import { Formik, Field, Form, useFormikContext, useField } from 'formik';
 import { PhoneIcon } from '@chakra-ui/icons'
-import {
-	FormControl,
-	FormLabel,
-	FormErrorMessage,
-	FormHelperText,
+import { FormControl, FormLabel, FormErrorMessage, FormHelperText,
  } from "@chakra-ui/react";
 
 import {useCallback, useEffect, useState} from 'react'
 import _ from 'lodash';
 const cookies = new Cookies()
 import * as Yup from 'yup';
+
 function Profile(props) {
-	
+
+	const toast = useToast()
+
 	const SignupSchema = Yup.object().shape({
 	  	first_name: Yup.string()
 			.min(2, 'Твърде кратко!')
@@ -36,6 +35,8 @@ function Profile(props) {
 	 	phone: Yup.string()
 			.matches(/^0\d{9}$/, 'използвай валиден телефон')
 	});
+
+	return props.users.email == "hacktues" ? <Profile /> : <Error />
 
 	return(
 	<Box paddingBottom="300px" maxW="960px" marginLeft="auto" marginRight="auto">
@@ -59,6 +60,8 @@ function Profile(props) {
 						  },)
         			    .then(function (response) {
 							// console.log(response)
+
+							toast({ title: "Промени по акаунт", description: "Промените бяха направени успешно.", status: "success", duration: 4500})
         			    	})
         			    .catch(function (error) {
         			    console.log(error);
@@ -90,7 +93,7 @@ function Profile(props) {
 					{({ field, form }) => (
 					<FormControl flexGrow={1} w={["100%","100%","33%","33%","33%"]} mr="5px" isRequired isInvalid={form.errors.email && form.touched.email}>
 						<FormLabel paddingTop="15px" paddingBottom="5px" fontFamily="Rubik" fontSize="15px" htmlFor="email">Имейл</FormLabel>
-							<Input _invalid={{boxShadow: "0 1px 0 0 #E53E3E", borderColor:"#E53E3E"}} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="email" />
+							<Input isDisabled _invalid={{boxShadow: "0 1px 0 0 #E53E3E", borderColor:"#E53E3E"}} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="email" />
 						<FormErrorMessage border={0}>{form.errors.email}</FormErrorMessage>
 					</FormControl>
 					)}
@@ -186,19 +189,21 @@ function Profile(props) {
 	</Box>)
 }
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps(ctx){
 	
 	const cookies = new Cookies(ctx.req.headers.cookie);
 
 	var response = await axios({
-		method: 'get',
-		url: `https://hacktues.pythonanywhere.com/users/${jwt_decode(cookies.get('auth')).user_id}`,
-		headers: 
-		{ "Content-type": "Application/json",
-		  "Authorization": `Bearer ${cookies.get('auth')}`}
-		},
-		)
+			method: 'get',
+			url: `https://hacktues.pythonanywhere.com/users/${jwt_decode(cookies.get('auth')).user_id}`,
+			headers: 
+			{ "Content-type": "Application/json",
+			  "Authorization": `Bearer ${cookies.get('auth')}`}
+			},
+			)
+
 	return {props: {users: response.data}}
+
 }
 
 const CheckboxArrayControl = (props, {children}) => {
@@ -213,17 +218,16 @@ const CheckboxArrayControl = (props, {children}) => {
   }
 
 const AutoSave = ({ debounceMs = 2000 }) => {
-	const toast = useToast()
 	const formik = useFormikContext();
 	const [isSaved, setIsSaved] = useState(null);
 	const debouncedSubmit = useCallback(
 	  _.debounce(() => {
-		  if(formik.isValid){toast({ title: "Промени по акаунт", description: "Промените бяха направени успешно.", status: "success", duration: 4500}); return formik.submitForm().then(() => setIsSaved(true));}
+		  if(formik.isValid){ return formik.submitForm().then(() => setIsSaved(true),);}
 	  }, debounceMs),
-	  [formik.submitForm, debounceMs],
+	  [formik.submitForm, debounceMs]
 	);
   
-	useEffect(() => debouncedSubmit, [debouncedSubmit, formik.values]);
+	useEffect(() => debouncedSubmit, [debouncedSubmit, formik.values],);
 	return(<Box></Box>)
   };
 
