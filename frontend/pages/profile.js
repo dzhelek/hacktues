@@ -12,22 +12,13 @@ import _ from 'lodash';
 const cookies = new Cookies()
 import * as Yup from 'yup';
 
-async function Profile(props) {
+function Profile(props) {
 
 	console.log(props);
 	const toast = useToast()
 	var avatar;
 
-	var res = await axios({
-		method: 'get',
-		url: 'https://discordapp.com/api/users/@me',
-		headers: 
-		{
-		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
-	
-		// .then(function (response){
-		// 	return avatar = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
-		//   })
+	console.log(getAvatar);
 
 	const SignupSchema = Yup.object().shape({
 	  	first_name: Yup.string()
@@ -245,6 +236,18 @@ const AutoSave = ({ debounceMs = 2000 }) => {
   };
 
   
-
+const getAvatar = async () => {
+	var res = axios({
+		method: 'get',
+		url: 'https://discordapp.com/api/users/@me',
+		headers: 
+		{
+		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
+	
+		  return res
+		// .then(function (response){
+		// 	return avatar = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
+		//   })
+}
 
 export default Profile
