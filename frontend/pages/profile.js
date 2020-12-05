@@ -12,11 +12,18 @@ import _ from 'lodash';
 const cookies = new Cookies()
 import * as Yup from 'yup';
 
-function Profile(props) {
+async function Profile(props) {
 
 	console.log(props);
 	const toast = useToast()
 	var avatar;
+
+	var res = await axios({
+		method: 'get',
+		url: 'https://discordapp.com/api/users/@me',
+		headers: 
+		{
+		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
 	
 		// .then(function (response){
 		// 	return avatar = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
@@ -208,14 +215,7 @@ export async function getServerSideProps(ctx){
 			},
 			)
 
-	var res = await axios({
-				method: 'get',
-				url: 'https://discordapp.com/api/users/@me',
-				headers: 
-				{
-				  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
-
-	return {props: {users: response.data, res: res}}
+	return {props: {users: response.data}}
 
 }
 
