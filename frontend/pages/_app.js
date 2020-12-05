@@ -46,6 +46,7 @@ function MyApp({ Component, pageProps }) {
 
 	const [logged, setLogin] = useControllableState({defaultValue:0})
 
+	console.log(jwt_decode(cookies.get('discord_auth')));
   	useEffect(() => {
 		if(cookies.get('CookieConsent')){
 			if(cookies.get('auth')){

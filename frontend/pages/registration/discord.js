@@ -53,27 +53,24 @@ export default function Discord() {
 
             cookies.set('discord_auth', response.data.access_token, { path: '/' })
             cookies.set('discord_refresh', response.data.refresh_token, { path: '/' })
-            
-            debugger
-            console.log(jwt_decode(response.data.access_token));
 
-                // console.log(response.data.access_token);
-                axios({
-                    method: 'get',
-                    url: 'https://discordapp.com/api/users/@me',
-                    headers: 
-                    {
-                      "Authorization": `Bearer ${response.data.access_token}`}},)
-                    .then(function (response){
-                        console.log(response);
-                        axios({
-                            method: 'get',
-                            url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`,
-                            },)
-                            .then(function (response){
-                                console.log(response.config.url);
-                            })
-                    })
+            // console.log(response.data.access_token);
+            axios({
+                method: 'get',
+                url: 'https://discordapp.com/api/users/@me',
+                headers: 
+                {
+                  "Authorization": `Bearer ${response.data.access_token}`}},)
+                .then(function (response){
+                    console.log(response);
+                    axios({
+                        method: 'get',
+                        url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`,
+                        },)
+                        .then(function (response){
+                            console.log(response.config.url);
+                        })
+                  })
             })
             .catch(function (error) {
                 if (error.response) {
