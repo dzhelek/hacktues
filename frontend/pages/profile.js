@@ -15,6 +15,7 @@ import * as Yup from 'yup';
 async function Profile(props) {
 
 	var profile;
+	console.log("dick")
 	axios({
 		method: 'get',
 		url: 'https://discordapp.com/api/users/@me',
