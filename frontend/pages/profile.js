@@ -206,7 +206,15 @@ export async function getServerSideProps(ctx){
 			},
 			)
 
-	return {props: {users: response.data}}
+
+	var res = await axios({
+		method: 'get',
+		url: 'https://discordapp.com/api/users/@me',
+		headers: 
+		{
+		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
+
+	return {props: {users: response.data, avatar: res}}
 
 }
 
@@ -237,12 +245,6 @@ const AutoSave = ({ debounceMs = 2000 }) => {
 
   
 const getAvatar = async () => {
-	var res = axios({
-		method: 'get',
-		url: 'https://discordapp.com/api/users/@me',
-		headers: 
-		{
-		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
 	
 		return res
 		// .then(function (response){
