@@ -18,6 +18,9 @@ export default function Register(props) {
 	var router = useRouter()
 	const toast = useToast()
 
+    const CLIENT_ID = '743157046677078016'
+    const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
+
     if(router.query['code'] != undefined){
         let payload = new FormData();
         payload.append("client_id",CLIENT_ID)
