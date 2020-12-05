@@ -34,7 +34,7 @@ export default function Discord() {
         method: 'post',
         url: 'https://discord.com/api/oauth2/token',
         headers: 
-        { "Content-type": "Application/json"},
+        { "Content-type": "application/x-www-form-urlencoded"},
         data: data
           },)
         .then(function (response) {
