@@ -22,10 +22,11 @@ async function Profile(props) {
 		{
 		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
 		.then(function (response){
-			profile = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
+			console.log(response);
+			// profile = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
 		})
 
-	console.log(profile);
+	// console.log(profile);
 
 	console.log(cookies.get('discord_auth'))
 	const toast = useToast()
@@ -217,7 +218,7 @@ export async function getServerSideProps(ctx){
 			},
 			)
 
-	return {props: {users: response.data, discord: discord}}
+	return {props: {users: response.data}}
 }
 
 
