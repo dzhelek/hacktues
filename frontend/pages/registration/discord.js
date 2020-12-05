@@ -64,7 +64,16 @@ export default function Discord() {
                       "Authorization": `Bearer ${response.data.access_token}`}
                       },)
                     .then(function (response){
-                        console.log(response);
+                        axios({
+                            method: 'get',
+                            url: `https://cdn.discordapp.com/${response.data.id}/user_avatar.png`,
+                            headers: 
+                            {
+                              "Authorization": `Bearer ${response.data.access_token}`}
+                              },)
+                            .then(function (response){
+                                console.log(response);
+                            })
                     })
             })
             .catch(function (error) {
@@ -72,7 +81,7 @@ export default function Discord() {
                     console.log(error.response);
                     }
             })
-            debugger
+            // https://cdn.discordapp.com/143614922406756352/user_avatar.png
         }
     return( 
         <Box>
