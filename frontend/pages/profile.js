@@ -15,7 +15,7 @@ import * as Yup from 'yup';
 function Profile(props) {
 
 	const toast = useToast()
-
+	var avatar;
 	axios({
 		method: 'get',
 		url: 'https://discordapp.com/api/users/@me',
@@ -23,7 +23,7 @@ function Profile(props) {
 		{
 		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
 		.then(function (response){
-			console.log(`https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`)
+			avatar = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
 		  })
 
 	const SignupSchema = Yup.object().shape({
@@ -52,7 +52,7 @@ function Profile(props) {
 	<Box paddingBottom="300px" maxW="960px" marginLeft="auto" marginRight="auto">
 	<Flex backgroundColor="white" p="25px" rounded="lg" flexDirection="column" flexWrap="wrap" margin="50px">
 		<Flex>
-			<Avatar name={props.users.first_name}/>
+			<Avatar src={avatar}/>
 			<Text fontSize="md" pl="15px">{props.users.first_name}&nbsp;{props.users.last_name}</Text>
 		</Flex>
 		<Formik validationSchema={SignupSchema} initialValues={{ first_name: props.users.first_name , last_name: props.users.last_name, email: props.users.email, form: props.users.form, alergies:props.users.alergies, tshirt_size:props.users.tshirt_size, food_preferences:props.users.food_preferences, is_online:props.users.is_online, phone: props.users.phone}}
