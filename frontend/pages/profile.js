@@ -14,14 +14,10 @@ import * as Yup from 'yup';
 
 function Profile(props) {
 
+	console.log(props);
 	const toast = useToast()
 	var avatar;
-	var res = axios({
-		method: 'get',
-		url: 'https://discordapp.com/api/users/@me',
-		headers: 
-		{
-		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
+	
 		// .then(function (response){
 		// 	return avatar = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
 		//   })
@@ -47,7 +43,7 @@ function Profile(props) {
 	});
 
 	// return props.users.email == "hacktues" ? <Profile /> : <Error />
-	console.log(res.data);
+	console.log(res);
 	return(
 	<Box paddingBottom="300px" maxW="960px" marginLeft="auto" marginRight="auto">
 	<Flex backgroundColor="white" p="25px" rounded="lg" flexDirection="column" flexWrap="wrap" margin="50px">
@@ -212,7 +208,14 @@ export async function getServerSideProps(ctx){
 			},
 			)
 
-	return {props: {users: response.data}}
+	var res = await axios({
+				method: 'get',
+				url: 'https://discordapp.com/api/users/@me',
+				headers: 
+				{
+				  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
+
+	return {props: {users: response.data, res: res}}
 
 }
 
