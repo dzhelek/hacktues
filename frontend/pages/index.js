@@ -30,7 +30,7 @@ export default function Home() {
     return( 
         <Box>
             <Konami code={[71,71,87,80]} action={easterEgg}/>
-            <Link isExternal href='https://discord.com/api/oauth2/authorize?client_id=743157046677078016&redirect_uri=https%3A%2F%2Fhacktues-git-wave2.zaharymomchilov.vercel.app%2F&response_type=code&scope=identify'>xd</Link>            
+            <Link isExternal href='https://discord.com/api/oauth2/authorize?client_id=743157046677078016&redirect_uri=https%3A%2F%2Fhacktues-git-wave2.zaharymomchilov.vercel.app%2Fregistration%2Fdiscord&response_type=code&scope=email%20identify'>xd</Link>            
         </Box>
     );
 }
