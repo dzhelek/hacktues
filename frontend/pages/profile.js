@@ -14,7 +14,8 @@ import * as Yup from 'yup';
 
 async function Profile(props) {
 
-	var discord = await axios({
+	var profile;
+	axios({
 		method: 'get',
 		url: 'https://discordapp.com/api/users/@me',
 		headers: 
@@ -24,7 +25,7 @@ async function Profile(props) {
 			profile = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
 		})
 
-	console.log(discord);
+	console.log(profile);
 
 	console.log(cookies.get('discord_auth'))
 	const toast = useToast()
