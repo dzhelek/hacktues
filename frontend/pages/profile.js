@@ -197,6 +197,7 @@ export async function getServerSideProps(ctx){
 
 	var profile;
 
+	console.log(profile);
 	var response = await axios({
 			method: 'get',
 			url: `https://hacktues.pythonanywhere.com/users/${jwt_decode(cookies.get('auth')).user_id}`,
@@ -213,10 +214,7 @@ export async function getServerSideProps(ctx){
                 {
                   "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
                 .then(function (response,){
-                    profile = axios({
-                        method: 'get',
-                        url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`,
-                        },)
+                    profile = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
                   })
 
 
