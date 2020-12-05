@@ -67,10 +67,7 @@ export default function Discord() {
                         axios({
                             method: 'get',
                             url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`,
-                            headers: 
-                            {'Access-Control-Allow-Origin': '*', "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT", "Access-Control-Allow-Headers" : "Content-Type", "Content-Type":"image/png",
-                              "Authorization": `Bearer ${response.data.access_token}`}
-                              },)
+                            },)
                             .then(function (response){
                                 console.log(response);
                             })
@@ -82,6 +79,13 @@ export default function Discord() {
                     }
             })
         }
+
+        // headers: 
+        // {'Access-Control-Allow-Origin': '*', "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT", "Access-Control-Allow-Headers" : "Content-Type", "Content-Type":"image/png",
+        //   "Authorization": `Bearer ${response.data.access_token}`}
+          
+
+
     return( 
         <Box>
             <Link isExternal href='https://discord.com/api/oauth2/authorize?client_id=743157046677078016&redirect_uri=https%3A%2F%2Fhacktues-git-wave2.zaharymomchilov.vercel.app%2F&response_type=code&scope=identify'>xd</Link>            
