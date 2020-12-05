@@ -36,7 +36,7 @@ export default function Discord() {
     payload.append("grant_type",'authorization_code')
     payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord')
     payload.append("code", router.query['code'])
-    payload.append("scope","identify")
+    payload.append("scope","identify email")
 
     console.log(payload);
     
