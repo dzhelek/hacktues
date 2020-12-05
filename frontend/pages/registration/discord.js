@@ -23,6 +23,11 @@ export default function Discord() {
 		router.push("/secret/verywellkeptsecret/indeed/secret")
     }
 
+    const CLIENT_ID = '743157046677078016'
+    const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
+
+    var data= {'client_id': CLIENT_ID, 'client_secret': CLIENT_SECRET, 'grant_type': 'authorization_code', 'code': router.query['code'], 'scope': 'identify email', 'redirect_uri': 'https://hacktues-git-wave2.zaharymomchilov.vercel.app/', }
+
     // console.log(router.query['code']);
     if(router.query['code'] != undefined){
     axios({
@@ -30,7 +35,7 @@ export default function Discord() {
         url: 'https://discord.com/api/oauth2/authorize',
         headers: 
         { "Content-type": "Application/json"},
-        data: router.query['code'] 
+        data: data
           },)
         .then(function (response) {
             if(response.status == 201){
