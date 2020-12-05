@@ -60,8 +60,8 @@ export default function Discord() {
                     method: 'get',
                     url: 'https://discordapp.com/api/users/@me',
                     headers: 
-                    {
-                      "Authorization": `Bearer ${response.data.access_token}`, 'Access-Control-Allow-Origin': '*'}
+                    {"Content-Type" : "image/png",
+                      "Authorization": `Bearer ${response.data.access_token}`, 'Access-Control-Allow-Origin': 'Content-Type'}
                       },)
                     .then(function (response){
                         axios({
