@@ -23,26 +23,26 @@ export default function Discord() {
 		router.push("/secret/verywellkeptsecret/indeed/secret")
     }
 
-    console.log(router.query['code']);
+    // console.log(router.query['code']);
 
-    // axios({
-    //     method: 'post',
-    //     url: 'https://discord.com/api/oauth2/authorize',
-    //     headers: 
-    //     { "Content-type": "Application/json",
-    //       "Authorization": `Bearer ${cookies.get('auth')}`},
-    //     data: data  
-    //       },)
-    //     .then(function (response) {
-    //         if(response.status == 201){
-    //             // toast({
-    //             //       title: "Създаване на акаунт",
-    //             //       description: "Акаунтът беше успешно създаден.",
-    //             //       status: "success",
-    //             //       duration: 9000
-    //             //     })
-    //             console.log(response);
-    //         }})
+    axios({
+        method: 'post',
+        url: 'https://discord.com/api/oauth2/authorize',
+        headers: 
+        { "Content-type": "Application/json",
+          "Authorization": `Bearer ${cookies.get('auth')}`},
+        data: router.query['code'] 
+          },)
+        .then(function (response) {
+            if(response.status == 201){
+                // toast({
+                //       title: "Създаване на акаунт",
+                //       description: "Акаунтът беше успешно създаден.",
+                //       status: "success",
+                //       duration: 9000
+                //     })
+                console.log(response);
+            }})
 
     return( 
         <Box>
