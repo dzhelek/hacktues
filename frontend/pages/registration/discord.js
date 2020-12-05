@@ -48,7 +48,7 @@ export default function Discord() {
         data: payload
           },)
         .then(function (response) {
-            
+                console.log(response);
                 // toast({
                 //       title: "Създаване на акаунт",
                 //       description: "Акаунтът беше успешно създаден.",
@@ -56,25 +56,25 @@ export default function Discord() {
                 //       duration: 9000
                 //     })
                 // console.log(response.data.access_token);
-                axios({
-                    method: 'get',
-                    url: 'https://discordapp.com/api/users/@me',
-                    headers: 
-                    {"Content-Type" : "image/png",
-                      "Authorization": `Bearer ${response.data.access_token}`, 'Access-Control-Allow-Origin': 'https://cdn.discordapp.com/'}},)
-                    .then(function (response){
-                        console.log(response);
-                        axios({
-                            method: 'get',
-                            url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.jpg`,
-                            headers: 
-                            {
-                              "Authorization": `Bearer ${response.data.access_token}`}
-                              },)
-                            .then(function (response){
-                                console.log(response);
-                            })
-                    })
+                // axios({
+                //     method: 'get',
+                //     url: 'https://discordapp.com/api/users/@me',
+                //     headers: 
+                //     {"Content-Type" : "image/png",
+                //       "Authorization": `Bearer ${response.data.access_token}`, 'Access-Control-Allow-Origin': 'https://cdn.discordapp.com/'}},)
+                //     .then(function (response){
+                //         console.log(response);
+                //         axios({
+                //             method: 'get',
+                //             url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.jpg`,
+                //             headers: 
+                //             {
+                //               "Authorization": `Bearer ${response.data.access_token}`}
+                //               },)
+                //             .then(function (response){
+                //                 console.log(response);
+                //             })
+                //     })
             })
             .catch(function (error) {
                 if (error.response) {
