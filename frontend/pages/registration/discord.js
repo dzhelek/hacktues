@@ -8,6 +8,8 @@ const cookies = new Cookies();
 import Konami from 'react-konami-code';
 var FormData = require('form-data');
 
+import jwt_decode from "jwt-decode";
+
 export default function Discord() {
 
     useEffect(() => {
