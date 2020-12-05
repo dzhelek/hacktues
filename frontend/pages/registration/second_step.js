@@ -26,7 +26,7 @@ export default function Register(props) {
         payload.append("client_id",CLIENT_ID)
         payload.append("client_secret",CLIENT_SECRET)
         payload.append("grant_type",'authorization_code')
-        payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord')
+        payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/second_step')
         payload.append("code", router.query['code'])
         payload.append("scope","identify email")
 
