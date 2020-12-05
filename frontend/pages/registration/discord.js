@@ -7,12 +7,6 @@ import axios from 'axios'
 const cookies = new Cookies();
 import Konami from 'react-konami-code';
 
-const DiscordOauth2 = require("discord-oauth2");
-const oauth = new DiscordOauth2();
-
-
-var DiscordStrategy = require('passport-discord').Strategy;
-
 export default function Discord() {
 
     useEffect(() => {
@@ -25,7 +19,6 @@ export default function Discord() {
 
     const CLIENT_ID = '743157046677078016'
     const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
-
 
     const payload = new URLSearchParams()
     payload.append('client_id', CLIENT_ID)
