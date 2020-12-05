@@ -48,7 +48,7 @@ export default function Discord() {
         data: payload
           },)
         .then(function (response) {
-            if(response.status == 201){
+            
                 // toast({
                 //       title: "Създаване на акаунт",
                 //       description: "Акаунтът беше успешно създаден.",
@@ -56,12 +56,13 @@ export default function Discord() {
                 //       duration: 9000
                 //     })
                 console.log(response);
-            }})
+            })
             .catch(function (error) {
                 if (error.response) {
                     console.log(error.response);
                     }
             })
+            debugger
         }
     return( 
         <Box>
