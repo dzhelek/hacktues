@@ -23,7 +23,7 @@ function Profile(props) {
 		{
 		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
 		.then(function (response){
-			avatar = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
+			return avatar = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
 		  })
 
 	const SignupSchema = Yup.object().shape({
