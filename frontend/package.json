@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "NODE_DEBUG=request next build",
     "start": "next start",
-    "dev": "next dev"
+    "dev": "npm start"
   },
   "dependencies": {
     "@atayahmet/react-axios-token-provider": "^1.0.0-rc.9",
