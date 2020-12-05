@@ -12,7 +12,7 @@ import _ from 'lodash';
 const cookies = new Cookies()
 import * as Yup from 'yup';
 
-function Profile(props) {
+async function Profile(props) {
 
 	var discord = await axios({
 		method: 'get',
