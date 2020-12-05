@@ -48,7 +48,7 @@ export default function Discord() {
         data: payload
           },)
         .then(function (response) {
-                console.log(response);
+                console.log(jwt_decode(response.data.access_token));
                 // toast({
                 //       title: "Създаване на акаунт",
                 //       description: "Акаунтът беше успешно създаден.",
@@ -69,7 +69,7 @@ export default function Discord() {
                             url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`,
                             },)
                             .then(function (response){
-                                console.log(response);
+                                console.log(response.config.url);
                             })
                     })
             })
