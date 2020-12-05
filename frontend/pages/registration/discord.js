@@ -11,6 +11,7 @@ var FormData = require('form-data');
 
 export default function Discord() {
 
+    const router = useRouter()
 
     if(router.query['code'] != undefined){
         let payload = new FormData();
