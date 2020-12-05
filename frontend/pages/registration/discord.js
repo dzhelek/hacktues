@@ -25,23 +25,23 @@ export default function Discord() {
 
     console.log(router.query);
 
-    axios({
-        method: 'post',
-        url: 'https://discord.com/api/oauth2/authorize',
-        headers: 
-        { "Content-type": "Application/json",
-          "Authorization": `Bearer ${cookies.get('auth')}`},
-        data: data  
-          },)
-        .then(function (response) {
-            if(response.status == 201){
-                toast({
-                      title: "Създаване на акаунт",
-                      description: "Акаунтът беше успешно създаден.",
-                      status: "success",
-                      duration: 9000
-                    })
-            }})
+    // axios({
+    //     method: 'post',
+    //     url: 'https://discord.com/api/oauth2/authorize',
+    //     headers: 
+    //     { "Content-type": "Application/json",
+    //       "Authorization": `Bearer ${cookies.get('auth')}`},
+    //     data: data  
+    //       },)
+    //     .then(function (response) {
+    //         if(response.status == 201){
+    //             toast({
+    //                   title: "Създаване на акаунт",
+    //                   description: "Акаунтът беше успешно създаден.",
+    //                   status: "success",
+    //                   duration: 9000
+    //                 })
+    //         }})
 
     return( 
         <Box>
