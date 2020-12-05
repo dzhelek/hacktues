@@ -214,7 +214,7 @@ export async function getServerSideProps(ctx){
 		{
 		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
 
-	return {props: {users: response.data, avatar: res}}
+	return {props: {users: response.data, avatar: res.data}}
 
 }
 
