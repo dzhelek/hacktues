@@ -66,9 +66,9 @@ export default function Discord() {
                         console.log(response);
                         axios({
                             method: 'get',
-                            url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.jpg`,
+                            url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png,
                             headers: 
-                            { "Content-Type" : "image/jpg",
+                            { "Content-Type" : "image/png",
                               "Authorization": `Bearer ${response.data.access_token}`}
                               },)
                             .then(function (response){
