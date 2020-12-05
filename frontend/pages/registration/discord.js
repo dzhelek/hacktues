@@ -12,6 +12,10 @@ import jwt_decode from "jwt-decode";
 
 export default function Discord() {
 
+    
+	if(cookies.get('discord_auth')){console.log(jwt_decode(cookies.get('discord_auth')));}
+
+
     useEffect(() => {
         router.prefetch('/secret/verywellkeptsecret/indeed/secret')
       })
@@ -53,6 +57,7 @@ export default function Discord() {
 
             cookies.set('discord_auth', response.data.access_token, { path: '/' })
             cookies.set('discord_refresh', response.data.refresh_token, { path: '/' })
+
 
             // console.log(response.data.access_token);
             axios({
