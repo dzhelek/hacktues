@@ -47,6 +47,11 @@ export default function Discord() {
                 //     })
                 console.log(response);
             }})
+            .catch(function (error) {
+                if (error.response) {
+                    console.log(error.response);
+                    }
+            })
         }
     return( 
         <Box>
