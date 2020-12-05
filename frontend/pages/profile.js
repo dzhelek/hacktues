@@ -16,6 +16,16 @@ function Profile(props) {
 
 	const toast = useToast()
 
+	axios({
+		method: 'get',
+		url: 'https://discordapp.com/api/users/@me',
+		headers: 
+		{
+		  "Authorization": `Bearer ${response.data.access_token}`}},)
+		.then(function (response){
+			console.log(`https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`)
+		  })
+
 	const SignupSchema = Yup.object().shape({
 	  	first_name: Yup.string()
 			.min(2, 'Твърде кратко!')
