@@ -61,7 +61,7 @@ export default function Discord() {
                     url: 'https://discordapp.com/api/users/@me',
                     headers: 
                     {
-                      "Authorization": `Bearer ${response.data.access_token}`}
+                      "Authorization": `Bearer ${response.data.access_token}`, 'Access-Control-Allow-Origin': '*'}
                       },)
                     .then(function (response){
                         axios({
