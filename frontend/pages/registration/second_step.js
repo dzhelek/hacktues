@@ -21,6 +21,8 @@ export default function Register(props) {
     const CLIENT_ID = '743157046677078016'
     const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
 
+    const userID
+
     if(router.query['code'] != undefined){
         let payload = new FormData();
         payload.append("client_id",CLIENT_ID)
@@ -49,8 +51,8 @@ export default function Register(props) {
                 {
                   "Authorization": `Bearer ${response.data.access_token}`}},)
                 .then(function (response){
-                    console.log(response.data.id);
-
+                    // console.log(response.data.id);
+                    userID = response.data.id
                     // axios({
                     //     method: 'get',
                     //     url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`,
@@ -102,6 +104,7 @@ export default function Register(props) {
 			<Formik initialValues={{first_name: '', last_name: '', email: '', password: ''}} validationSchema={SignupSchema}
 				onSubmit={(values, actions) => {
         			setTimeout(() => {
+                            values["discord_id"] = userID;
 							var data = JSON.stringify(values, null, 1)
 							console.log(data)
         					axios({
