@@ -16,7 +16,6 @@ function Profile(props) {
 
 	console.log(props);
 	const toast = useToast()
-	var avatar;
 
 	console.log(getAvatar);
 
@@ -46,7 +45,7 @@ function Profile(props) {
 	<Box paddingBottom="300px" maxW="960px" marginLeft="auto" marginRight="auto">
 	<Flex backgroundColor="white" p="25px" rounded="lg" flexDirection="column" flexWrap="wrap" margin="50px">
 		<Flex>
-			<Avatar src={avatar}/>
+			<Avatar src={`https://cdn.discordapp.com/avatars/${props.avatar.id}/${props.avatar.avatar}.png`}/>
 			<Text fontSize="md" pl="15px">{props.users.first_name}&nbsp;{props.users.last_name}</Text>
 		</Flex>
 		<Formik validationSchema={SignupSchema} initialValues={{ first_name: props.users.first_name , last_name: props.users.last_name, email: props.users.email, form: props.users.form, alergies:props.users.alergies, tshirt_size:props.users.tshirt_size, food_preferences:props.users.food_preferences, is_online:props.users.is_online, phone: props.users.phone}}
