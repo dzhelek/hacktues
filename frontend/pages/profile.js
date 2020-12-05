@@ -16,16 +16,16 @@ async function Profile(props) {
 
 	var profile;
 	console.log("dick")
-	axios({
-		method: 'get',
-		url: 'https://discordapp.com/api/users/@me',
-		headers: 
-		{
-		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
-		.then(function (response){
-			console.log(response);
-			// profile = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
-		})
+	// axios({
+	// 	method: 'get',
+	// 	url: 'https://discordapp.com/api/users/@me',
+	// 	headers: 
+	// 	{
+	// 	  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
+	// 	.then(function (response){
+	// 		console.log(response);
+	// 		// profile = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
+	// 	})
 
 	// console.log(profile);
 
