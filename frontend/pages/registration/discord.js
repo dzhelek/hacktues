@@ -1,4 +1,3 @@
-import About from "./about"
 import { useEffect } from "react"
 import { Box, Slide, Button } from "@chakra-ui/react";
 import { useRouter } from 'next/router'
