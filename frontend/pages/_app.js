@@ -62,7 +62,7 @@ function MyApp({ Component, pageProps }) {
 			// getUsers()
 		}
 		if(cookies.get('discord_auth')){
-			console.log(cookies.get('discord_auth'));
+			console.log(jwt_decode(cookies.get('discord_auth')));
 		}
 	}})
 
