@@ -5,7 +5,7 @@
   "scripts": {
     "build": "NODE_DEBUG=request next build",
     "start": "next start",
-    "dev": "npm start"
+    "dev": "next dev"
   },
   "dependencies": {
     "@atayahmet/react-axios-token-provider": "^1.0.0-rc.9",
