@@ -55,7 +55,17 @@ export default function Discord() {
                 //       status: "success",
                 //       duration: 9000
                 //     })
-                console.log(response);
+                console.log(response.data.access_token);
+                axios({
+                    method: 'get',
+                    url: 'https://discordapp.com/api/users/@me',
+                    headers: 
+                    {
+                      "Authorization": `Bearer ${response.data.access_token}`}
+                      },)
+                    .then(function (response){
+                        console.log(response);
+                    })
             })
             .catch(function (error) {
                 if (error.response) {
