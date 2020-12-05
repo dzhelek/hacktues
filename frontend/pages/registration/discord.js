@@ -50,7 +50,7 @@ export default function Discord() {
         data: payload
           },)
         .then(function (response) {
-                console.log(jwt_decode(response.data.access_token));
+                // console.log(jwt_decode(response.data.access_token));
                 // toast({
                 //       title: "Създаване на акаунт",
                 //       description: "Акаунтът беше успешно създаден.",
