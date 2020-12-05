@@ -23,6 +23,12 @@ class SmallIntegerAdmin(admin.ModelAdmin):
 @admin.register(models.Team)
 class TeamAdmin(admin.ModelAdmin):
     list_display = 'name', 'github_link', 'is_full', 'confirmed'
+    fieldsets = (
+        (None, {'fields': ('name', 'github_link', 'is_full', 'confirmed')}),
+        ('Project info', {'fields': ('project_name', 'project_description',
+                                     'technologies')}),
+        ('Additional info', {'fields': ('is_confirmed', 'ready')}),
+    )
     list_filter = 'is_full',
 
     def confirmed(self, obj):
@@ -38,10 +44,11 @@ admin.site.register(models.Technology)
 @admin.register(models.User)
 class UserAdmin(UserAdmin):
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'email')}),
+        (None, {'fields': ('email', 'password')}),
+        ('Personal info', {'fields': ('first_name', 'last_name',
+                                      'form', 'phone', 'discord_id')}),
         ('Additional info', {
-            'fields': ('form', 'tshirt_size', 'food_preferences',
+            'fields': ('tshirt_size', 'food_preferences', 'is_online',
                        'alergies', 'technologies'),
         }),
         ('Permissions', {
@@ -50,12 +57,13 @@ class UserAdmin(UserAdmin):
         }),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
-    list_display = ('username', 'email', 'name', 'form', 'tshirt_size',
-                    'food_preferences', 'alergies', 'is_staff', 'is_active')
-    list_filter = ('is_active', 'is_staff', 'groups',
+    list_display = ('email', 'name', 'form', 'phone', 'tshirt_size',
+                    'food_preferences', 'alergies', 'is_staff', 'is_active',
+                    'is_online')
+    list_filter = ('is_active', 'is_staff', 'is_online', 'groups',
                    'food_preferences', 'tshirt_size', 'alergies',
                    'form', 'technologies')
-    ordering = 'date_joined', 'username'
+    ordering = 'date_joined', 'first_name', 'last_name'
 
     def name(self, obj):
         return obj.get_full_name()

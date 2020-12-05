@@ -78,24 +78,33 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         read_only_fields = 'team_set', 'is_active'
         extra_kwargs = {'password': {'write_only': True}}
 
+    @staticmethod
+    def confirm_user(user):
+        try:
+            sendConfirm(user)
+        except Exception as e:
+            with open('email_log.txt', 'a') as f:
+                f.write(str(e) + '\n')
+
+
     def create(self, validated_data):
         instance = super().create(validated_data)
         instance.set_password(instance.password)
         instance.save()
-        try:
-            sendConfirm(instance)
-        except Exception as e:
-            with open('email_log.txt', 'a') as f:
-                f.write(e + '\n')
+        self.confirm_user(instance)
         return instance
 
     def update(self, instance, validated_data):
+        initial_email = instance.email
         initial_password = instance.password
         if not validated_data.get('password'):
             validated_data['password'] = initial_password
 
         super().update(instance, validated_data)
 
+        new_email = instance.email
+        if initial_email != new_email:
+            self.confirm_user(instance)
         new_password = instance.password
         if initial_password != new_password:
             instance.set_password(new_password)
