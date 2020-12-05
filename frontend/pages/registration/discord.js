@@ -29,8 +29,7 @@ export default function Discord() {
         method: 'post',
         url: 'https://discord.com/api/oauth2/authorize',
         headers: 
-        { "Content-type": "Application/json",
-          "Authorization": `Bearer ${cookies.get('auth')}`},
+        { "Content-type": "Application/json"},
         data: router.query['code'] 
           },)
         .then(function (response) {
