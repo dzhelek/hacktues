@@ -23,7 +23,7 @@ export default function Discord() {
 		router.push("/secret/verywellkeptsecret/indeed/secret")
     }
 
-    console.log(router.query[0]);
+    console.log(router.query['code']);
 
     // axios({
     //     method: 'post',
