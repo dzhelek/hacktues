@@ -41,7 +41,7 @@ function Profile(props) {
 	});
 
 	// return props.users.email == "hacktues" ? <Profile /> : <Error />
-	console.log(res);
+	// console.log(res);
 	return(
 	<Box paddingBottom="300px" maxW="960px" marginLeft="auto" marginRight="auto">
 	<Flex backgroundColor="white" p="25px" rounded="lg" flexDirection="column" flexWrap="wrap" margin="50px">
@@ -244,7 +244,7 @@ const getAvatar = async () => {
 		{
 		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
 	
-		  return res
+		return res
 		// .then(function (response){
 		// 	return avatar = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
 		//   })
