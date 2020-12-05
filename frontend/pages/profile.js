@@ -21,7 +21,7 @@ function Profile(props) {
 		url: 'https://discordapp.com/api/users/@me',
 		headers: 
 		{
-		  "Authorization": `Bearer ${response.data.access_token}`}},)
+		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
 		.then(function (response){
 			console.log(`https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`)
 		  })
