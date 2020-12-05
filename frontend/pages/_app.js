@@ -61,7 +61,7 @@ function MyApp({ Component, pageProps }) {
 			setLogin(0)
 			// getUsers()
 		}
-		if(cookies.get('discord_auth')){
+		if(cookies.get('discord_auth') != undefined){
 			console.log(jwt_decode(cookies.get('discord_auth')));
 		}
 	}})
