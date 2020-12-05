@@ -26,7 +26,7 @@ export default function Discord() {
     const CLIENT_ID = '743157046677078016'
     const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
 
-    var data= {'client_id': CLIENT_ID, 'client_secret': CLIENT_SECRET, 'grant_type': 'authorization_code', 'code': router.query['code'], 'scope': 'identify', 'redirect_uri': 'https://hacktues-git-wave2.zaharymomchilov.vercel.app/', }
+    var data= {'client_id': CLIENT_ID, 'client_secret': CLIENT_SECRET, 'grant_type': 'authorization_code', 'code': router.query['code'], 'scope': 'identify', 'redirect_uri': 'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord', }
 
     console.log(data);
     if(router.query['code'] != undefined){
