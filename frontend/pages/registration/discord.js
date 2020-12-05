@@ -26,16 +26,23 @@ export default function Discord() {
     const CLIENT_ID = '743157046677078016'
     const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
 
-    var data= {'client_id': CLIENT_ID, 'client_secret': CLIENT_SECRET, 'grant_type': 'authorization_code', 'code': router.query['code'], 'scope': 'identify', 'redirect_uri': 'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord', }
 
-    console.log(data);
+    const payload = new URLSearchParams()
+    payload.append('client_id', CLIENT_ID)
+    payload.append('client_secret', CLIENT_SECRET)
+    payload.append('grant_type', 'authorization_code')
+    payload.append('redirect_uri', 'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord')
+    payload.append('code', router.query['code'])
+    payload.append('identify')
+
+    console.log(payload);
     if(router.query['code'] != undefined){
     axios({
         method: 'post',
         url: 'https://discord.com/api/oauth2/token',
         headers: 
         { "Content-type": "application/x-www-form-urlencoded"},
-        data: data
+        data: payload
           },)
         .then(function (response) {
             if(response.status == 201){
