@@ -55,7 +55,7 @@ export default function Discord() {
                 //       status: "success",
                 //       duration: 9000
                 //     })
-                console.log(response.data.access_token);
+                // console.log(response.data.access_token);
                 axios({
                     method: 'get',
                     url: 'https://discordapp.com/api/users/@me',
@@ -63,9 +63,10 @@ export default function Discord() {
                     {"Content-Type" : "image/png",
                       "Authorization": `Bearer ${response.data.access_token}`, 'Access-Control-Allow-Origin': 'https://cdn.discordapp.com/'}},)
                     .then(function (response){
+                        console.log(response);
                         axios({
                             method: 'get',
-                            url: `https://cdn.discordapp.com/${response.data.id}/user_avatar.png`,
+                            url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.jpg`,
                             headers: 
                             {
                               "Authorization": `Bearer ${response.data.access_token}`}
@@ -80,7 +81,6 @@ export default function Discord() {
                     console.log(error.response);
                     }
             })
-            // https://cdn.discordapp.com/143614922406756352/user_avatar.png
         }
     return( 
         <Box>
