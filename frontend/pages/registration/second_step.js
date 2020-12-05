@@ -1,36 +1,13 @@
-
-import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch, useToast, Checkbox, Link } from "@chakra-ui/react";
+import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement, Icon, Select, Switch, useToast, Checkbox, Link, useDisclosure } from "@chakra-ui/react";
 import { Formik, Field } from 'formik';
-import {
-	FormControl,
-	FormLabel,
-	FormErrorMessage,
-	FormHelperText,
- } from "@chakra-ui/react";
+import { FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 const axios = require('axios');
 import Cookies from 'universal-cookie';
 import {PhoneIcon, ViewIcon, ViewOffIcon} from '@chakra-ui/icons'
 import { useRouter } from "next/router";
 const cookies = new Cookies();
 import * as Yup from 'yup';
-import { useDisclosure } from "@chakra-ui/react"
 import styled from '@emotion/styled'
-
-function equalTo(ref, msg) {
-	return Yup.mixed().test({
-	  name: 'equalTo',
-	  exclusive: false,
-	  message: msg || '${path} must be the same as ${reference}',
-	  params: {
-		reference: ref.path,
-	  },
-	  test: function(value) {
-		return value === this.resolve(ref);
-	  },
-	});
-  }
-
-Yup.addMethod(Yup.string, 'equalTo', equalTo);
 
 export default function Register(props) {
 
@@ -40,6 +17,53 @@ export default function Register(props) {
 
 	var router = useRouter()
 	const toast = useToast()
+
+    if(router.query['code'] != undefined){
+        let payload = new FormData();
+        payload.append("client_id",CLIENT_ID)
+        payload.append("client_secret",CLIENT_SECRET)
+        payload.append("grant_type",'authorization_code')
+        payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord')
+        payload.append("code", router.query['code'])
+        payload.append("scope","identify email")
+
+    axios({
+        method: 'post',
+        url: 'https://discord.com/api/oauth2/token',
+        headers: 
+        { "Content-type": "application/x-www-form-urlencoded"},
+        data: payload
+          },)
+        .then(function (response) {
+
+            cookies.set('discord_auth', response.data.access_token, { path: '/' })
+            cookies.set('discord_refresh', response.data.refresh_token, { path: '/' })
+
+            axios({
+                method: 'get',
+                url: 'https://discordapp.com/api/users/@me',
+                headers: 
+                {
+                  "Authorization": `Bearer ${response.data.access_token}`}},)
+                .then(function (response){
+                    console.log(response.data.id);
+
+                    // axios({
+                    //     method: 'get',
+                    //     url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`,
+                    //     },)
+                    //     .then(function (response){
+                    //         console.log(response.config.url);
+                    //     })
+                  })
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    console.log(error.response);
+                    }
+            })
+        }
+
 
 	const SignupSchema = Yup.object().shape({
 		first_name: Yup.string()
@@ -93,23 +117,9 @@ export default function Register(props) {
         									  status: "success",
         									  duration: 9000
         									});
-											// axios({
-											// 	method: 'post',
-											// 	url: 'https://hacktues.pythonanywhere.com/token/',
-											// 	headers: { "Content-type": "Application/json"},
-											// 	data: {email: values['email'] , password: values['password']} },)
-											// 	.then(function (response) {
-											// 		console.log(response);
-											// 	  	cookies.set('auth', response.data.access, { path: '/' })
-											// 		cookies.set('refresh', response.data.refresh, { path: '/' })
-											// 		// router.push('/')
-											// 		console.log("logged")
-													
-											// 	})
+											
 
 											router.push('/')
-											// console.log(values['email'])
-											// router.push('/registration/discord')
         					    	}})
         					    .catch(function (error) {
 									if (error.response) {
@@ -302,3 +312,20 @@ const CustomCheckbox = styled(Checkbox)`
     color: beige;
   }
 `
+
+
+function equalTo(ref, msg) {
+	return Yup.mixed().test({
+	  name: 'equalTo',
+	  exclusive: false,
+	  message: msg || '${path} must be the same as ${reference}',
+	  params: {
+		reference: ref.path,
+	  },
+	  test: function(value) {
+		return value === this.resolve(ref);
+	  },
+	});
+  }
+
+Yup.addMethod(Yup.string, 'equalTo', equalTo);

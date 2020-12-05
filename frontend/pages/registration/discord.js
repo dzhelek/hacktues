@@ -8,44 +8,19 @@ const cookies = new Cookies();
 import Konami from 'react-konami-code';
 var FormData = require('form-data');
 
-import jwt_decode from "jwt-decode";
 
 export default function Discord() {
 
-    
 
-
-
-    useEffect(() => {
-        router.prefetch('/secret/verywellkeptsecret/indeed/secret')
-      })
-    var router = useRouter()
-    const easterEgg = () => {
-		router.push("/secret/verywellkeptsecret/indeed/secret")
-    }
-
-    const CLIENT_ID = '743157046677078016'
-    const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
-
-    // const payload = new URLSearchParams()
-    // payload.append('client_id', CLIENT_ID)
-    // payload.append('client_secret', CLIENT_SECRET)
-    // payload.append('grant_type', 'authorization_code')
-    // payload.append('redirect_uri', 'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord')
-    // payload.append('code', router.query['code'])
-    // payload.append('identify')
     if(router.query['code'] != undefined){
+        let payload = new FormData();
+        payload.append("client_id",CLIENT_ID)
+        payload.append("client_secret",CLIENT_SECRET)
+        payload.append("grant_type",'authorization_code')
+        payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord')
+        payload.append("code", router.query['code'])
+        payload.append("scope","identify email")
 
-    let payload = new FormData();
-    payload.append("client_id",CLIENT_ID)
-    payload.append("client_secret",CLIENT_SECRET)
-    payload.append("grant_type",'authorization_code')
-    payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord')
-    payload.append("code", router.query['code'])
-    payload.append("scope","identify email")
-
-    console.log(payload);
-    
     axios({
         method: 'post',
         url: 'https://discord.com/api/oauth2/token',
@@ -58,8 +33,6 @@ export default function Discord() {
             cookies.set('discord_auth', response.data.access_token, { path: '/' })
             cookies.set('discord_refresh', response.data.refresh_token, { path: '/' })
 
-
-            console.log(response.data.access_token);
             axios({
                 method: 'get',
                 url: 'https://discordapp.com/api/users/@me',
@@ -83,12 +56,6 @@ export default function Discord() {
                     }
             })
         }
-
-        // headers: 
-        // {'Access-Control-Allow-Origin': '*', "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT", "Access-Control-Allow-Headers" : "Content-Type", "Content-Type":"image/png",
-        //   "Authorization": `Bearer ${response.data.access_token}`}
-          
-
 
     return( 
         <Box>
