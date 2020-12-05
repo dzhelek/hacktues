@@ -32,7 +32,7 @@ function equalTo(ref, msg) {
 
 Yup.addMethod(Yup.string, 'equalTo', equalTo);
 
-export default function Registration() {
+export default function Register(props) {
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [show, setShow] = React.useState(false);
@@ -69,19 +69,10 @@ export default function Registration() {
 				.matches(/^0\d{9}$/, 'използвай валиден телефон')
 	});
 
-
-	function validateUsername(value) {
-		let error;
-		if (value === 'admin') {
-		  error = 'Nice try!';
-		}
-		return error;
-	}
-
     return (
-    <Box pb="25px">
-        <Box pl="25px" pr="25px" pt="25px" ml={["25px","100px", "200px","250px","300px","600px"]} mr={["25px","100px", "200px","250px","300px","600px"]} pb="25px" rounded="lg" backgroundColor="#ffff" mb={["160px", "150px"]} mt={["50px", "50px", "50px","100px"]}>
-		<Formik initialValues={{first_name: '', last_name: '', email: '', password: ''}} validationSchema={SignupSchema}
+      <Box marginLeft="15px" marginRight="15px" paddingBottom="200px">
+        <Box backgroundColor="white" margin="auto" marginTop="50px" padding="20px" rounded="lg" w={["100%","100%","33%","33%"]} minWidth={["none","none","55rem","55rem"]}>
+			<Formik initialValues={{first_name: '', last_name: '', email: '', password: ''}} validationSchema={SignupSchema}
 				onSubmit={(values, actions) => {
         			setTimeout(() => {
 							var data = JSON.stringify(values, null, 1)
@@ -96,14 +87,30 @@ export default function Registration() {
 								  },)
         					    .then(function (response) {
         					        if(response.status == 201){
-										toast({
-        									  title: "Създаване на акаунт",
-        									  description: "Акаунтът беше успешно създаден.",
-        									  status: "success",
-        									  duration: 9000
-        									})
+										// toast({
+        								// 	  title: "Създаване на акаунт",
+        								// 	  description: "Акаунтът беше успешно създаден.",
+        								// 	  status: "success",
+        								// 	  duration: 9000
+        								// 	});
+											axios({
+												method: 'post',
+												url: 'https://hacktues.pythonanywhere.com/token/',
+												headers: { "Content-type": "Application/json"},
+												data: {email: values['email'] , password: values['password']} },)
+												.then(function (response) {
+													console.log(response);
+												  	cookies.set('auth', response.data.access, { path: '/' })
+													cookies.set('refresh', response.data.refresh, { path: '/' })
+													// router.push('/')
+													console.log("logged")
+													
+												})
+
+
+											// console.log(values['email'])
+											// router.push('/registration/discord')
         					    	}})
-									router.push('/')
         					    .catch(function (error) {
 									if (error.response) {
 										for (const [key, value] of Object.entries(error.response.data)) {
@@ -117,12 +124,12 @@ export default function Registration() {
       							}}>
     {props => (
 				<form style={{display:"flex",flexDirection:"row",flexWrap:"wrap"}} onSubmit={props.handleSubmit}>
-				<Field validate={validateUsername} name="first_name">
+				<Field name="first_name">
 					{({ field, form }) => (
 					<FormControl flexGrow={1} w={["100%","100%","100%","33%"]} mr="5px" isRequired isInvalid={form.errors.first_name && form.touched.first_name}>
 						<FormLabel fontFamily="Rubik" fontSize="15px">Име (на кирилица)</FormLabel>
 						<Input _invalid={{boxShadow: "0 1px 0 0 #E53E3E", borderColor:"#E53E3E"}} _focus={{borderColor:"#a5cf9f", boxShadow: "0px 2px 0px 0px #a5cf9f"}} variant="flushed" borderTop={0} borderRight={0} borderLeft={0} {...field} id="first_name" />
-						<FormErrorMessage>{form.errors.first_name}</FormErrorMessage>
+						<FormErrorMessage color="green" >{form.errors.first_name}</FormErrorMessage>
 					</FormControl>
 					)}
           		</Field>
@@ -285,11 +292,12 @@ export default function Registration() {
         </form>
       )}
     </Formik>
-		</Box>
 	</Box>
-	);}
-	
-	const CustomCheckbox = styled(Checkbox)`
+      </Box>
+    );
+}
+
+const CustomCheckbox = styled(Checkbox)`
   .chakra-checkbox__control{
     color: beige;
   }

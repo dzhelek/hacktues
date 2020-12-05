@@ -2,7 +2,7 @@
 
 # Update archive
 - [] Change background depending on versions
-- [] Create a sub page instead of drop down menu to display versions
+- [x] Create a sub page instead of drop down menu to display versions
 
 # Robo ideas
 
@@ -10,14 +10,16 @@
 - [] change HackTUES GG logo on callback
 
 # ideas
-- [] facebook post viewer
-
 
 # about page
 
 - [] line-height
 
 
-# profile
+# profile && login page
 
 - [] if not logged in, redirect
+
+# no mobile detection needed... just change layout based on device width
+
+- [] update navbar

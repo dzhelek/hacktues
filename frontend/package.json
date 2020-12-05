@@ -32,6 +32,8 @@
     "next": "9.5.1",
     "next-with-error": "^1.2.0",
     "node-fetch": "^2.6.1",
+    "passport": "^0.4.1",
+    "passport-discord": "^0.1.4",
     "react": "16.13.1",
     "react-clamp": "^1.0.5",
     "react-clamp-lines": "^3.0.2",
