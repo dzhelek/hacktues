@@ -23,7 +23,7 @@ export default function Discord() {
 		router.push("/secret/verywellkeptsecret/indeed/secret")
     }
 
-    console.log(router.query);
+    console.log(router.query[0]);
 
     // axios({
     //     method: 'post',
@@ -35,12 +35,13 @@ export default function Discord() {
     //       },)
     //     .then(function (response) {
     //         if(response.status == 201){
-    //             toast({
-    //                   title: "Създаване на акаунт",
-    //                   description: "Акаунтът беше успешно създаден.",
-    //                   status: "success",
-    //                   duration: 9000
-    //                 })
+    //             // toast({
+    //             //       title: "Създаване на акаунт",
+    //             //       description: "Акаунтът беше успешно създаден.",
+    //             //       status: "success",
+    //             //       duration: 9000
+    //             //     })
+    //             console.log(response);
     //         }})
 
     return( 
