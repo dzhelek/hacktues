@@ -29,7 +29,7 @@ async function Profile(props) {
 
 	// console.log(profile);
 
-	console.log(cookies.get('discord_auth'))
+	// console.log(cookies.get('discord_auth'))
 	const toast = useToast()
 
 	const SignupSchema = Yup.object().shape({
