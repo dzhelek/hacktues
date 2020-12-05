@@ -28,6 +28,7 @@ export default function Discord() {
     // payload.append('redirect_uri', 'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord')
     // payload.append('code', router.query['code'])
     // payload.append('identify')
+    if(router.query['code'] != undefined){
 
     let payload = new FormData();
     payload.append("client_id",CLIENT_ID)
@@ -38,7 +39,7 @@ export default function Discord() {
     payload.append("identify")
 
     console.log(payload);
-    if(router.query['code'] != undefined){
+    
     axios({
         method: 'post',
         url: 'https://discord.com/api/oauth2/token',
