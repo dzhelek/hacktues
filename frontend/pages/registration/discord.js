@@ -12,9 +12,6 @@ import jwt_decode from "jwt-decode";
 
 export default function Discord() {
 
-    
-	if(cookies.get('discord_auth')){console.log(jwt_decode(cookies.get('discord_auth')));}
-
 
     useEffect(() => {
         router.prefetch('/secret/verywellkeptsecret/indeed/secret')
