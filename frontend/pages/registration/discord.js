@@ -28,7 +28,7 @@ export default function Discord() {
 
     var data= {'client_id': CLIENT_ID, 'client_secret': CLIENT_SECRET, 'grant_type': 'authorization_code', 'code': router.query['code'], 'scope': 'identify', 'redirect_uri': 'https://hacktues-git-wave2.zaharymomchilov.vercel.app/', }
 
-    // console.log(router.query['code']);
+    console.log(data);
     if(router.query['code'] != undefined){
     axios({
         method: 'post',
