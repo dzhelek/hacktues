@@ -59,7 +59,7 @@ export default function Discord() {
             cookies.set('discord_refresh', response.data.refresh_token, { path: '/' })
 
 
-            // console.log(response.data.access_token);
+            console.log(response.data.access_token);
             axios({
                 method: 'get',
                 url: 'https://discordapp.com/api/users/@me',
