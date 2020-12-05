@@ -12,24 +12,8 @@ import _ from 'lodash';
 const cookies = new Cookies()
 import * as Yup from 'yup';
 
-async function Profile(props) {
+function Profile(props) {
 
-	var profile;
-	console.log("dick")
-	// axios({
-	// 	method: 'get',
-	// 	url: 'https://discordapp.com/api/users/@me',
-	// 	headers: 
-	// 	{
-	// 	  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
-	// 	.then(function (response){
-	// 		console.log(response);
-	// 		// profile = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
-	// 	})
-
-	// console.log(profile);
-
-	// console.log(cookies.get('discord_auth'))
 	const toast = useToast()
 
 	const SignupSchema = Yup.object().shape({
@@ -52,6 +36,7 @@ async function Profile(props) {
 			.matches(/^0\d{9}$/, 'използвай валиден телефон')
 	});
 
+	return props.users.email == "hacktues" ? <Profile /> : <Error />
 
 	return(
 	<Box paddingBottom="300px" maxW="960px" marginLeft="auto" marginRight="auto">
@@ -208,8 +193,6 @@ export async function getServerSideProps(ctx){
 	
 	const cookies = new Cookies(ctx.req.headers.cookie);
 
-	var profile;
-
 	var response = await axios({
 			method: 'get',
 			url: `https://hacktues.pythonanywhere.com/users/${jwt_decode(cookies.get('auth')).user_id}`,
@@ -220,8 +203,8 @@ export async function getServerSideProps(ctx){
 			)
 
 	return {props: {users: response.data}}
-}
 
+}
 
 const CheckboxArrayControl = (props, {children}) => {
 
