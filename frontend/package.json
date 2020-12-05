@@ -19,6 +19,7 @@
     "axios": "^0.21.0",
     "discord-oauth2": "^2.6.0",
     "facepaint": "^1.2.1",
+    "form-data": "^3.0.0",
     "formik": "^2.2.1",
     "framer": "^1.2.9",
     "framer-motion": "latest",

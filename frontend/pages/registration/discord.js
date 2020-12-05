@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 import axios from 'axios'
 const cookies = new Cookies();
 import Konami from 'react-konami-code';
+var FormData = require('form-data');
 
 export default function Discord() {
 
