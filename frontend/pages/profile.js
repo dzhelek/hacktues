@@ -47,7 +47,7 @@ function Profile(props) {
 	});
 
 	// return props.users.email == "hacktues" ? <Profile /> : <Error />
-	console.log(res);
+	console.log(res.data);
 	return(
 	<Box paddingBottom="300px" maxW="960px" marginLeft="auto" marginRight="auto">
 	<Flex backgroundColor="white" p="25px" rounded="lg" flexDirection="column" flexWrap="wrap" margin="50px">
