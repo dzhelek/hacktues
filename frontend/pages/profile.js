@@ -192,6 +192,8 @@ export async function getServerSideProps(ctx){
 	
 	const cookies = new Cookies(ctx.req.headers.cookie);
 
+	var profile;
+
 	var response = await axios({
 			method: 'get',
 			url: `https://hacktues.pythonanywhere.com/users/${jwt_decode(cookies.get('auth')).user_id}`,
@@ -207,19 +209,17 @@ export async function getServerSideProps(ctx){
                 headers: 
                 {
                   "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
-                .then(function (response){
-                    
-                    var profile = axios({
+                .then(function (response,){
+                    profile = axios({
                         method: 'get',
                         url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`,
                         },)
-                        .then(function (response){
-                            console.log(response.config.url);
-                        })
+                  })
+
 
 	return {props: {users: response.data, profile: profile }}
-
 }
+
 
 const CheckboxArrayControl = (props, {children}) => {
 
