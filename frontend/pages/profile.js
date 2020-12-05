@@ -14,9 +14,19 @@ import * as Yup from 'yup';
 
 function Profile(props) {
 
+	var discord = await axios({
+		method: 'get',
+		url: 'https://discordapp.com/api/users/@me',
+		headers: 
+		{
+		  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
+		.then(function (response){
+			profile = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
+		})
 
-	console.log(props);
+	console.log(discord);
 
+	console.log(cookies.get('discord_auth'))
 	const toast = useToast()
 
 	const SignupSchema = Yup.object().shape({
@@ -206,21 +216,7 @@ export async function getServerSideProps(ctx){
 			},
 			)
 
-	var discord = axios({
-                method: 'get',
-                url: 'https://discordapp.com/api/users/@me',
-                headers: 
-                {
-                  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
-                .then(function (response,){
-                    profile = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`
-                  })
-
-	
-				  console.log(profile);
-				  console.log(discord);
-
-	return {props: {users: response.data, profile: profile }}
+	return {props: {users: response.data, discord: discord}}
 }
 
 

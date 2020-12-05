@@ -39,14 +39,37 @@ export default function Login({logIn}) {
 						console.log(response);
 					  	cookies.set('auth', response.data.access, { path: '/' })
 						cookies.set('refresh', response.data.refresh, { path: '/' })
-						toast({
-          title: "Влизането успешно.",
-          description: "Влизането в профила е успешно.",
-          status: "success",
-          duration: 9000
-        })
-		router.push('/')
+						toast({ title: "Влизането успешно.", description: "Влизането в профила е успешно.",status: "success", duration: 9000})
+					
+
+
+
 					})
+					.then(function(){
+						
+    					const CLIENT_ID = '743157046677078016'
+    					const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
+
+						let payload = new FormData();
+        				payload.append("client_id",CLIENT_ID)
+        				payload.append("client_secret",CLIENT_SECRET)
+        				payload.append("grant_type",'authorization_code')
+        				payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/second_step')
+        				payload.append("code", router.query['code'])
+        				payload.append("scope","identify email")
+									
+						axios({
+       							method: 'post',
+        						url: 'https://discord.com/api/oauth2/token',
+        						headers: { "Content-type": "application/x-www-form-urlencoded"},
+        						data: payload
+          					},)
+        				.then(function (response) {
+        				    cookies.set('discord_auth', response.data.access_token, { path: '/' })
+        				    cookies.set('discord_refresh', response.data.refresh_token, { path: '/' })
+							router.push('/')
+        				    })
+						})
 					.catch(function (error) {
 						if (error.response) {
 							toast({

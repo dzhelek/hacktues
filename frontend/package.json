@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "dev": "next dev"
   },
   "dependencies": {
     "@atayahmet/react-axios-token-provider": "^1.0.0-rc.9",
@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.0.0",
     "@lottiefiles/react-lottie-player": "^2.2.1",
     "axios": "^0.21.0",
+    "cross-env": "^7.0.3",
     "discord-oauth2": "^2.6.0",
     "facepaint": "^1.2.1",
     "form-data": "^3.0.0",
