@@ -201,7 +201,23 @@ export async function getServerSideProps(ctx){
 			},
 			)
 
-	return {props: {users: response.data}}
+			axios({
+                method: 'get',
+                url: 'https://discordapp.com/api/users/@me',
+                headers: 
+                {
+                  "Authorization": `Bearer ${cookies.get('discord_auth')}`}},)
+                .then(function (response){
+                    
+                    var profile = axios({
+                        method: 'get',
+                        url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`,
+                        },)
+                        .then(function (response){
+                            console.log(response.config.url);
+                        })
+
+	return {props: {users: response.data, profile: profile }}
 
 }
 
