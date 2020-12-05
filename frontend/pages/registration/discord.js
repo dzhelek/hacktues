@@ -20,13 +20,21 @@ export default function Discord() {
     const CLIENT_ID = '743157046677078016'
     const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
 
-    const payload = new URLSearchParams()
-    payload.append('client_id', CLIENT_ID)
-    payload.append('client_secret', CLIENT_SECRET)
-    payload.append('grant_type', 'authorization_code')
-    payload.append('redirect_uri', 'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord')
-    payload.append('code', router.query['code'])
-    payload.append('identify')
+    // const payload = new URLSearchParams()
+    // payload.append('client_id', CLIENT_ID)
+    // payload.append('client_secret', CLIENT_SECRET)
+    // payload.append('grant_type', 'authorization_code')
+    // payload.append('redirect_uri', 'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord')
+    // payload.append('code', router.query['code'])
+    // payload.append('identify')
+
+    let payload = new FormData();
+    payload.append("client_id",CLIENT_ID)
+    payload.append("client_secret",CLIENT_SECRET)
+    payload.append("grant_type",'authorization_code')
+    payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/discord')
+    payload.append("code", router.query['code'])
+    payload.append("identify")
 
     console.log(payload);
     if(router.query['code'] != undefined){
