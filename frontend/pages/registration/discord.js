@@ -68,7 +68,7 @@ export default function Discord() {
                             method: 'get',
                             url: `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`,
                             headers: 
-                            { "Content-Type" : "image/png",
+                            {'Access-Control-Allow-Origin': '*', "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT", "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept, Authorization", "Content-Type":"image/png"
                               "Authorization": `Bearer ${response.data.access_token}`}
                               },)
                             .then(function (response){
