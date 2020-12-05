@@ -53,14 +53,10 @@ export default function Discord() {
 
             cookies.set('discord_auth', response.data.access_token, { path: '/' })
             cookies.set('discord_refresh', response.data.refresh_token, { path: '/' })
+            
+            debugger
+            console.log(jwt_decode(response.data.access_token));
 
-                console.log(jwt_decode(cookies.get('discord_auth')));
-                // toast({
-                //       title: "Създаване на акаунт",
-                //       description: "Акаунтът беше успешно създаден.",
-                //       status: "success",
-                //       duration: 9000
-                //     })
                 // console.log(response.data.access_token);
                 axios({
                     method: 'get',

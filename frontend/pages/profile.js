@@ -36,7 +36,6 @@ function Profile(props) {
 			.matches(/^0\d{9}$/, 'използвай валиден телефон')
 	});
 
-	return props.users.email == "hacktues" ? <Profile /> : <Error />
 
 	return(
 	<Box paddingBottom="300px" maxW="960px" marginLeft="auto" marginRight="auto">
