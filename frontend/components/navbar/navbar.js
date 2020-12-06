@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Input, InputGroup, InputRightElement, Select, InputLeftElement, Switch, Heading, Flex, Button, useToast, Text, Link} from "@chakra-ui/react";
+import React, {useEffect} from "react";
+import { Box, Input, InputGroup, InputRightElement, Select, InputLeftElement, Switch, Heading, Flex, Button, useToast, Text, Link, useControllableState} from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, MenuOptionGroup, MenuItemOption } from "@chakra-ui/react";
 import { Modal, ModalOverlay,ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import { Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton } from "@chakra-ui/react";
@@ -201,6 +201,7 @@ function Register(props) {
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { isOpenx, onOpenx, onClosex } = useDisclosure();
+	const [open, setOpen] = useControllableState({ defaultValue: false })
 	const [show, setShow] = React.useState(false);
 	const handleClick = () => setShow(!show);
 
@@ -240,8 +241,13 @@ function Register(props) {
 
     var userID;
 
+
     if(router.query['code'] != undefined){
-		onOpenx()
+
+		useEffect(() => {
+			setOpen(true)
+		})
+
         let payload = new FormData();
         payload.append("client_id",CLIENT_ID)
         payload.append("client_secret",CLIENT_SECRET)
@@ -297,7 +303,7 @@ function Register(props) {
           </ModalContent>
         </Modal>
 		
-		<Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={isOpenx} size="xl" onEsc={onClosex} onClose={onClosex}>
+		<Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={open} size="xl" onEsc={() => {setOpen(false)}} onClose={() => {setOpen(false)}}>
           <ModalOverlay/>
           <ModalContent style={{width:"1000px", minWidth:"55rem"}}>
             <ModalHeader fontFamily="Rubik">Регистрация</ModalHeader>
