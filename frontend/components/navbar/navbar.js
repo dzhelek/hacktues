@@ -242,7 +242,9 @@ function Register(props) {
     var userID;
 
     if(router.query['code'] != undefined){
-
+		useEffect(() => {
+			setOpen(true)
+		})
 		console.log(router.query['code']);
         let payload = new FormData();
         payload.append("client_id",CLIENT_ID)
@@ -274,10 +276,6 @@ function Register(props) {
                     // console.log(response.data.id);
 					userID = response.data.id
 					console.log(userID);
-					useEffect(() => {
-						setOpen(true)
-					})
-					
                   })
             })
             .catch(function (error) {
