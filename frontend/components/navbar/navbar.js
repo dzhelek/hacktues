@@ -239,6 +239,7 @@ function Register(props) {
 	var userID;
 
     if(router.query['code'] != undefined){
+		onOpenx()
 		console.log(router.query['code']);
         let payload = new FormData();
         payload.append("client_id",CLIENT_ID)
@@ -280,7 +281,7 @@ function Register(props) {
         }
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { isOpen : isOpenx, onOpen: onOpenx, onClose: onClosex } = useDisclosure({defaultIsOpen: true});
+	const { isOpen : isOpenx, onOpen: onOpenx, onClose: onClosex } = useDisclosure();
     return (
       <>
         <Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
