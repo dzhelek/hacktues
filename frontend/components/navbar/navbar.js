@@ -241,7 +241,6 @@ function Register(props) {
 
     var userID;
 
-
     if(router.query['code'] != undefined){
 
 		console.log(router.query['code']);
@@ -253,7 +252,7 @@ function Register(props) {
         payload.append("client_id",CLIENT_ID)
         payload.append("client_secret",CLIENT_SECRET)
         payload.append("grant_type",'authorization_code')
-        payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/second_step')
+        payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/')
         payload.append("code", router.query['code'])
         payload.append("scope","identify email")
 
@@ -277,7 +276,8 @@ function Register(props) {
                   "Authorization": `Bearer ${response.data.access_token}`}},)
                 .then(function (response){
                     // console.log(response.data.id);
-                    userID = response.data.id
+					userID = response.data.id
+					console.log(userID);
                   })
             })
             .catch(function (error) {
