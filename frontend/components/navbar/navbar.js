@@ -280,7 +280,7 @@ function Register(props) {
 						}
 				})
 			}
-	})
+	}, [])
     
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
