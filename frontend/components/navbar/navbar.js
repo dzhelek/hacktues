@@ -239,7 +239,7 @@ function Register(props) {
 	var userID;
 
     if(router.query['code'] != undefined){
-		onOpenx()
+		onOpenx(true)
 		console.log(router.query['code']);
         let payload = new FormData();
         payload.append("client_id",CLIENT_ID)
