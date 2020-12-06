@@ -236,7 +236,7 @@ function Register(props) {
 				.matches(/^0\d{9}$/, 'използвай валиден телефон')
 	});
 
-	var open = true
+	var open
 	function setOpen(set){
 		open = set;
 	}
@@ -247,7 +247,7 @@ function Register(props) {
 	var userID;
 
     if(router.query['code'] != undefined){
-		setOpen(set);
+		open = true
 		console.log(router.query['code']);
         let payload = new FormData();
         payload.append("client_id",CLIENT_ID)
