@@ -239,12 +239,14 @@ function Register(props) {
 	const CLIENT_ID = '743157046677078016'
     const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
 
-    var userID;
-
+	var userID;
+	
+	function handleSetOpen(set) {
+		setOpen(set);
+	}
+	
     if(router.query['code'] != undefined){
-		useEffect(() => {
-			setOpen(true)
-		})
+		handleSetOpen(true)
 		console.log(router.query['code']);
         let payload = new FormData();
         payload.append("client_id",CLIENT_ID)
