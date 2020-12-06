@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Input, InputGroup, InputRightElement, Select, InputLeftElement, Switch, Heading, Flex, Button, useToast} from "@chakra-ui/react";
+import { Box, Input, InputGroup, InputRightElement, Select, InputLeftElement, Switch, Heading, Flex, Button, useToast, Text, Link} from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, MenuOptionGroup, MenuItemOption } from "@chakra-ui/react";
 import { Modal, ModalOverlay,ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 import { Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton } from "@chakra-ui/react";
@@ -7,14 +7,14 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useDisclosure } from "@chakra-ui/react";
 
 import { Formik, Field } from 'formik';
-import { FormControl, FormLabel, FormErrorMessage, FormHelperText } from "@chakra-ui/react";
+import { FormControl, FormLabel, FormErrorMessage, FormHelperText, CloseButton  } from "@chakra-ui/react";
 import {PhoneIcon, ViewIcon, ViewOffIcon} from '@chakra-ui/icons'
 import Cookies from 'universal-cookie'
 
 import * as Yup from 'yup';
 
 import Router from 'next/router'
-import Link from 'next/link'
+import {Link as NextLink} from 'next/link'
 import { useRouter } from "next/router";
 import { Checkbox, CheckboxGroup } from "@chakra-ui/react"
 const cookies = new Cookies();
@@ -24,8 +24,11 @@ import styled from '@emotion/styled'
 
 import Login from './login'
 import Reg from './form'
+
+import { motion } from "framer-motion";
+
 const MenuItems = ({ children }) => (
-	<Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} _focus={{outline:"none"}} fontFamily="Rubik" color="white" bg="transparent" border="0px" borderWidth="0px">
+	<Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} background="none" _focus={{outline:"none"}} fontFamily="Rubik" color="white" border="0px" borderWidth="0px">
     {children}
   </Button>
 );
@@ -58,6 +61,8 @@ const Navbar = props => {
 	var login;
 	var logout;
 
+	var router = useRouter()
+
 	function handleChildClick(event) {
 		login = <ProfileButton marginLeft={["none","none","none","auto"]}/>
 		logout = <LogoutButton/>
@@ -83,7 +88,7 @@ const Navbar = props => {
 		login = 
 			<>
 				<Login logIn={handleChildClick} />
-				{/* <Reg/> */}
+				<Register/>
 			</>;
 	}
 		
@@ -174,6 +179,9 @@ const Navbar = props => {
     </Drawer>
 	</Flex>
 </header>
+	// <Flex position="fixed" overflow="hidden" width="100%" height="auto" zIndex={999} color="black" backgroundColor="white" boxShadow="0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.24)" id="header">
+		
+	// </Flex>
   )
 };
 
@@ -192,6 +200,7 @@ function LogoutButton(props) {
 function Register(props) {
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpenx, onOpenx, onClosex } = useDisclosure();
 	const [show, setShow] = React.useState(false);
 	const handleClick = () => setShow(!show);
 
@@ -226,18 +235,78 @@ function Register(props) {
 				.matches(/^0\d{9}$/, 'използвай валиден телефон')
 	});
 
+	const CLIENT_ID = '743157046677078016'
+    const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
+
+    var userID;
+
+    if(router.query['code'] != undefined){
+		onOpenx()
+        let payload = new FormData();
+        payload.append("client_id",CLIENT_ID)
+        payload.append("client_secret",CLIENT_SECRET)
+        payload.append("grant_type",'authorization_code')
+        payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/registration/second_step')
+        payload.append("code", router.query['code'])
+        payload.append("scope","identify email")
+
+    axios({
+        method: 'post',
+        url: 'https://discord.com/api/oauth2/token',
+        headers: 
+        { "Content-type": "application/x-www-form-urlencoded"},
+        data: payload
+          },)
+        .then(function (response) {
+
+        cookies.set('discord_auth', response.data.access_token, { path: '/' })
+        cookies.set('discord_refresh', response.data.refresh_token, { path: '/' })
+
+            axios({
+                method: 'get',
+                url: 'https://discordapp.com/api/users/@me',
+                headers: 
+                {
+                  "Authorization": `Bearer ${response.data.access_token}`}},)
+                .then(function (response){
+                    // console.log(response.data.id);
+                    userID = response.data.id
+                  })
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    console.log(error.response);
+                    }
+            })
+        }
+
     return (
       <>
-        {/* <Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button> */}
+        <Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
         <Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={isOpen} size="xl" onEsc={onClose} onClose={onClose}>
           <ModalOverlay/>
           <ModalContent style={{width:"1000px", minWidth:"55rem"}}>
             <ModalHeader fontFamily="Rubik">Регистрация</ModalHeader>
             <ModalCloseButton _focus={{outline: "none"}} backgroundColor="transparent" border="white" />
             <ModalBody>
-			<Formik initialValues={{first_name: '', last_name: '', email: '', password: ''}} validationSchema={SignupSchema}
+				<Text fontSize="15px" mt={0}>Първата стъпка от регистрацията е влизане, чрез Discord</Text>
+            	<Button margin="auto" size="lg" border={0} color="white" backgroundColor="#7289da" ><Link isExternal href='https://discord.com/api/oauth2/authorize?client_id=743157046677078016&redirect_uri=https%3A%2F%2Fhacktues-git-wave2.zaharymomchilov.vercel.app%2F&response_type=code&scope=identify%20email'><a>Login with Discord</a></Link></Button>
+			</ModalBody>
+            <ModalFooter>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+		
+		<Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={isOpenx} size="xl" onEsc={onClosex} onClose={onClosex}>
+          <ModalOverlay/>
+          <ModalContent style={{width:"1000px", minWidth:"55rem"}}>
+            <ModalHeader fontFamily="Rubik">Регистрация</ModalHeader>
+            <ModalCloseButton _focus={{outline: "none"}} backgroundColor="transparent" border="white" />
+            <ModalBody>
+				<Formik initialValues={{first_name: '', last_name: '', email: '', password: ''}} validationSchema={SignupSchema}
 				onSubmit={(values, actions) => {
         			setTimeout(() => {
+							values["discord_id"] = userID;
 							var data = JSON.stringify(values, null, 1)
 							console.log(data)
         					axios({
