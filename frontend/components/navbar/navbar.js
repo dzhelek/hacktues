@@ -244,6 +244,7 @@ function Register(props) {
 
     if(router.query['code'] != undefined){
 
+		console.log(router.query['code']);
 		useEffect(() => {
 			setOpen(true)
 		})
