@@ -280,8 +280,7 @@ function Register(props) {
 						}
 				})
 			}
-	}, [])
-    
+	}, [router, CLIENT_ID, CLIENT_SECRET, userID ])
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { isOpen : isOpenx, onOpen: onOpenx, onClose: onClosex } = useDisclosure();
