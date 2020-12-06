@@ -200,8 +200,8 @@ function LogoutButton(props) {
 function Register(props) {
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { isOpenx, onOpenx, onClosex } = useDisclosure();
-	const [open, setOpen] = useControllableState({ defaultValue: false })
+	// const { isOpenx, onOpenx, onClosex } = useDisclosure();
+	// const [open, setOpen] = useControllableState({ defaultValue: false })
 	const [show, setShow] = React.useState(false);
 	const handleClick = () => setShow(!show);
 
@@ -236,12 +236,17 @@ function Register(props) {
 				.matches(/^0\d{9}$/, 'използвай валиден телефон')
 	});
 
+	var open = true
+	function setOpen(set){
+		open = set;
+	}
+
 	const CLIENT_ID = '743157046677078016'
     const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
 
 	var userID;
 
-    if(router.query['code']){
+    if(router.query['code'] != undefined){
 		setOpen(set);
 		console.log(router.query['code']);
         let payload = new FormData();
