@@ -238,47 +238,50 @@ function Register(props) {
 
 	var userID;
 
-    if(router.query['code'] != undefined){
-		onOpenx(true)
-		console.log(router.query['code']);
-        let payload = new FormData();
-        payload.append("client_id",CLIENT_ID)
-        payload.append("client_secret",CLIENT_SECRET)
-        payload.append("grant_type",'authorization_code')
-        payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/')
-        payload.append("code", router.query['code'])
-        payload.append("scope","identify email")
-
-    axios({
-        method: 'post',
-        url: 'https://discord.com/api/oauth2/token',
-        headers: 
-        { "Content-type": "application/x-www-form-urlencoded"},
-        data: payload
-          },)
-        .then(function (response) {
-
-        cookies.set('discord_auth', response.data.access_token, { path: '/' })
-        cookies.set('discord_refresh', response.data.refresh_token, { path: '/' })
-
-            axios({
-                method: 'get',
-                url: 'https://discordapp.com/api/users/@me',
-                headers: 
-                {
-                  "Authorization": `Bearer ${response.data.access_token}`}},)
-                .then(function (response){
-                    // console.log(response.data.id);
-					userID = response.data.id
-					console.log(userID);
-                  })
-            })
-            .catch(function (error) {
-                if (error.response) {
-                    console.log(error.response);
-                    }
-            })
-        }
+	useEffect(() => {
+		if(router.query['code'] != undefined){
+			onOpenx()
+			console.log(router.query['code']);
+			let payload = new FormData();
+			payload.append("client_id",CLIENT_ID)
+			payload.append("client_secret",CLIENT_SECRET)
+			payload.append("grant_type",'authorization_code')
+			payload.append("redirect_uri",'https://hacktues-git-wave2.zaharymomchilov.vercel.app/')
+			payload.append("code", router.query['code'])
+			payload.append("scope","identify email")
+	
+		axios({
+			method: 'post',
+			url: 'https://discord.com/api/oauth2/token',
+			headers: 
+			{ "Content-type": "application/x-www-form-urlencoded"},
+			data: payload
+			  },)
+			.then(function (response) {
+	
+			cookies.set('discord_auth', response.data.access_token, { path: '/' })
+			cookies.set('discord_refresh', response.data.refresh_token, { path: '/' })
+	
+				axios({
+					method: 'get',
+					url: 'https://discordapp.com/api/users/@me',
+					headers: 
+					{
+					  "Authorization": `Bearer ${response.data.access_token}`}},)
+					.then(function (response){
+						// console.log(response.data.id);
+						userID = response.data.id
+						console.log(userID);
+					  })
+				})
+				.catch(function (error) {
+					if (error.response) {
+						console.log(error.response);
+						}
+				})
+			}
+	})
+    
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { isOpen : isOpenx, onOpen: onOpenx, onClose: onClosex } = useDisclosure();
