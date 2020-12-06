@@ -239,7 +239,6 @@ function Register(props) {
 	var userID;
 
     if(router.query['code'] != undefined){
-		open = true
 		console.log(router.query['code']);
         let payload = new FormData();
         payload.append("client_id",CLIENT_ID)
@@ -280,27 +279,12 @@ function Register(props) {
             })
         }
 
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen : isOpenx, onOpen: onOpenx, onClose: onClosex } = useDisclosure({defaultIsOpen: true});
     return (
       <>
         <Button _active={{bg:"transparent"}} _hover={{bg:"transparent"}} cursor="pointer" fontFamily="Rubik" color="white" bg="transparent" _focus={{outline: "none"}} border="0px" borderWidth="0px" onClick={onOpen}>Регистрация</Button>
-        <ModalDiscord/>
-		<ModalReg/>
-      </>
-    );
-}
-
-const CustomCheckbox = styled(Checkbox)`
-  .chakra-checkbox__control{
-    color: beige;
-  }
-`
-
-
-const ModalDiscord = () => {
-
-	const { isOpen, onOpen, onClose } = useDisclosure();
-	return(
-	<Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={isOpen} size="xl" onEsc={onClose} onClose={onClose}>
+        <Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={isOpen} size="xl" onEsc={onClose} onClose={onClose}>
           <ModalOverlay/>
           <ModalContent style={{width:"1000px", minWidth:"55rem"}}>
             <ModalHeader fontFamily="Rubik">Регистрация</ModalHeader>
@@ -312,14 +296,8 @@ const ModalDiscord = () => {
             <ModalFooter>
             </ModalFooter>
           </ModalContent>
-        </Modal>)
-}
-
-const ModalReg = () => {
-	
-	const { isOpen, onOpen, onClose } = useDisclosure({defaultIsOpen: true})
-
-	return (<Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={isOpen} size="xl" onEsc={onClose} onClose={onClose}>
+        </Modal>
+		<Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={isOpenx} size="xl" onEsc={onClosex} onClose={onClosex}>
 	<ModalOverlay/>
 	<ModalContent style={{width:"1000px", minWidth:"55rem"}}>
 	  <ModalHeader fontFamily="Rubik">Регистрация</ModalHeader>
@@ -534,8 +512,16 @@ const ModalReg = () => {
 	  <ModalFooter>
 	  </ModalFooter>
 	</ModalContent>
-  </Modal>)
+  </Modal>
+      </>
+    );
 }
+
+const CustomCheckbox = styled(Checkbox)`
+  .chakra-checkbox__control{
+    color: beige;
+  }
+`
 
 function Logout() {
 	axios({
