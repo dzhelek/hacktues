@@ -111,10 +111,7 @@ class Team(models.Model):
     users = models.ManyToManyField(User)
 
     name = models.CharField(max_length=100, unique=True)
-    github_link = models.CharField(
-        max_length=400,
-        validators=[RegexValidator(regex=r'github.com/.+/.+')]
-    )
+    github_link = models.TextField(blank=True)
     is_full = models.BooleanField(default=False)
 
     project_name = models.CharField(max_length=100, blank=True)

@@ -34,7 +34,8 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         if users := validated_data.get('users'):
-            if users != instance.users:
+            if users != [user for user in instance.users.all()]:
+                self.check_editable()
                 self.check_users_count(users)
 
         was_confirmed = instance.confirmed
@@ -59,6 +60,13 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
         max_users = SmallInteger.objects.get(name='max_users_in_team').value
         if len(users) > max_users:
             err = 'reached maximum users in team limit'
+            raise serializers.ValidationError(err)
+
+    @staticmethod
+    def check_editable():
+        editable = FieldValidationDate.objects.get(field='team_editable').date
+        if editable < date.today():
+            err = f'team is not editable after {editable}'
             raise serializers.ValidationError(err)
 
 
