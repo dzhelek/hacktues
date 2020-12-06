@@ -200,6 +200,7 @@ function LogoutButton(props) {
 function Register(props) {
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpened, onOpened, onClosed } = useDisclosure({defaultIsOpen: true})
 	// const { isOpenx, onOpenx, onClosex } = useDisclosure();
 	// const [open, setOpen] = useControllableState({ defaultValue: false })
 	const [show, setShow] = React.useState(false);
@@ -305,7 +306,7 @@ function Register(props) {
           </ModalContent>
         </Modal>
 		
-		<Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={open} size="xl" onEsc={() => {open = false}} onClose={() => {open = false}}>
+		<Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={isOpened} size="xl" onEsc={onClosed} onClose={onClosed}>
           <ModalOverlay/>
           <ModalContent style={{width:"1000px", minWidth:"55rem"}}>
             <ModalHeader fontFamily="Rubik">Регистрация</ModalHeader>
