@@ -240,13 +240,9 @@ function Register(props) {
     const CLIENT_SECRET = 'zz8dSlB1maL4tUIWDCCLpIpn8MVPYqKP'
 
 	var userID;
-	
-	function handleSetOpen(set) {
+
+    if(router.query['code']){
 		setOpen(set);
-	}
-	
-    if(router.query['code'] != undefined){
-		handleSetOpen(true)
 		console.log(router.query['code']);
         let payload = new FormData();
         payload.append("client_id",CLIENT_ID)
