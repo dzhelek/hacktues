@@ -244,10 +244,7 @@ function Register(props) {
     if(router.query['code'] != undefined){
 
 		console.log(router.query['code']);
-		useEffect(() => {
-			setOpen(true)
-		})
-
+		setOpen(true)
         let payload = new FormData();
         payload.append("client_id",CLIENT_ID)
         payload.append("client_secret",CLIENT_SECRET)
