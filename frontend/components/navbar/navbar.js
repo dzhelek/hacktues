@@ -305,7 +305,7 @@ function Register(props) {
           </ModalContent>
         </Modal>
 		
-		<Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={open} size="xl" onEsc={() => {setOpen(false)}} onClose={() => {setOpen(false)}}>
+		<Modal motionPreset="slideInBottom" closeOnOverlayClick={false} isOpen={open} size="xl" onEsc={() => {open = false}} onClose={() => {open = false}}>
           <ModalOverlay/>
           <ModalContent style={{width:"1000px", minWidth:"55rem"}}>
             <ModalHeader fontFamily="Rubik">Регистрация</ModalHeader>
