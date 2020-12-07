@@ -274,11 +274,9 @@ function Register(props) {
 				})
 				.catch(function (error) {
 					if (error.response) {
-						for (const [key, value] of Object.entries(error.response.data)) {
-							  console.log(`${key}: ${value}`);
-							actions.setFieldError(key, value)
+						console.log(error.response);
 						}
-				}})	
+				})
 			}
 	}, [router, CLIENT_ID, CLIENT_SECRET, userID ])
 
@@ -328,17 +326,19 @@ function Register(props) {
 										status: "success",
 										duration: 9000
 									  })
+									  
+									router.push('/')
+									onClosex()
 							  }})
-							  router.push('/')
 						  .catch(function (error) {
 							  if (error.response) {
 								  for (const [key, value] of Object.entries(error.response.data)) {
-										console.log(`${key}: ${value}`);
-									  actions.setFieldError(key, value)
+									console.log(`${key}: ${value}`);
+									actions.setFieldError(key, value)
 								  }
 						  }})						
-									  console.log(JSON.stringify(values, null, 1))
-										actions.setSubmitting(false)
+									console.log(JSON.stringify(values, null, 1))
+									actions.setSubmitting(false)
 								  }, 1000);
 							}}>
 {props => (
