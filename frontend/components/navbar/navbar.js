@@ -269,9 +269,7 @@ function Register(props) {
 					{
 					  "Authorization": `Bearer ${response.data.access_token}`}},)
 					.then(function (response){
-						// console.log(response.data.id);
 						userID = response.data.id
-						console.log(userID);
 					  })
 				})
 				.catch(function (error) {
@@ -294,7 +292,7 @@ function Register(props) {
             <ModalCloseButton _focus={{outline: "none"}} backgroundColor="transparent" border="white" />
             <ModalBody>
 				<Text fontSize="15px" mt={0}>Първата стъпка от регистрацията е влизане, чрез Discord</Text>
-            	<Button margin="auto" size="lg" border={0} color="white" backgroundColor="#7289da" ><Link isExternal href='https://discord.com/api/oauth2/authorize?client_id=743157046677078016&redirect_uri=https%3A%2F%2Fhacktues-git-wave2.zaharymomchilov.vercel.app%2F&response_type=code&scope=identify%20email'><a>Login with Discord</a></Link></Button>
+            	<Button _hover={{background: "#7289da"}} margin="auto" size="lg" border={0} color="white" backgroundColor="#7289da" ><Link _hover={{textDecoration:"none"}} textDecoration="none" isExternal href='https://discord.com/api/oauth2/authorize?client_id=743157046677078016&redirect_uri=https%3A%2F%2Fhacktues-git-wave2.zaharymomchilov.vercel.app%2F&response_type=code&scope=identify%20email'><a textDecoration="none">Login with Discord</a></Link></Button>
 			</ModalBody>
             <ModalFooter>
             </ModalFooter>
