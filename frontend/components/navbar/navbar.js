@@ -81,7 +81,7 @@ const Navbar = props => {
 		login = 
 			<>
 				<MenuItems><Link href="/login"><a onClick={onClose}>Вход</a></Link></MenuItems>
-				<MenuItems marginLeft={["none","none","none","auto"]}><Link href="/registration"><a onClick={onClose}>Регистрация</a></Link></MenuItems>
+				<MenuItems marginLeft={["none","none","none","auto"]}><Link href="/registration/first_step"><a onClick={onClose}>Регистрация</a></Link></MenuItems>
 			</>;
 	}
 	else{
