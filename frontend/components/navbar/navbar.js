@@ -274,9 +274,11 @@ function Register(props) {
 				})
 				.catch(function (error) {
 					if (error.response) {
-						console.log(error.response);
+						for (const [key, value] of Object.entries(error.response.data)) {
+							  console.log(`${key}: ${value}`);
+							actions.setFieldError(key, value)
 						}
-				})
+				}})	
 			}
 	}, [router, CLIENT_ID, CLIENT_SECRET, userID ])
 
