@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@font-face {
+  font-family: llpixel;
+  font-weight: 400;
+  src: url(../fonts/LLPIXEL3.ttf);
+}
+
+html {
+
+  height: 100%;
+}
+body {
+  position: relative;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: -Rubik, llpixel, sans-serif, LLPixel;
+  font-weight: 300;
+  font-size: 1rem;
+
+
+
+
+  background: url("https://hacktues.pythonanywhere.com/static/frontend/background.svg") no-repeat center center fixed;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;  
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
