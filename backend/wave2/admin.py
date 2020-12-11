@@ -23,16 +23,17 @@ class SmallIntegerAdmin(admin.ModelAdmin):
 @admin.register(models.Team)
 class TeamAdmin(admin.ModelAdmin):
     list_display = 'name', 'github_link', 'is_full', 'confirmed'
+    '''
     fieldsets = (
-        (None, {'fields': ('id', 'name', 'github_link',
+        (None, {'fields': ('id', 'name', 'github_link', 'users'
                            'is_full', 'confirmed')}),
         ('Project info', {'fields': ('project_name', 'project_description',
                                      'technologies')}),
         ('Additional info', {'fields': ('ready', 'is_confirmed')}),
     )
+    '''
     readonly_fields = 'is_confirmed', 'confirmed', 'id'
     list_filter = 'is_full',
-
 
 
 admin.site.register(models.Technology)
