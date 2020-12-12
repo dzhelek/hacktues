@@ -23,7 +23,7 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Team
-        fields = ('url', 'name', 'github_link', 'is_full', 'confirmed',
+        fields = ('id', 'name', 'github_link', 'is_full', 'confirmed',
                   'project_name', 'project_description', 'users',
                   'technologies')
         read_only_fields = 'confirmed',
