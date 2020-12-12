@@ -7,7 +7,14 @@ from rest_framework import serializers
 from .models import FieldValidationDate, SmallInteger, Team, Technology, User
 
 
+class UserField(serializers.StringRelatedField):
+    def to_internal_value(self, data):
+        return User.objects.get(id=int(data))
+
+
 class TeamSerializer(serializers.HyperlinkedModelSerializer):
+    users = UserField(many=True)
+
     class Meta:
         model = Team
         fields = ('url', 'name', 'github_link', 'is_full', 'confirmed',
@@ -82,7 +89,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'is_active', 'first_name', 'last_name', 'email',
                   'technologies', 'form', 'food_preferences', 'tshirt_size',
                   'alergies', 'is_online', 'password', 'phone',
-                  'team_set', 'discord_id')
+                  'team_set', 'discord_id', 'avatar')
         read_only_fields = 'team_set', 'is_active'
         extra_kwargs = {'password': {'write_only': True}}
 

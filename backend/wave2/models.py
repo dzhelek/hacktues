@@ -79,6 +79,8 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
 
+    avatar = models.BigIntegerField(blank=True)
+
     phone = models.CharField(
       max_length=11, validators=[RegexValidator(regex=r'^0\d{9}$')], blank=True
     )
@@ -95,6 +97,9 @@ class User(AbstractUser):
     REQUIRED_FIELDS = [
         'first_name', 'last_name', 'form', 'tshirt_size',
     ]
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.form}"
 
 
 class Log(models.Model):
