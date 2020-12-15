@@ -1,7 +1,5 @@
 from rest_framework.decorators import action
-from rest_framework.permissions import (
-    IsAuthenticated, IsAuthenticatedOrReadOnly
-)
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
@@ -19,7 +17,7 @@ def create_log(serializer):
 class TeamViewSet(ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, TeamPermissions]
+    permission_classes = [IsAuthenticated, TeamPermissions]
 
     def perform_create(self, serializer):
         user = serializer._kwargs['context']['request'].user
