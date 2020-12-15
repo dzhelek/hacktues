@@ -89,10 +89,10 @@ class TechnologySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'is_active', 'first_name', 'last_name', 'email',
+        fields = ('url', 'is_active', 'first_name', 'last_name', 'email',
                   'technologies', 'form', 'food_preferences', 'tshirt_size',
                   'alergies', 'is_online', 'password', 'phone',
                   'team_set', 'discord_id', 'avatar')
