@@ -49,7 +49,7 @@ class Technology(models.Model):
     def __str__(self):
         return self.name
 
-from django.utils.encoding import smart_str
+
 class User(AbstractUser):
     AbstractUser._meta.get_field('first_name').blank = False
     AbstractUser._meta.get_field('last_name').blank = False
