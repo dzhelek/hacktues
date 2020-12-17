@@ -14,7 +14,7 @@ class UserField(serializers.StringRelatedField):
 
 class TechnologyField(serializers.StringRelatedField):
     def to_internal_value(self, data):
-        return Technology.objects.get(id=int(data))
+        return Technology.objects.get(name=data)
 
 
 class TeamSerializer(serializers.HyperlinkedModelSerializer):

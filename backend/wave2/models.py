@@ -41,7 +41,7 @@ class Technology(models.Model):
     """
     The technologies users are able to choose when creating their account.
     """
-    name = models.CharField(max_length=15)
+    name = models.CharField(max_length=50)
 
     class Meta:
         verbose_name_plural = 'technologies'
