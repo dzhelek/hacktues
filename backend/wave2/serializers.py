@@ -95,7 +95,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'is_active', 'first_name', 'last_name', 'email',
                   'technologies', 'form', 'food_preferences', 'tshirt_size',
                   'alergies', 'is_online', 'password', 'phone',
-                  'team_set', 'discord_id', 'avatar')
+                  'team_set', 'discord_id', 'avatar', 'is_captain')
         read_only_fields = 'team_set', 'is_active'
         extra_kwargs = {'password': {'write_only': True}}
 
