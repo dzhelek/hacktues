@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wave1.apps.Wave1Config',
     'wave2.apps.Wave2Config',
     'rest_framework',
     'corsheaders',
