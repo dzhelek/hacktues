@@ -7,6 +7,7 @@ from discord.ext import commands
 from discord import utils
 
 import emojis
+import channels
 
 if environ.get('ENV') == 'DEV':
     host = 'http://localhost:8000'
@@ -17,7 +18,11 @@ TOKEN = environ.get('token')
 
 auth = aiohttp.BasicAuth('hacktues', 'Go Green')
 
-bot = commands.Bot(command_prefix=('хт ', 'ht '))
+bot = commands.Bot(command_prefix=('хт ', 'ht ', '.'))
+
+
+async def send_log(message):
+    await bot.get_channel(channels.LOG).send(message)
 
 
 async def fetch(client, path='', url=None):
@@ -25,8 +30,12 @@ async def fetch(client, path='', url=None):
         url = f'{host}/{path}'
 
     async with client.get(url) as response:
-        assert response.status == 200
-        return await response.json()
+        response = await response.json()
+
+        if response.status != 200:
+            await send_log(f"get {url} returned status {response.status}\n"
+                           f"```json\n{response}\n```")
+        return response
 
 
 @bot.event
@@ -39,6 +48,22 @@ async def хелп(ctx):
     await ctx.send_help()
 
 
+@bot.command(aliases=['s', 'с'])
+async def send(ctx, channel_id: int, *, message):
+    await bot.get_channel(channel_id).send(message)
+
+
+@bot.command(aliases=['прати покани', 'si'])
+async def send_invites(ctx):
+    async with aiohttp.ClentSession(auth=auth) as client:
+        users_json = await fetch(client, path='users/')
+        async for user_json in users_json:
+            if user_json['discord_id']:
+                invite = await bot.get_channel(channels.REGULATIONS).\
+                    create_invite(max_uses=0, reason='send_invites command')
+                await bot.get_user(user_json['discord_id']).send(invite)
+
+
 async def edit_status(message, status, проблем):
     content = f"{emojis.TICKETS}: {проблем} (статус: {status})"
     await message.edit(content=content)
@@ -47,14 +72,14 @@ async def edit_status(message, status, проблем):
 @bot.command(aliases=('проблем', 'п', 'p'))
 async def problem(ctx, *, проблем="не е посочен конкретен проблем"):
     assert 'team' in ctx.channel.name, 'problem outside team channel'
-    roles = ['team' in str(role) for role in ctx.author.roles]
+    roles = ['team' in str(role) async for role in ctx.author.roles]
     assert any(roles), 'problem from non-participant'
     team_role = ctx.author.roles[roles.index(True)]
 
     reason = 'ticket system'
     status = f"{emojis.TICKETS} отворенo"
     content = f"{emojis.TICKETS}: {проблем} (статус: {status})"
-    message = await bot.get_channel(789806249704685578).send(content)
+    message = await bot.get_channel(channels.PROBLEMS).send(content)
 
     def check_tickets(r, u):
         return (str(r) == emojis.TICKETS and
@@ -67,6 +92,10 @@ async def problem(ctx, *, проблем="не е посочен конкретен проблем"):
                      emojis.NEGATIVE_SQUARED_CROSS_MARK))
         return check
 
+    content = (f"Вашият {emojis.TICKETS}проблем беше "
+               "изпратен до менторите успешно!")
+    await ctx.channel.send(content)
+
     while True:
         await message.add_reaction(emojis.TICKETS)
         _, mentor = await bot.wait_for('reaction_add', check=check_tickets)
@@ -77,6 +106,8 @@ async def problem(ctx, *, проблем="не е посочен конкретен проблем"):
 
         await message.add_reaction(emojis.WHITE_CHECK_MARK)
         await message.add_reaction(emojis.NEGATIVE_SQUARED_CROSS_MARK)
+        content = f"<@{mentor.id}> се зае с вашия {emojis.TICKETS}проблем!"
+        await ctx.channel.send(content)
         reaction, _ = await bot.wait_for('reaction_add',
                                          check=check_yesno(mentor))
         await mentor.remove_roles(team_role, reason=reason)
@@ -86,65 +117,82 @@ async def problem(ctx, *, проблем="не е посочен конкретен проблем"):
         if str(reaction) == emojis.WHITE_CHECK_MARK:
             status = f"{emojis.WHITE_CHECK_MARK} приключено"
             await edit_status(message, status, проблем)
+            content = (f"{emojis.TICKETS}Проблемът ви "
+                       "беше отбелязан като разрешен!")
+            await ctx.channel.send(content)
             break
 
         await edit_status(message, f"{emojis.TICKETS} отворенo", проблем)
+        content = f"{emojis.TICKETS}Проблемът ви беше повторно отворен!"
+        await ctx.channel.send(content)
 
 
 @bot.command(aliases=['пинг'])
 async def ping(ctx):
     await ctx.send(f"\U0001F3D3 Понг с {str(round(bot.latency, 2))} s")
 
-'''
+
+async def create_team_roles(team_name, guild, reason):
+    role = utils.get(guild.roles, name=team_name)
+    if role is None:
+        role = await guild.create_role(reason=reason, name=team_name)
+        perms = {
+            guild.default_role:
+                discord.PermissionOverwrite(view_channel=False),
+            role:
+                discord.PermissionOverwrite(view_channel=True)
+        }
+        category = await guild.create_category(
+            team_name, overwrites=perms, reason=reason
+        )
+        await guild.create_text_channel(team_name, category=category)
+        await guild.create_voice_channel(team_name, category=category)
+    return role
+
+
 @bot.event
 async def on_member_join(member):
-    print(f'member {member.name} joined')
-    print('searching for user...')
     async with aiohttp.ClientSession(auth=auth) as client:
         members_json = await fetch(client, path='users/')
 
         member_found = False
-        username = f'{member.name}#{member.discriminator}'
-        for member_json in members_json:
-            if member_json['username'] == username:
-                print('user was found')
+        async for member_json in members_json:
+            if member_json['discord_id'] == member.id:
                 member_found = True
                 break
 
         if not member_found:
-            print('no user was found')
+            await send_log(f'{emojis.EXCLAMATION} {member.name} '
+                           'was not found in database')
             return
 
-
-        if team_set := member_json['team_set']:
-            print('searching for team...')
-            team_json = await fetch(client, url=team_set[-1])
+        reason = 'member join'
+        if member_json['team_set']:
+            team_json = await fetch(client, url=member_json['team_set'][-1])
 
             team_name = 'team ' + team_json['name']
-            guild = member.guild
-            reason = 'member join'
-
-            role = utils.get(guild.roles, name=team_name)
-            if role is None:
-                print('creating role and channels...')
-                role = await guild.create_role(reason=reason, name=team_name)
-
-                perms = {
-                    guild.default_role:
-                        discord.PermissionOverwrite(view_channel=False),
-                    role: discord.PermissionOverwrite(view_channel=True)
-                }
-
-                category = await guild.create_category(
-                    team_name, overwrites=perms, reason=reason
-                )
-                await guild.create_text_channel(team_name, category=category)
-                await guild.create_voice_channel(team_name, category=category)
-            print('assigning role to member...')
+            role = await create_team_roles(team_name, member.guild, reason)
             await member.add_roles(role, reason=reason)
+            if member_json['is_captain']:
+                role = utils.get(member.guild.roles, name='captain')
+                await member.add_roles(role, reason=reason)
         else:
-            print('member has no team')
-'''
+            # member has no team
+            role = utils.get(member.guild.roles, name='captain')
+            await member.add_roles(role, reason=reason)
+
+
+@bot.command(aliases=['ft'])
+async def fetch_teams(ctx):
+    async with aiohttp.ClentSession(auth=auth) as client:
+        teams_json = await fetch(client, path='teams/')
+
+        async for team_json in teams_json:
+            team_name = 'team ' + team_json['name']
+            message = bot.get_channel(channels.TEAMS).send(team_name)
+            await message.add_reaction(emojis.EYES)
+            reason = 'teams fetch'
+            role = await create_team_roles(team_name, ctx.guild, reason)
 
 
 bot.run(TOKEN)
