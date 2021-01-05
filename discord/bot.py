@@ -15,8 +15,10 @@ else:
     host = 'https://hacktues.pythonanywhere.com'
 
 TOKEN = environ.get('token')
-
-auth = aiohttp.BasicAuth('hacktues', 'Go Green')
+# USERNAME = 'hacktues'
+# PASSWORD = 'Go Green'
+USERNAME = 'joan@hello.com'
+PASSWORD = 'hello'
 
 bot = commands.Bot(command_prefix=('хт ', 'ht ', '.'))
 
@@ -25,17 +27,31 @@ async def send_log(message):
     await bot.get_channel(channels.LOG).send(message)
 
 
-async def fetch(client, path='', url=None):
+async def authorize():
+    async with aiohttp.ClientSession() as client:
+        tokens = await request(
+            client, 'token/', email=USERNAME, password=PASSWORD
+        )
+        return {'Authorization': f"Bearer {tokens['access']}"}
+
+
+async def request(client, path='', url=None, **kwargs):
     if url is None:
         url = f'{host}/{path}'
 
-    async with client.get(url) as response:
-        response = await response.json()
+    if kwargs:
+        func = client.post
+    else:
+        func = client.get
 
+    async with func(url, data=kwargs) as response:
+        json = await response.json()
         if response.status != 200:
-            await send_log(f"get {url} returned status {response.status}\n"
-                           f"```json\n{response}\n```")
-        return response
+            await send_log(f"{func.__name__} {url}\n"
+                           f"{response.status} {response.reason}\n"
+                           f"```json\n{json}\n```")
+            await response.raise_for_status()
+        return json
 
 
 @bot.event
@@ -55,9 +71,10 @@ async def send(ctx, channel_id: int, *, message):
 
 @bot.command(aliases=['прати покани', 'si'])
 async def send_invites(ctx):
-    async with aiohttp.ClentSession(auth=auth) as client:
-        users_json = await fetch(client, path='users/')
-        async for user_json in users_json:
+    auth = await authorize()
+    async with aiohttp.ClientSession(headers=auth) as client:
+        users_json = await request(client, path='users/')
+        for user_json in users_json:
             if user_json['discord_id']:
                 invite = await bot.get_channel(channels.REGULATIONS).\
                     create_invite(max_uses=0, reason='send_invites command')
@@ -152,8 +169,9 @@ async def create_team_roles(team_name, guild, reason):
 
 @bot.event
 async def on_member_join(member):
-    async with aiohttp.ClientSession(auth=auth) as client:
-        members_json = await fetch(client, path='users/')
+    auth = await authorize()
+    async with aiohttp.ClientSession(headers=auth) as client:
+        members_json = await request(client, path='users/')
 
         member_found = False
         async for member_json in members_json:
@@ -168,7 +186,7 @@ async def on_member_join(member):
 
         reason = 'member join'
         if member_json['team_set']:
-            team_json = await fetch(client, url=member_json['team_set'][-1])
+            team_json = await request(client, url=member_json['team_set'][-1])
 
             team_name = 'team ' + team_json['name']
             role = await create_team_roles(team_name, member.guild, reason)
@@ -184,8 +202,9 @@ async def on_member_join(member):
 
 @bot.command(aliases=['ft'])
 async def fetch_teams(ctx):
-    async with aiohttp.ClentSession(auth=auth) as client:
-        teams_json = await fetch(client, path='teams/')
+    auth = await authorize()
+    async with aiohttp.ClentSession(headers=auth) as client:
+        teams_json = await request(client, path='teams/')
 
         async for team_json in teams_json:
             team_name = 'team ' + team_json['name']
