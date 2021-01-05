@@ -2,6 +2,7 @@
 from os import environ
 
 import aiohttp
+import asyncio
 import discord
 from discord.ext import commands
 from discord import utils
@@ -15,12 +16,12 @@ else:
     host = 'https://hacktues.pythonanywhere.com'
 
 TOKEN = environ.get('token')
-# USERNAME = 'hacktues'
-# PASSWORD = 'Go Green'
-USERNAME = 'joan@hello.com'
-PASSWORD = 'hello'
+USERNAME = 'hacktues'
+PASSWORD = 'Go Green'
+# USERNAME = 'joan@hello.com'
+# PASSWORD = 'hello'
 
-bot = commands.Bot(command_prefix=('хт ', 'ht ', '.'))
+bot = commands.Bot(command_prefix=('хт ', 'ht '))
 
 
 async def send_log(message):
@@ -149,7 +150,7 @@ async def ping(ctx):
     await ctx.send(f"\U0001F3D3 Понг с {str(round(bot.latency, 2))} s")
 
 
-async def create_team_roles(team_name, guild, reason):
+async def get_team_role(team_name, guild, reason):
     role = utils.get(guild.roles, name=team_name)
     if role is None:
         role = await guild.create_role(reason=reason, name=team_name)
@@ -189,7 +190,7 @@ async def on_member_join(member):
             team_json = await request(client, url=member_json['team_set'][-1])
 
             team_name = 'team ' + team_json['name']
-            role = await create_team_roles(team_name, member.guild, reason)
+            role = await get_team_role(team_name, member.guild, reason)
             await member.add_roles(role, reason=reason)
             if member_json['is_captain']:
                 role = utils.get(member.guild.roles, name='captain')
@@ -202,16 +203,28 @@ async def on_member_join(member):
 
 @bot.command(aliases=['ft'])
 async def fetch_teams(ctx):
+    reason = 'teams fetch'
     auth = await authorize()
     async with aiohttp.ClentSession(headers=auth) as client:
         teams_json = await request(client, path='teams/')
-
+        messages = set()
         async for team_json in teams_json:
             team_name = 'team ' + team_json['name']
             message = bot.get_channel(channels.TEAMS).send(team_name)
             await message.add_reaction(emojis.EYES)
-            reason = 'teams fetch'
-            role = await create_team_roles(team_name, ctx.guild, reason)
+            messages.add(message.id)
+
+        def check(r, u):
+            return str(r) == emojis.EYES and r.message.id in messages
+
+        while True:
+            r, u = await bot.wait_for('reaction_add', check=check)
+            role = await get_team_role(r.message.content, ctx.guild, reason)
+            await u.add_roles(role, reason='eyes reaction')
+            aws = (bot.wait_for('reaction_add', check=check),
+                   bot.wait_for('reaction_remove', check=None))
+            for coro in asyncio.as_completed(aws):
+                r, u = await coro
 
 
 bot.run(TOKEN)
