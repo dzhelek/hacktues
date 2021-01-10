@@ -3,7 +3,104 @@
 <head>
     <meta charset="utf-8">
     <style >
-        @import url("css.css");
+        @font-face {
+    font-family: llpixel;
+    font-weight: 400;
+    src: url(./LLPIXEL3.ttf);
+  }
+
+@font-face {
+    font-family: "Rubik";
+    src: url('https://fonts.googleapis.com/css2?family=Rubik&display=swap') format("truetype");
+}
+
+#logo{
+    margin: auto;
+    font-Family:"llpixel";
+    color:#009d60;
+    font-weight:200;
+    font-size: 50px;
+    justify-content: center;
+    text-align: center;
+}
+
+#logoSpan{
+    color: #105231;
+}
+
+hr.rounded {
+    border-top: 2px solid #009d60;
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+}
+
+.container{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: center;
+    margin: auto;
+    width: 33%;
+    margin-top: 50px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#button{
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+    height: 40px;
+    background-color: #009d60;
+    border: none;
+    border-radius: 5px;
+    font-family: Rubik;
+    color: white;
+    margin: 5px 5px 5px 5px;
+    font-size: 15px;
+}
+
+#aButton{
+    text-decoration: none;
+    color: white;
+}
+
+h1, h2, .large { color:#105231; font-family: Rubik; font-weight: 300;}
+        .centered {text-align: center; }
+        .large {font-size: 20px; }
+
+#issue{
+    font-family: Rubik; font-weight: 300;
+    font-size: 15px;
+    color: #105231;
+}
+#textSpan{
+    white-space: normal;
+    display:block;
+    width:300px;
+    /* width:100%; */
+    word-wrap:break-word;
+}        
+
+#text{
+    width: 25%;
+}
+
+body {
+    position: relative;
+    padding-bottom: 6rem;
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: -Rubik, llpixel, sans-serif, LLPixel;
+    font-weight: 300;
+    font-size: 1rem;
+    /* background-color: #a5cf9f; */
+    background: url("https://hacktues.pythonanywhere.com/static/frontend/background.svg") no-repeat center center fixed;
+  }
     </style>
 </head>
     <body>
