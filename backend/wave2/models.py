@@ -67,7 +67,7 @@ class User(AbstractUser):
     
     USERNAME_FIELD = 'email'
 
-    avatar = models.BigIntegerField(blank=True)
+    avatar = models.CharField(max_length=34, blank=True, null=True)
 
     phone = models.CharField(
       max_length=11, validators=[RegexValidator(regex=r'^0\d{9}$')], blank=True
