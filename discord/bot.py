@@ -21,7 +21,7 @@ PASSWORD = 'Go Green'
 # USERNAME = 'joan@hello.com'
 # PASSWORD = 'hello'
 
-bot = commands.Bot(command_prefix=('хт ', 'ht '))
+bot = commands.Bot(command_prefix=('хт ', 'ht ', '.'))
 
 
 async def send_log(message):
@@ -60,6 +60,12 @@ async def on_ready():
     print(f'{bot.user.name} has connected to Discord')
 
 
+@bot.event
+async def on_command_error(ctx, exc):
+    await send_log(f'{ctx.channel.mention}: {ctx.message.content}'
+                   f'\n{exc}')
+
+
 @bot.command(aliases=['х', 'h'])
 async def хелп(ctx):
     await ctx.send_help()
@@ -90,7 +96,7 @@ async def edit_status(message, status, проблем):
 @bot.command(aliases=('проблем', 'п', 'p'))
 async def problem(ctx, *, проблем="не е посочен конкретен проблем"):
     assert 'team' in ctx.channel.name, 'problem outside team channel'
-    roles = ['team' in str(role) async for role in ctx.author.roles]
+    roles = ['team' in str(role) for role in ctx.author.roles]
     assert any(roles), 'problem from non-participant'
     team_role = ctx.author.roles[roles.index(True)]
 
@@ -175,7 +181,7 @@ async def on_member_join(member):
         members_json = await request(client, path='users/')
 
         member_found = False
-        async for member_json in members_json:
+        for member_json in members_json:
             if member_json['discord_id'] == member.id:
                 member_found = True
                 break
@@ -208,7 +214,7 @@ async def fetch_teams(ctx):
     async with aiohttp.ClentSession(headers=auth) as client:
         teams_json = await request(client, path='teams/')
         messages = set()
-        async for team_json in teams_json:
+        for team_json in teams_json:
             team_name = 'team ' + team_json['name']
             message = bot.get_channel(channels.TEAMS).send(team_name)
             await message.add_reaction(emojis.EYES)
