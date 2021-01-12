@@ -2,7 +2,6 @@
 from os import environ
 
 import aiohttp
-import asyncio
 import discord
 from discord.ext import commands
 from discord import utils
@@ -21,7 +20,7 @@ PASSWORD = 'Go Green'
 # USERNAME = 'joan@hello.com'
 # PASSWORD = 'hello'
 
-bot = commands.Bot(command_prefix=('хт ', 'ht ', '.'))
+bot = commands.Bot(command_prefix=('хт ', 'ht ', ','))
 
 
 async def send_log(message):
@@ -50,7 +49,7 @@ async def request(client, path='', url=None, **kwargs):
         if response.status != 200:
             await send_log(f"{func.__name__} {url}\n"
                            f"{response.status} {response.reason}\n"
-                           f"```json\n{json}\n```")
+                           f"```py\n{json}\n```")
             await response.raise_for_status()
         return json
 
@@ -62,8 +61,41 @@ async def on_ready():
 
 @bot.event
 async def on_command_error(ctx, exc):
-    await send_log(f'{ctx.channel.mention}: {ctx.message.content}'
-                   f'\n{exc}')
+    await send_log(f'{ctx.channel.mention}: {ctx.message.content}\n{exc}')
+    raise exc
+
+
+@bot.event
+async def on_member_join(member):
+    auth = await authorize()
+    async with aiohttp.ClientSession(headers=auth) as client:
+        members_json = await request(client, path='users/')
+
+        member_found = False
+        for member_json in members_json:
+            if member_json['discord_id'] == member.id:
+                member_found = True
+                break
+
+        if not member_found:
+            await send_log(f'{emojis.EXCLAMATION} {member.name} '
+                           'was not found in database')
+            return
+
+        reason = 'member join'
+        if member_json['team_set']:
+            team_json = await request(client, url=member_json['team_set'][-1])
+
+            team_name = 'team ' + team_json['name']
+            role = await get_team_role(team_name, member.guild, reason)
+            await member.add_roles(role, reason=reason)
+            if member_json['is_captain']:
+                role = utils.get(member.guild.roles, name='captain')
+                await member.add_roles(role, reason=reason)
+        else:
+            # member has no team
+            role = utils.get(member.guild.roles, name='captain')
+            await member.add_roles(role, reason=reason)
 
 
 @bot.command(aliases=['х', 'h'])
@@ -72,8 +104,8 @@ async def хелп(ctx):
 
 
 @bot.command(aliases=['s', 'с'])
-async def send(ctx, channel_id: int, *, message):
-    await bot.get_channel(channel_id).send(message)
+async def send(ctx, channel: discord.TextChannel, *, message):
+    await channel.send(message)
 
 
 @bot.command(aliases=['прати покани', 'si'])
@@ -85,7 +117,20 @@ async def send_invites(ctx):
             if user_json['discord_id']:
                 invite = await bot.get_channel(channels.REGULATIONS).\
                     create_invite(max_uses=0, reason='send_invites command')
-                await bot.get_user(user_json['discord_id']).send(invite)
+                user = await bot.fetch_user(user_json['discord_id'])
+                await user.send(invite)
+
+
+@bot.command(aliases=['j', 'виж', 'в'])
+async def join(ctx, *, role: discord.Role):
+    await ctx.author.add_roles(role, reason="join")
+    await ctx.message.delete()
+
+
+@bot.command(aliases=['l', 'напусни', 'н'])
+async def leave(ctx, *, role: discord.Role):
+    await ctx.author.remove_roles(role, reason="leave")
+    await ctx.message.delete()
 
 
 async def edit_status(message, status, проблем):
@@ -174,63 +219,14 @@ async def get_team_role(team_name, guild, reason):
     return role
 
 
-@bot.event
-async def on_member_join(member):
-    auth = await authorize()
-    async with aiohttp.ClientSession(headers=auth) as client:
-        members_json = await request(client, path='users/')
-
-        member_found = False
-        for member_json in members_json:
-            if member_json['discord_id'] == member.id:
-                member_found = True
-                break
-
-        if not member_found:
-            await send_log(f'{emojis.EXCLAMATION} {member.name} '
-                           'was not found in database')
-            return
-
-        reason = 'member join'
-        if member_json['team_set']:
-            team_json = await request(client, url=member_json['team_set'][-1])
-
-            team_name = 'team ' + team_json['name']
-            role = await get_team_role(team_name, member.guild, reason)
-            await member.add_roles(role, reason=reason)
-            if member_json['is_captain']:
-                role = utils.get(member.guild.roles, name='captain')
-                await member.add_roles(role, reason=reason)
-        else:
-            # member has no team
-            role = utils.get(member.guild.roles, name='captain')
-            await member.add_roles(role, reason=reason)
-
-
 @bot.command(aliases=['ft'])
 async def fetch_teams(ctx):
-    reason = 'teams fetch'
     auth = await authorize()
-    async with aiohttp.ClentSession(headers=auth) as client:
+    async with aiohttp.ClientSession(headers=auth) as client:
         teams_json = await request(client, path='teams/')
-        messages = set()
         for team_json in teams_json:
             team_name = 'team ' + team_json['name']
-            message = bot.get_channel(channels.TEAMS).send(team_name)
-            await message.add_reaction(emojis.EYES)
-            messages.add(message.id)
-
-        def check(r, u):
-            return str(r) == emojis.EYES and r.message.id in messages
-
-        while True:
-            r, u = await bot.wait_for('reaction_add', check=check)
-            role = await get_team_role(r.message.content, ctx.guild, reason)
-            await u.add_roles(role, reason='eyes reaction')
-            aws = (bot.wait_for('reaction_add', check=check),
-                   bot.wait_for('reaction_remove', check=None))
-            for coro in asyncio.as_completed(aws):
-                r, u = await coro
+            await bot.get_channel(channels.TEAMS).send(team_name)
 
 
 bot.run(TOKEN)
