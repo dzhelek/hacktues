@@ -1,3 +1,6 @@
+# coding=windows-1251
+from django.core.mail import send_mail
+from django.conf import settings
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -48,7 +51,8 @@ class TeamViewSet(ModelViewSet):
             new_captain.save()
             return Response({'status': 'done', 'details': 'captain changed'})
         else:
-            return Response({'status': 'ready', 'details': 'pick a user'})
+            return Response({'status': 'ready', 'details': 'pick a user'},
+                            status=400)
 
 
 class TechnologyViewSet(ReadOnlyModelViewSet):
@@ -60,6 +64,37 @@ class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated, UserPermissions]
+
+    @action(detail=False, methods=['post', 'get'],
+            permission_classes=permission_classes)
+    def forgotten_password(self, request):
+        email = request.data.get('email')
+        if not email:
+            return Response({'status': 'ready', 'details': 'pick mail'},
+                            status=400)
+            token = User.objects.get(email=email).password[21:]
+        url = 'hacktues-git-wave2.zaharymomchilov.vercel.app/change_password'
+        send_mail('Забравена парола',
+                  f'https://{url}/{token}/',
+                  'no-reply@hacktues.com',
+                  [email],
+                  fail_silently=False)
+        return Response({'status': 'done', 'details': 'mail sent'})
+
+    @action(detail=False, methods=['post', 'get'],
+            permission_classes=permission_classes)
+    def change_password(self, request):
+        token_id = request.data.get('token_id')
+        token = request.data.get('token')
+        password = request.data.get('password')
+        if not (password and token):
+            return Response({'status': 'ready', 'details': 'pick password'},
+                            status=400)
+        token = 'pbkdf2_sha256$216000$' + token_id + '$' + token
+        u = User.objects.get(password=token)
+        u.set_password(password)
+        u.save()
+        return Response({'status': 'done', 'details': 'password changed'})
 
     @action(detail=True, methods=['post', 'get'],
             permission_classes=[IsAuthenticated, UserPermissions])

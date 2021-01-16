@@ -64,7 +64,7 @@ class User(AbstractUser):
     FORMS = choices['FORMS']
     FOOD_PREFERENCES = choices['FOOD_PREFERENCES']
     SIZES = choices['SIZES']
-    
+
     USERNAME_FIELD = 'email'
 
     avatar = models.CharField(max_length=34, blank=True, null=True)

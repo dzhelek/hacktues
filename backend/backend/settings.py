@@ -63,15 +63,16 @@ SIMPLE_JWT = {
 }
 
 EMAIL_ACTIVE_FIELD = 'is_active'
-EMAIL_SERVER = 'smtp.gmail.com'
+EMAIL_SERVER = EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_ADDRESS = 'yoan.p.dzhelekarski.2017@elsys-bg.org'
+EMAIL_ADDRESS = EMAIL_HOST_USER = 'yoan.p.dzhelekarski.2017@elsys-bg.org'
 EMAIL_FROM_ADDRESS = 'noreply@hacktues.com'
-EMAIL_PASSWORD = 'dhrabhrkoklvboax'
+EMAIL_PASSWORD = EMAIL_HOST_PASSWORD = 'dhrabhrkoklvboax'
 EMAIL_MAIL_SUBJECT = 'hacktues mail confirmation'
 EMAIL_MAIL_HTML = 'mail_body.html'
 EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
 EMAIL_PAGE_DOMAIN = 'https://hacktues.pythonanywhere.com/'
+EMAIL_USE_TLS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,6 +136,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_USER_MODEL = 'wave2.User'
+# SILENCED_SYSTEM_CHECKS = ["fields.E304"]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -171,4 +173,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = path.join(BASE_DIR, "static")
-
