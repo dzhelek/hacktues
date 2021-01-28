@@ -157,8 +157,8 @@ async def problem(ctx, *, проблем="не е посочен конкретен проблем"):
     def check_yesno(mentor):
         def check(r, u):
             return (u == mentor and r.message.id == message.id and
-                    (str(r) in emojis.WHITE_CHECK_MARK,
-                     emojis.NEGATIVE_SQUARED_CROSS_MARK))
+                    (str(r) in (emojis.WHITE_CHECK_MARK,
+                     emojis.NEGATIVE_SQUARED_CROSS_MARK)))
         return check
 
     content = (f"Вашият {emojis.TICKETS}проблем беше "
