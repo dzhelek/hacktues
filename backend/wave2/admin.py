@@ -43,7 +43,7 @@ admin.site.register(models.Technology)
 class UserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('id', 'email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name',
+        ('Personal info', {'fields': ('first_name', 'last_name', 'avatar'
                                       'form', 'phone', 'discord_id')}),
         ('Additional info', {
             'fields': ('tshirt_size', 'food_preferences', 'is_online',
