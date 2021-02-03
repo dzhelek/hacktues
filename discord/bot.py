@@ -8,50 +8,12 @@ from discord import utils
 
 import emojis
 import channels
-
-if environ.get('ENV') == 'DEV':
-    host = 'http://localhost:8000'
-else:
-    host = 'https://hacktues.pythonanywhere.com'
+from tasks import UserListener
+from utils import authorize, request
 
 TOKEN = environ.get('token')
-USERNAME = 'hacktues'
-PASSWORD = 'Go Green'
-# USERNAME = 'joan@hello.com'
-# PASSWORD = 'hello'
 
 bot = commands.Bot(command_prefix=('υς ', 'ht ', ','))
-
-
-async def send_log(message):
-    await bot.get_channel(channels.LOG).send(message)
-
-
-async def authorize():
-    async with aiohttp.ClientSession() as client:
-        tokens = await request(
-            client, 'token/', email=USERNAME, password=PASSWORD
-        )
-        return {'Authorization': f"Bearer {tokens['access']}"}
-
-
-async def request(client, path='', url=None, **kwargs):
-    if url is None:
-        url = f'{host}/{path}'
-
-    if kwargs:
-        func = client.post
-    else:
-        func = client.get
-
-    async with func(url, data=kwargs) as response:
-        json = await response.json()
-        if response.status != 200:
-            await send_log(f"{func.__name__} {url}\n"
-                           f"{response.status} {response.reason}\n"
-                           f"```py\n{json}\n```")
-            await response.raise_for_status()
-        return json
 
 
 @bot.event
@@ -61,7 +23,8 @@ async def on_ready():
 
 @bot.event
 async def on_command_error(ctx, exc):
-    await send_log(f'{ctx.channel.mention}: {ctx.message.content}\n{exc}')
+    await send_log(f'{ctx.channel.mention}: {ctx.message.content}\n{exc}',
+                   bot)
     raise exc
 
 
@@ -79,7 +42,7 @@ async def on_member_join(member):
 
         if not member_found:
             await send_log(f'{emojis.EXCLAMATION} {member.name} '
-                           'was not found in database')
+                           'was not found in database', bot)
             return
 
         reason = 'member join'
@@ -116,7 +79,7 @@ async def send_invites(ctx):
         for user_json in users_json:
             if user_json['discord_id']:
                 invite = await bot.get_channel(channels.REGULATIONS).\
-                    create_invite(max_uses=0, reason='send_invites command')
+                    create_invite(max_uses=1, reason='send_invites command')
                 user = await bot.fetch_user(user_json['discord_id'])
                 await user.send(invite)
 
@@ -229,4 +192,5 @@ async def fetch_teams(ctx):
             await bot.get_channel(channels.TEAMS).send(team_name)
 
 
+user_listener = UserListener(bot)
 bot.run(TOKEN)
