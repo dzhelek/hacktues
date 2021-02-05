@@ -20,7 +20,7 @@ PASSWORD = 'Go Green'
 # USERNAME = 'joan@hello.com'
 # PASSWORD = 'hello'
 
-bot = commands.Bot(command_prefix=('õò ', 'ht ', ','))
+bot = commands.Bot(command_prefix=('õò ', 'ht ', '.'))
 
 
 async def send_log(message):
@@ -115,10 +115,14 @@ async def send_invites(ctx):
         users_json = await request(client, path='users/')
         for user_json in users_json:
             if user_json['discord_id']:
-                invite = await bot.get_channel(channels.REGULATIONS).\
-                    create_invite(max_uses=0, reason='send_invites command')
-                user = await bot.fetch_user(user_json['discord_id'])
-                await user.send(invite)
+                try:
+                    invite = await bot.get_channel(channels.REGULATIONS).\
+                        create_invite(max_uses=0, reason='send_invites command')
+                    user = await bot.fetch_user(user_json['discord_id'])
+                    await user.send(invite)
+                except Exception as exc:
+                    await send_log(str(exc))
+                    continue
 
 
 @bot.command(aliases=['j', 'âèæ', 'â'])
