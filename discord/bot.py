@@ -13,7 +13,7 @@ from utils import authorize, request
 
 TOKEN = environ.get('token')
 
-bot = commands.Bot(command_prefix=('υς ', 'ht ', ','))
+bot = commands.Bot(command_prefix=('υς ', 'ht ', '.'))
 
 
 @bot.event
@@ -32,7 +32,7 @@ async def on_command_error(ctx, exc):
 async def on_member_join(member):
     auth = await authorize()
     async with aiohttp.ClientSession(headers=auth) as client:
-        members_json = await request(client, path='users/')
+        members_json = await request(bot, client, path='users/')
 
         member_found = False
         for member_json in members_json:
@@ -47,7 +47,7 @@ async def on_member_join(member):
 
         reason = 'member join'
         if member_json['team_set']:
-            team_json = await request(client, url=member_json['team_set'][-1])
+            team_json = await request(bot, client, url=member_json['team_set'][-1])
 
             team_name = 'team ' + team_json['name']
             role = await get_team_role(team_name, member.guild, reason)
@@ -75,7 +75,7 @@ async def send(ctx, channel: discord.TextChannel, *, message):
 async def send_invites(ctx):
     auth = await authorize()
     async with aiohttp.ClientSession(headers=auth) as client:
-        users_json = await request(client, path='users/')
+        users_json = await request(bot, client, path='users/')
         for user_json in users_json:
             if user_json['discord_id']:
                 invite = await bot.get_channel(channels.REGULATIONS).\
@@ -186,11 +186,11 @@ async def get_team_role(team_name, guild, reason):
 async def fetch_teams(ctx):
     auth = await authorize()
     async with aiohttp.ClientSession(headers=auth) as client:
-        teams_json = await request(client, path='teams/')
+        teams_json = await request(bot, client, path='teams/')
         for team_json in teams_json:
             team_name = 'team ' + team_json['name']
             await bot.get_channel(channels.TEAMS).send(team_name)
 
 
-user_listener = UserListener(bot)
+bot.add_cog(UserListener(bot))
 bot.run(TOKEN)
