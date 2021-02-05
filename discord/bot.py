@@ -10,7 +10,7 @@ from discord import utils
 import emojis
 import channels
 from tasks import UserListener
-from utils import authorize, request
+from utils import authorize, request, send_log
 
 TOKEN = environ.get('token')
 
