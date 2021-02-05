@@ -30,7 +30,7 @@ async def on_command_error(ctx, exc):
 
 @bot.event
 async def on_member_join(member):
-    auth = await authorize()
+    auth = await authorize(bot)
     async with aiohttp.ClientSession(headers=auth) as client:
         members_json = await request(bot, client, path='users/')
 
@@ -73,7 +73,7 @@ async def send(ctx, channel: discord.TextChannel, *, message):
 
 @bot.command(aliases=['прати покани', 'si'])
 async def send_invites(ctx):
-    auth = await authorize()
+    auth = await authorize(bot)
     async with aiohttp.ClientSession(headers=auth) as client:
         users_json = await request(bot, client, path='users/')
         for user_json in users_json:
@@ -184,7 +184,7 @@ async def get_team_role(team_name, guild, reason):
 
 @bot.command(aliases=['ft'])
 async def fetch_teams(ctx):
-    auth = await authorize()
+    auth = await authorize(bot)
     async with aiohttp.ClientSession(headers=auth) as client:
         teams_json = await request(bot, client, path='teams/')
         for team_json in teams_json:

@@ -19,10 +19,10 @@ async def send_log(message, bot):
     await bot.get_channel(channels.LOG).send(message)
 
 
-async def authorize():
+async def authorize(bot):
     async with aiohttp.ClientSession() as client:
         tokens = await request(
-            client, 'token/', email=USERNAME, password=PASSWORD
+            bot, client, 'token/', email=USERNAME, password=PASSWORD
         )
         return {'Authorization': f"Bearer {tokens['access']}"}
 
@@ -38,6 +38,8 @@ async def request(bot, client, path='', url=None, **kwargs):
 
     async with func(url, data=kwargs) as response:
         json = await response.json()
+        if response.status == 401:
+            raise EnvironmentError
         if response.status != 200:
             await send_log(f"{func.__name__} {url}\n"
                            f"{response.status} {response.reason}\n"

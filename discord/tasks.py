@@ -4,6 +4,10 @@ from discord.ext import tasks, commands
 
 from utils import authorize, request, send_log
 
+import channels
+
+auth = {'Authorization': "Bearer tokensaccess"}#
+
 
 class UserListener(commands.Cog):
     def __init__(self, bot):
@@ -17,9 +21,13 @@ class UserListener(commands.Cog):
     @tasks.loop(seconds=30)
     async def fetch_users(self):
         print('hi')
-        auth = {'Authorization': "Bearer tokensaccess"}#await authorize()
+        global auth
         async with aiohttp.ClientSession(headers=auth) as client:
-            users_json = await request(self.bot, client, path='users/')
+            try:
+                users_json = await request(self.bot, client, path='users/')
+            except EnvironmentError:
+                auth = await authorize(self.bot)
+                return
         new_len = len(users_json)
         if self.user_len < new_len:
             self.user_len = new_len
@@ -28,18 +36,18 @@ class UserListener(commands.Cog):
             user_json = users_json[-1]
             if user_json['discord_id']:
                 print(user_json)
-                invite = await bot.get_channel(channels.REGULATIONS).\
+                invite = await self.bot.get_channel(channels.REGULATIONS).\
                     create_invite(max_uses=1, reason='user registered')
-                user = await bot.fetch_user(user_json['discord_id'])
+                user = await self.bot.fetch_user(user_json['discord_id'])
                 await user.send(invite)
             else:
-                await send_log(f'{user_json[email]}'
-                               'registered without discord_id !!!',
+                await send_log(f"{user_json['email']} "
+                               "registered without discord_id !!!",
                                self.bot)
 
     @fetch_users.error
     async def on_exception(self, exc):
-        print(str(exc))
+        await send_log(str(exc), self.bot)
         self.fetch_users.restart()
         
     @fetch_users.before_loop
