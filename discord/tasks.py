@@ -18,7 +18,7 @@ class UserListener(commands.Cog):
     def cog_unload(self):
         self.fetch_users.cancel()
 
-    @tasks.loop(seconds=30)
+    @tasks.loop(minutes=1)
     async def fetch_users(self):
         print('hi')
         global auth

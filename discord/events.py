@@ -1,0 +1,99 @@
+from os import environ
+
+import aiohttp
+from discord import utils, channel
+from discord.ext import commands
+
+import emojis
+import channels
+from utils import authorize, get_team_role, request, send_log
+
+
+class Events(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print(f'{self.bot.user.name} has connected to Discord')
+
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, exc):
+        await send_log(f'{ctx.channel.mention}: {ctx.message.content}\n{exc}',
+                       self.bot)
+        raise exc
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        auth = await authorize(self.bot)
+        async with aiohttp.ClientSession(headers=auth) as client:
+            members_json = await request(self.bot, client, path='users/')
+
+            member_found = False
+            for member_json in members_json:
+                if member_json['discord_id'] == member.id:
+                    member_found = True
+                    break
+
+            if not member_found:
+                await send_log(f'{emojis.EXCLAMATION} {member.name} '
+                               'was not found in database', self.bot)
+                return
+
+            reason = 'member join'
+            if member_json['team_set']:
+                team_url = member_json['team_set'][-1]
+                team_json = await request(self.bot, client, url=team_url)
+
+                team_name = 'team ' + team_json['name']
+                role = await get_team_role(team_name, member.guild, reason)
+                await member.add_roles(role, reason=reason)
+                if member_json['is_captain']:
+                    role = utils.get(member.guild.roles, name='captain')
+                    await member.add_roles(role, reason=reason)
+            else:
+                # member has no team
+                role = utils.get(member.guild.roles, name='captain')
+                await member.add_roles(role, reason=reason)
+
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.author == self.bot.user:
+            return
+
+#        await self.bot.process_commands(message)
+
+        # name = message.author.display_name
+
+        if message.channel.id == channels.TEAMS:
+            await message.delete()
+            # await send_log(f"{name} to <#{channels.TEAMS}>:\n"
+            #                f"{message.content}", self.bot)
+            return
+
+        if isinstance(message.channel, channel.DMChannel):
+            guild = self.bot.get_guild(747517305164005456)
+            name = message.author.display_name.lower()
+            text_channel = utils.get(guild.channels, name=name)
+            if not text_channel:
+                category = self.bot.get_channel(channels.DM)
+                text_channel = await guild.create_text_channel(
+                    name, category=category
+                )
+            await text_channel.send(message.content)
+            for attachment in message.attachments:
+                await text_channel.send(attachment.url)
+
+            if environ.get(name):
+                return
+            environ[name] = "1"
+
+            def check(m):
+                return (m.channel == text_channel and
+                        m.author != self.bot.user)
+
+            content = await self.bot.wait_for('message', check=check)
+            await message.author.send(content.content)
+            await text_channel.send(f'sent to {message.author.id}')
+
+            del environ[name]

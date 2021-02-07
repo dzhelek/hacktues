@@ -1,6 +1,7 @@
 from os import environ
 
 import aiohttp
+from discord import utils
 
 import channels
 
@@ -46,3 +47,21 @@ async def request(bot, client, path='', url=None, **kwargs):
                            f"```py\n{json}\n```", bot)
             await response.raise_for_status()
         return json
+
+
+async def get_team_role(team_name, guild, reason):
+    role = utils.get(guild.roles, name=team_name)
+    if role is None:
+        role = await guild.create_role(reason=reason, name=team_name)
+        perms = {
+            guild.default_role:
+                discord.PermissionOverwrite(view_channel=False),
+            role:
+                discord.PermissionOverwrite(view_channel=True)
+        }
+        category = await guild.create_category(
+            team_name, overwrites=perms, reason=reason
+        )
+        await guild.create_text_channel(team_name, category=category)
+        await guild.create_voice_channel(team_name, category=category)
+    return role
