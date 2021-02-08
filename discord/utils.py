@@ -1,6 +1,7 @@
 from os import environ
 
 import aiohttp
+import discord
 from discord import utils
 
 import channels
@@ -17,7 +18,8 @@ PASSWORD = 'Go Green'
 
 
 async def send_log(message, bot):
-    await bot.get_channel(channels.LOG).send(message)
+    channel = await bot.fetch_channel(channels.LOG)
+    await channel.send(message)
 
 
 async def authorize(bot):

@@ -39,7 +39,7 @@ class Events(commands.Cog):
             name = message.author.display_name.replace(' ', '-').lower()
             text_channel = utils.get(guild.channels, name=name)
             if not text_channel:
-                category = self.bot.get_channel(channels.DM)
+                category = await self.bot.fetch_channel(channels.DM)
                 text_channel = await guild.create_text_channel(
                     name, category=category
                 )
@@ -70,6 +70,7 @@ class Events(commands.Cog):
             return
         
         member = after
+        print("new member")
         
         auth = await authorize(self.bot)
         async with aiohttp.ClientSession(headers=auth) as client:
@@ -82,15 +83,16 @@ class Events(commands.Cog):
                     break
 
             if not member_found:
-                await send_log(f'{emojis.EXCLAMATION} {member.name} '
+                await send_log(f'{emojis.EXCLAMATION} {member.name}#'
+                               f'{member.discriminator} '
                                'was not found in database', self.bot)
                 return
 
             reason = 'member join'
             if member_json['team_set']:
-                team_url = member_json['team_set'][-1]
-                team_json = await request(self.bot, client, url=team_url)
-
+                team_id = member_json['team_set'][-1]
+                team_json = await request(self.bot, client,
+                                          path=f'/teams/{team_id}/')
                 team_name = 'team ' + team_json['name']
                 role = await get_team_role(team_name, member.guild, reason)
                 await member.add_roles(role, reason=reason)

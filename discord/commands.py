@@ -16,17 +16,10 @@ class Commands(commands.Cog):
         await channel.send(message)
 
     @commands.has_role('организатор')
-    @commands.command(aliases=['m', 'съобщение'])
+    @commands.command(aliases=['m', 'съобщение', 'м'])
     async def message(self, ctx, user: discord.User, *, message):
         await user.send(message)
         await ctx.send(f"sent to {user.id}")
-
-    @commands.has_role('организатор')
-    @commands.command(aliases=['прати покана', 'si'])
-    async def send_invite(self, ctx, *, user: discord.User):
-        invite = (await self.bot.get_channel(channels.REGULATIONS).
-                  create_invite(max_uses=1, reason='send_invite command'))
-        await user.send(invite)
 
     @commands.check_any(commands.has_role('организатор'),
                        commands.has_role('оценител'),
@@ -43,7 +36,7 @@ class Commands(commands.Cog):
         await ctx.author.remove_roles(role, reason="leave")
 
     async def edit_status(self, message, status, проблем):
-        content = f"{emojis.TICKETS}: {проблем} (статус: {status})"
+        content = f"{emojis.TICKETS}проблем: {проблем} (статус: {status})"
         await message.edit(content=content)
 
     @commands.command(aliases=('проблем', 'п', 'p'))
@@ -56,7 +49,8 @@ class Commands(commands.Cog):
         reason = 'ticket system'
         status = f"{emojis.TICKETS} отворенo"
         content = f"{emojis.TICKETS}: {проблем} (статус: {status})"
-        message = await self.bot.get_channel(channels.PROBLEMS).send(content)
+        problems = await self.bot.fetch_channel(channels.PROBLEMS)
+        message = await problems.send(content)
 
         def check_tickets(r, u):
             return (str(r) == emojis.TICKETS and
@@ -108,12 +102,3 @@ class Commands(commands.Cog):
     async def ping(self, ctx):
         await ctx.send(f"{emojis.PONG} Понг с "
                        f"{str(round(self.bot.latency, 2))} s")
-
-    @commands.command(aliases=['ft'])
-    async def fetch_teams(self, ctx):
-        auth = await authorize(self.bot)
-        async with aiohttp.ClientSession(headers=auth) as client:
-            teams_json = await request(self.bot, client, path='teams/')
-            for team_json in teams_json:
-                team_name = 'team ' + team_json['name']
-                await self.bot.get_channel(channels.TEAMS).send(team_name)

@@ -7,20 +7,19 @@ from discord.ext import commands
 
 from commands import Commands
 from events import Events
-from tasks import UserListener
+from tasks import TeamTask
 
 
 def main():
     TOKEN = environ.get('token')
 
-    bot = commands.Bot(
-        command_prefix=('υς ', 'ht ', ','), help_command=None,
-        intents=discord.Intents(members=True, presences=True)
-    )
+    intents = discord.Intents.all()
+    bot = commands.Bot(command_prefix=('υς ', 'ht ', ','),
+                       help_command=None, intents=intents)
 
     bot.add_cog(Events(bot))
     bot.add_cog(Commands(bot))
-    # bot.add_cog(UserListener(bot))
+    bot.add_cog(TeamTask(bot))
     bot.run(TOKEN)
 
 if __name__ == '__main__':
