@@ -6,7 +6,7 @@ from discord.ext import commands
 
 import emojis
 import channels
-from utils import authorize, get_team_role, request, send_log
+from utils import get_team_role, request, send_log
 
 
 class Events(commands.Cog):
@@ -72,8 +72,7 @@ class Events(commands.Cog):
         member = after
         print("new member")
         
-        auth = await authorize(self.bot)
-        async with aiohttp.ClientSession(headers=auth) as client:
+        async with aiohttp.ClientSession() as client:
             members_json = await request(self.bot, client, path='users/')
 
             member_found = False

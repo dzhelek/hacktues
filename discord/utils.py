@@ -11,23 +11,10 @@ if environ.get('ENV') == 'DEV':
 else:
     host = 'https://api.hacktues.com'
 
-USERNAME = 'hacktues'
-PASSWORD = 'Go Green'
-# USERNAME = 'joan@hello.com'
-# PASSWORD = 'hello'
-
 
 async def send_log(message, bot):
     channel = await bot.fetch_channel(channels.LOG)
     await channel.send(message)
-
-
-async def authorize(bot):
-    async with aiohttp.ClientSession() as client:
-        tokens = await request(
-            bot, client, 'token/', email=USERNAME, password=PASSWORD
-        )
-        return {'Authorization': f"Bearer {tokens['access']}"}
 
 
 async def request(bot, client, path='', url=None, **kwargs):
@@ -41,8 +28,6 @@ async def request(bot, client, path='', url=None, **kwargs):
 
     async with func(url, data=kwargs) as response:
         json = await response.json()
-        if response.status == 401:
-            raise EnvironmentError
         if response.status != 200:
             await send_log(f"{func.__name__} {url}\n"
                            f"{response.status} {response.reason}\n"

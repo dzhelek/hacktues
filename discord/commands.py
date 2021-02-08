@@ -22,15 +22,15 @@ class Commands(commands.Cog):
         await ctx.send(f"sent to {user.id}")
 
     @commands.check_any(commands.has_role('организатор'),
-                       commands.has_role('оценител'),
-                       commands.has_role('ЕКО'))
+                        commands.has_role('оценител'),
+                        commands.has_role('ЕКО'))
     @commands.command(aliases=['j', 'виж', 'в', '+'])
     async def join(self, ctx, *, role: discord.Role):
         await ctx.author.add_roles(role, reason="join")
 
     @commands.check_any(commands.has_role('организатор'),
-                       commands.has_role('оценител'),
-                       commands.has_role('ЕКО'))
+                        commands.has_role('оценител'),
+                        commands.has_role('ЕКО'))
     @commands.command(aliases=['l', 'напусни', 'н', '-'])
     async def leave(self, ctx, *, role: discord.Role):
         await ctx.author.remove_roles(role, reason="leave")
