@@ -19,6 +19,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, exc):
+        import ipdb; ipdb.set_trace()
         await send_log(f'{ctx.channel.mention}: {ctx.message.content}\n{exc}',
                        self.bot)
         raise exc
@@ -65,13 +66,13 @@ class Events(commands.Cog):
     async def on_member_update(self, before, after):
         if before == self.bot.user:
             return
-            
+
         if before.pending == after.pending:
             return
-        
+
         member = after
         print("new member")
-        
+
         async with aiohttp.ClientSession() as client:
             members_json = await request(self.bot, client, path='users/')
 
@@ -102,3 +103,8 @@ class Events(commands.Cog):
                 # member has no team
                 role = utils.get(member.guild.roles, name='captain')
                 await member.add_roles(role, reason=reason)
+        
+        await member.edit(
+            nick=f"{member_json['first_name']} {member_json['last_name']}"
+            f" - {member_json['form']}"
+        )
