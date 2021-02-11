@@ -19,13 +19,9 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, exc):
-        import ipdb; ipdb.set_trace()
         await send_log(f'{ctx.channel.mention}: {ctx.message.content}\n{exc}',
                        self.bot)
         raise exc
-        
-    @commands.Cog.listener()
-    async def on_error(self, 
 
     @commands.Cog.listener()
     async def on_message(self, message):
