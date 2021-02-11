@@ -23,6 +23,9 @@ class Events(commands.Cog):
         await send_log(f'{ctx.channel.mention}: {ctx.message.content}\n{exc}',
                        self.bot)
         raise exc
+        
+    @commands.Cog.listener()
+    async def on_error(self, 
 
     @commands.Cog.listener()
     async def on_message(self, message):
