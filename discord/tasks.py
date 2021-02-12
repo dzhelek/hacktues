@@ -57,6 +57,5 @@ class TeamTask(commands.Cog):
         self.guild = await self.bot.fetch_guild(747517305164005456)
         self.label = await self.bot.fetch_channel(channels.REGISTERED)
         teams_channel = await self.bot.fetch_channel(channels.TEAMS)
-        self.all_teams = await (teams_channel.fetch_message(teams_channel
-                                .last_message_id))
+        self.all_teams = await teams_channel.send("Това са всички отбори:")
         self.captain_role = utils.get(self.guild.roles, name='captain')

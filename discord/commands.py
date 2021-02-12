@@ -1,4 +1,6 @@
 # coding=windows-1251
+import random
+
 import discord
 from discord.ext import commands
 
@@ -102,3 +104,9 @@ class Commands(commands.Cog):
     async def ping(self, ctx):
         await ctx.send(f"{emojis.PONG} Понг с "
                        f"{str(round(self.bot.latency, 2))} s")
+                       
+    @commands.command(aliases=['мотивирай', 'мот', 'mot'])
+    async def motivate(self, ctx):
+        channel = await self.bot.fetch_channel(channels.MOTIVATIONS)
+        message = random.choice([message async for message in channel.history()])
+        await ctx.send(message.embeds[0].url)
