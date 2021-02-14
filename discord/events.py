@@ -37,7 +37,8 @@ class Events(commands.Cog):
         if isinstance(message.channel, channel.DMChannel):
             guild = await self.bot.fetch_guild(747517305164005456)
             name = message.author.display_name.replace(' ', '-').lower()
-            text_channel = utils.get(guild.channels, name=name)
+            channels = await guild.fetch_channels()
+            text_channel = [c for c in channels if c.name == name][0]
             if not text_channel:
                 category = await self.bot.fetch_channel(channels.DM)
                 text_channel = await guild.create_text_channel(

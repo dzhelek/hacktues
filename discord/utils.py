@@ -1,8 +1,6 @@
 from os import environ
 
-import aiohttp
 import discord
-from discord import utils
 
 import channels
 
