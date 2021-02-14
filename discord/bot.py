@@ -7,7 +7,7 @@ from discord.ext import commands
 
 from commands import Commands
 from events import Events
-from tasks import TeamTask
+from tasks import Tasks
 
 
 def main():
@@ -19,7 +19,7 @@ def main():
 
     bot.add_cog(Events(bot))
     bot.add_cog(Commands(bot))
-    bot.add_cog(TeamTask(bot))
+    bot.add_cog(Tasks(bot))
     bot.load_extension("jishaku")
     bot.run(TOKEN)
 

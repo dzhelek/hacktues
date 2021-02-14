@@ -37,8 +37,9 @@ async def request(bot, client, path='', url=None, **kwargs):
 
 
 async def get_team_role(team_name, guild, reason):
-    role = utils.get(guild.roles, name=team_name)
-    if role is None:
+    roles = await guild.fetch_roles()
+    role = [role for role in roles if role.name == team_name]
+    if not role:
         role = await guild.create_role(reason=reason, name=team_name)
         perms = {
             guild.default_role:
@@ -51,4 +52,6 @@ async def get_team_role(team_name, guild, reason):
         )
         await guild.create_text_channel(team_name, category=category)
         await guild.create_voice_channel(team_name, category=category)
+    else:
+        role = role[0]
     return role

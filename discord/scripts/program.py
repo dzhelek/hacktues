@@ -19,9 +19,9 @@ async def on_ready():
 async def embed(ctx, *, calendar):
     channel = bot.get_channel(channels.PROGRAM)
     description = '\n' + calendar + '\n'
-    description += "С Кирилка Ангелова и Виктория Димитрова ще си поговорите за презентацията като компонент на оценяване и подготовката за нея.\n"
-    description += '\n<:googlemeet:808419023695773737> https://meet.google.com/okq-mhhz-vdq'
-    title = f'{emojis.TOOLS} Уъркшоп “Презентационни умения” {emojis.TOOLS}'
+    description += "Очаквайте скоро от нас повече подробности за последния ден. Полуфиналите и финалите ще се състоят чрез платформата BigBlueButton.\n"
+    description += '\n<:youtube:808461189256183838> https://www.youtube.com/channel/UCQcbYkAKPEgfjzvwb2sUWSQ'
+    title = f'{emojis.MEDAL} Полуфинали, финал и награждаване {emojis.MEDAL}'
     url = "https://hacktues.com/schedule/"
     color = 0x009d60
     thumbnail = "https://media.discordapp.net/attachments/692344787344293888/805369800171323412/instagram_profile_picture.png?width=683&height=683"

@@ -8,42 +8,78 @@ from utils import get_team_role, request, send_log
 import channels
 
 
-class TeamTask(commands.Cog):
+class Tasks(commands.Cog):
     def __init__(self, bot):
-        self.reason = 'new team registered'
+        self.reason = 'tasks'
         self.bot = bot
-        self.count = 0
         self.fetch_teams.start()
+        self.fetch_users.start()
 
     def cog_unload(self):
         self.fetch_teams.cancel()
+        self.fetch_users.cancel()
 
-    @tasks.loop(minutes=5)
+    @tasks.loop(hours=1)
     async def fetch_teams(self):
-        print(f'count: {self.count}')
+        print('fetching teams...')
         async with aiohttp.ClientSession() as client:
             teams = await request(self.bot, client, path='teams/')
 
-        new_count = len(teams)
-        if new_count != self.count:
-            await self.label.edit(name=f'ОТБОРИ: {new_count}')
-        for i in range(new_count - self.count):
-            team = teams[-i - 1]
+        await self.all_teams.delete()
+        self.all_teams = (await self.teams_channel.
+                          send("Това са всички отбори:"))
+        count = len(teams)
+        await self.label.edit(name=f'ОТБОРИ: {count}')
+        for team in teams:
+            if not team['confirmed']:
+                continue
             team_name = 'team ' + team['name']
             await self.all_teams.edit(
                 content=f"{self.all_teams.content}\n{team_name}"
             )
             role = await get_team_role(team_name, self.guild, self.reason)
             for user in team['users']:
-                member = self.guild.get_member(user['discord_id'])
-                if not member:
+                try:
+                    member = await self.guild.fetch_member(user['discord_id'])
+                except Exception:
                     continue
+                await member.add_roles(role, reason=self.reason)
 
-                if not member.is_captain:
-                    await member.remove_roles(self.captain_role, self.reason)
-                await member.add_roles(role, self.reason)
+    @fetch_teams.before_loop
+    async def after_init(self):
+        await self.bot.wait_until_ready()
+        self.guild = await self.bot.fetch_guild(747517305164005456)
+        self.label = await self.bot.fetch_channel(channels.REGISTERED)
+        self.teams_channel = await self.bot.fetch_channel(channels.TEAMS)
+        self.all_teams = await self.teams_channel.send(":")
+        self.captain_role = utils.get(self.guild.roles, name='captain')
 
-        self.count = new_count
+    @tasks.loop(hours=1)
+    async def fetch_users(self):
+        print('fetching users...')
+        async with aiohttp.ClientSession() as client:
+            users = await request(self.bot, client, path='users/')
+
+        for user in users:
+            try:
+                member = await self.guild.fetch_member(user['discord_id'])
+            except Exception:
+                continue
+            roles = [role for role in member.roles if 'team' in role.name]
+
+            if not user['is_captain']:
+                await member.remove_roles(self.captain_role,
+                                          reason=self.reason)
+            else:
+                await member.add_roles(self.captain_role, reason=self.reason)
+
+            if not user['team_set'] or len(roles) > 1:
+                await member.remove_roles(*roles, reason=self.reason)
+                await member.add_roles(self.captain_role, reason=self.reason)
+
+    @fetch_users.before_loop
+    async def alternative_init(self):
+        await self.bot.wait_until_ready()
 
     @fetch_teams.error
     async def on_exception(self, exc):
@@ -51,11 +87,8 @@ class TeamTask(commands.Cog):
         self.fetch_teams.restart()
         raise exc
 
-    @fetch_teams.before_loop
-    async def before_loop(self):
-        await self.bot.wait_until_ready()
-        self.guild = await self.bot.fetch_guild(747517305164005456)
-        self.label = await self.bot.fetch_channel(channels.REGISTERED)
-        teams_channel = await self.bot.fetch_channel(channels.TEAMS)
-        self.all_teams = await teams_channel.send("Това са всички отбори:")
-        self.captain_role = utils.get(self.guild.roles, name='captain')
+    @fetch_users.error
+    async def on_exception2(self, exc):
+        await send_log(str(exc), self.bot)
+        self.fetch_users.restart()
+        raise exc
