@@ -37,13 +37,15 @@ class Events(commands.Cog):
         if isinstance(message.channel, channel.DMChannel):
             guild = await self.bot.fetch_guild(747517305164005456)
             name = message.author.display_name.replace(' ', '-').lower()
-            channels = await guild.fetch_channels()
-            text_channel = [c for c in channels if c.name == name][0]
+            chans = await guild.fetch_channels()
+            text_channel = [chan for chan in chans if chan.name == name]
             if not text_channel:
                 category = await self.bot.fetch_channel(channels.DM)
                 text_channel = await guild.create_text_channel(
                     name, category=category
                 )
+            else:
+                text_channel = text_channel[0]
             await text_channel.send(message.content)
             for attachment in message.attachments:
                 await text_channel.send(attachment.url)
