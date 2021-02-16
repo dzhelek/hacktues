@@ -105,7 +105,7 @@ class Events(commands.Cog):
                 # member has no team
                 role = utils.get(member.guild.roles, name='captain')
                 await member.add_roles(role, reason=reason)
-        
+
         await member.edit(
             nick=f"{member_json['first_name']} {member_json['last_name']}"
             f" - {member_json['form']}"

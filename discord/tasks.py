@@ -29,8 +29,6 @@ class Tasks(commands.Cog):
         count = len(teams)
         await self.label.edit(name=f'Œ“¡Œ–»: {count}')
         for team in teams:
-            if not team['confirmed']:
-                continue
             team_name = 'team ' + team['name']
             await self.all_teams.edit(
                 content=f"{self.all_teams.content}\n{team_name}"
