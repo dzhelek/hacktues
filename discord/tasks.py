@@ -13,13 +13,11 @@ class Tasks(commands.Cog):
         self.reason = 'tasks'
         self.bot = bot
         self.fetch_teams.start()
-        self.fetch_users.start()
 
     def cog_unload(self):
         self.fetch_teams.cancel()
-        self.fetch_users.cancel()
 
-    @tasks.loop(hours=1)
+    @tasks.loop(minutes=15)
     async def fetch_teams(self):
         print('fetching teams...')
         async with aiohttp.ClientSession() as client:
@@ -45,17 +43,6 @@ class Tasks(commands.Cog):
                     continue
                 await member.add_roles(role, reason=self.reason)
 
-    @fetch_teams.before_loop
-    async def after_init(self):
-        await self.bot.wait_until_ready()
-        self.guild = await self.bot.fetch_guild(747517305164005456)
-        self.label = await self.bot.fetch_channel(channels.REGISTERED)
-        self.teams_channel = await self.bot.fetch_channel(channels.TEAMS)
-        self.all_teams = await self.teams_channel.send(":")
-        self.captain_role = utils.get(self.guild.roles, name='captain')
-
-    @tasks.loop(hours=1)
-    async def fetch_users(self):
         print('fetching users...')
         async with aiohttp.ClientSession() as client:
             users = await request(self.bot, client, path='users/')
@@ -77,18 +64,17 @@ class Tasks(commands.Cog):
                 await member.remove_roles(*roles, reason=self.reason)
                 await member.add_roles(self.captain_role, reason=self.reason)
 
-    @fetch_users.before_loop
-    async def alternative_init(self):
+    @fetch_teams.before_loop
+    async def after_init(self):
         await self.bot.wait_until_ready()
+        self.guild = await self.bot.fetch_guild(747517305164005456)
+        self.label = await self.bot.fetch_channel(channels.REGISTERED)
+        self.teams_channel = await self.bot.fetch_channel(channels.TEAMS)
+        self.all_teams = await self.teams_channel.send(":")
+        self.captain_role = utils.get(self.guild.roles, name='captain')
 
     @fetch_teams.error
     async def on_exception(self, exc):
         await send_log(str(exc), self.bot)
         self.fetch_teams.restart()
-        raise exc
-
-    @fetch_users.error
-    async def on_exception2(self, exc):
-        await send_log(str(exc), self.bot)
-        self.fetch_users.restart()
         raise exc
