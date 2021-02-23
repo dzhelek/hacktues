@@ -19,7 +19,7 @@ def main():
 
     bot.add_cog(Events(bot))
     bot.add_cog(Commands(bot))
-    bot.add_cog(Tasks(bot))
+    # bot.add_cog(Tasks(bot))
     bot.load_extension("jishaku")
     bot.run(TOKEN)
 
