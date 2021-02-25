@@ -76,7 +76,7 @@ class Commands(commands.Cog):
             await mentor.add_roles(team_role, reason=reason)
             await message.clear_reaction(emojis.TICKETS)
             status = f"{emojis.X} в процес на разрешаване…"
-            await edit_status(message, status, проблем)
+            await self.edit_status(message, status, проблем)
 
             await message.add_reaction(emojis.WHITE_CHECK_MARK)
             await message.add_reaction(emojis.NEGATIVE_SQUARED_CROSS_MARK)
@@ -90,13 +90,13 @@ class Commands(commands.Cog):
 
             if str(reaction) == emojis.WHITE_CHECK_MARK:
                 status = f"{emojis.WHITE_CHECK_MARK} приключено"
-                await edit_status(message, status, проблем)
+                await self.edit_status(message, status, проблем)
                 content = (f"{emojis.TICKETS}Проблемът ви "
                            "беше отбелязан като разрешен!")
                 await ctx.channel.send(content)
                 break
 
-            await edit_status(message, f"{emojis.TICKETS} отворенo", проблем)
+            await self.edit_status(message, f"{emojis.TICKETS} отворенo", проблем)
             content = f"{emojis.TICKETS}Проблемът ви беше повторно отворен!"
             await ctx.channel.send(content)
 
