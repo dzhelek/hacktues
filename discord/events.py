@@ -1,3 +1,4 @@
+# coding: windows-1251
 from os import environ
 
 import aiohttp
@@ -90,7 +91,10 @@ class Events(commands.Cog):
                                'was not found in database', self.bot)
                 return
 
-            reason = 'member join'
+            reason = 'member joined'
+            role = utils.get(member.guild.roles, name='участник')
+            await member.add_roles(role, reason=reason)
+
             if member_json['team_set']:
                 team_id = member_json['team_set'][-1]
                 team_json = await request(self.bot, client,
