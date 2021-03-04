@@ -1,6 +1,7 @@
 from os import environ
 
 import discord
+from discord import errors
 
 import channels
 
@@ -13,6 +14,20 @@ else:
 async def send_log(message, bot):
     channel = await bot.fetch_channel(channels.LOG)
     await channel.send(message)
+
+
+async def remessage(send, content, message):
+    try:
+        await send(content)
+    except errors.HTTPException:
+        pass
+    for attachment in message.attachments:
+        f = await attachment.to_file()
+        await send(file=f)
+
+
+async def resend(text_channel, message):
+    await remessage(text_channel.send, message.content, message)
 
 
 async def request(bot, client, path='', url=None, **kwargs):

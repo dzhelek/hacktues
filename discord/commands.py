@@ -6,6 +6,7 @@ from discord.ext import commands
 
 import channels
 import emojis
+from utils import remessage
 
 
 class Commands(commands.Cog):
@@ -14,13 +15,13 @@ class Commands(commands.Cog):
 
     @commands.has_role('организатор')
     @commands.command(aliases=['s', 'с'])
-    async def send(self, ctx, channel: discord.TextChannel, *, message):
-        await channel.send(message)
+    async def send(self, ctx, channel: discord.TextChannel, *, message=''):
+        await remessage(channel.send, message, ctx.message)
 
     @commands.has_role('организатор')
     @commands.command(aliases=['m', 'съобщение', 'м'])
-    async def message(self, ctx, user: discord.User, *, message):
-        await user.send(message)
+    async def message(self, ctx, user: discord.User, *, message=''):
+        await remessage(user.send, message, ctx.message)
         await ctx.send(f"sent to {user.id}")
 
     @commands.check_any(commands.has_role('организатор'),
@@ -96,7 +97,8 @@ class Commands(commands.Cog):
                 await ctx.channel.send(content)
                 break
 
-            await self.edit_status(message, f"{emojis.TICKETS} отворенo", проблем)
+            await self.edit_status(message,
+                                   f"{emojis.TICKETS} отворенo", проблем)
             content = f"{emojis.TICKETS}Проблемът ви беше повторно отворен!"
             await ctx.channel.send(content)
 
@@ -104,9 +106,10 @@ class Commands(commands.Cog):
     async def ping(self, ctx):
         await ctx.send(f"{emojis.PONG} Понг с "
                        f"{str(round(self.bot.latency, 2))} s")
-                       
+
     @commands.command(aliases=['мотивирай', 'мот', 'mot'])
     async def motivate(self, ctx):
         channel = await self.bot.fetch_channel(channels.MOTIVATIONS)
-        message = random.choice([message async for message in channel.history()])
+        messages = [message async for message in channel.history()]
+        message = random.choice(messages)
         await ctx.send(message.embeds[0].url)

@@ -7,7 +7,7 @@ from discord.ext import commands
 
 import emojis
 import channels
-from utils import get_team_role, request, send_log
+from utils import get_team_role, resend, request, send_log
 
 
 class Events(commands.Cog):
@@ -47,10 +47,7 @@ class Events(commands.Cog):
                 )
             else:
                 text_channel = text_channel[0]
-            await text_channel.send(message.content)
-            for attachment in message.attachments:
-                await text_channel.send(attachment.url)
-
+            await resend(text_channel, message)
             if environ.get(name):
                 return
             environ[name] = "1"
@@ -60,7 +57,7 @@ class Events(commands.Cog):
                         m.author != self.bot.user)
 
             content = await self.bot.wait_for('message', check=check)
-            await message.author.send(content.content)
+            await resend(message.author.dm_channel, content)
             await text_channel.send(f'sent to {message.author.id}')
 
             del environ[name]
