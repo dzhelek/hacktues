@@ -74,6 +74,10 @@ class Commands(commands.Cog):
             await message.add_reaction(emojis.TICKETS)
             _, mentor = await self.bot.wait_for('reaction_add',
                                                 check=check_tickets)
+            if mentor.nick:
+                mentor_name = mentor.nick
+            else:
+                mentor_name = mentor.name
             await mentor.add_roles(team_role, reason=reason)
             await message.clear_reaction(emojis.TICKETS)
             status = f"{emojis.X} в процес на разрешаване…"
@@ -84,7 +88,7 @@ class Commands(commands.Cog):
             content = f"<@{mentor.id}> се зае с вашия {emojis.TICKETS}проблем!"
             await ctx.channel.send(content)
             claimed = await self.bot.fetch_channel(channels.CLAIMED)
-            await claimed.send(mentor.nick)
+            await claimed.send(mentor_name)
             reaction, _ = await self.bot.wait_for('reaction_add',
                                                   check=check_yesno(mentor))
             await mentor.remove_roles(team_role, reason=reason)
@@ -98,7 +102,7 @@ class Commands(commands.Cog):
                            "беше отбелязан като разрешен!")
                 await ctx.channel.send(content)
                 closed = await self.bot.fetch_channel(channels.CLOSED)
-                await closed.send(mentor.nick)
+                await closed.send(mentor_name)
                 break
 
             await self.edit_status(message,
@@ -106,7 +110,7 @@ class Commands(commands.Cog):
             content = f"{emojis.TICKETS}Проблемът ви беше повторно отворен!"
             await ctx.channel.send(content)
             reopened = await self.bot.fetch_channel(channels.REOPENED)
-            await reopened.send(mentor.nick)
+            await reopened.send(mentor_name)
 
     @commands.command(aliases=['пинг'])
     async def ping(self, ctx):
