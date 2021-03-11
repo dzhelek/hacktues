@@ -38,8 +38,8 @@ class Commands(commands.Cog):
     async def leave(self, ctx, *, role: discord.Role):
         await ctx.author.remove_roles(role, reason="leave")
 
-    async def edit_status(self, message, status, проблем):
-        content = f"{emojis.TICKETS}проблем: {проблем} (статус: {status})"
+    async def edit_status(self, message, status, проблем, team):
+        content = f"{emojis.TICKETS}проблем от {team}: {проблем} (статус: {status})"
         await message.edit(content=content)
 
     @commands.command(aliases=('проблем', 'п', 'p'))
@@ -51,7 +51,7 @@ class Commands(commands.Cog):
 
         reason = 'ticket system'
         status = f"{emojis.TICKETS} отворенo"
-        content = f"{emojis.TICKETS}: {проблем} (статус: {status})"
+        content = f"{emojis.TICKETS}проблем от {team_role.name}: {проблем} (статус: {status})"
         problems = await self.bot.fetch_channel(channels.PROBLEMS)
         message = await problems.send(content)
 
@@ -81,7 +81,7 @@ class Commands(commands.Cog):
             await mentor.add_roles(team_role, reason=reason)
             await message.clear_reaction(emojis.TICKETS)
             status = f"{emojis.X} в процес на разрешаване…"
-            await self.edit_status(message, status, проблем)
+            await self.edit_status(message, status, проблем, team_role.name)
 
             await message.add_reaction(emojis.WHITE_CHECK_MARK)
             await message.add_reaction(emojis.NEGATIVE_SQUARED_CROSS_MARK)
@@ -97,7 +97,7 @@ class Commands(commands.Cog):
 
             if str(reaction) == emojis.WHITE_CHECK_MARK:
                 status = f"{emojis.WHITE_CHECK_MARK} приключено"
-                await self.edit_status(message, status, проблем)
+                await self.edit_status(message, status, проблем, team_role.name)
                 content = (f"{emojis.TICKETS}Проблемът ви "
                            "беше отбелязан като разрешен!")
                 await ctx.channel.send(content)
@@ -105,8 +105,8 @@ class Commands(commands.Cog):
                 await closed.send(mentor_name)
                 break
 
-            await self.edit_status(message,
-                                   f"{emojis.TICKETS} отворенo", проблем)
+            await self.edit_status(message, f"{emojis.TICKETS} отворенo",
+                                   проблем, team_role.name)
             content = f"{emojis.TICKETS}Проблемът ви беше повторно отворен!"
             await ctx.channel.send(content)
             reopened = await self.bot.fetch_channel(channels.REOPENED)
