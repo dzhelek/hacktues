@@ -1,5 +1,6 @@
 # coding=windows-1251
 import random
+from aiohttp.helpers import TOKEN
 
 import discord
 from discord.ext import commands
@@ -8,30 +9,32 @@ import channels
 import emojis
 from utils import remessage
 
+import re
+from datetime import date
 
 class Commands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.has_role('организатор')
+    @commands.has_role('Организатор')
     @commands.command(aliases=['s', 'с'])
     async def send(self, ctx, channel: discord.TextChannel, *, message=''):
         await remessage(channel.send, message, ctx.message)
 
-    @commands.has_role('организатор')
+    @commands.has_role('Организатор')
     @commands.command(aliases=['m', 'съобщение', 'м'])
     async def message(self, ctx, user: discord.User, *, message=''):
         await remessage(user.send, message, ctx.message)
         await ctx.send(f"sent to {user.id}")
 
-    @commands.check_any(commands.has_role('организатор'),
+    @commands.check_any(commands.has_role('Организатор'),
                         commands.has_role('оценител'),
                         commands.has_role('ЕКО'))
     @commands.command(aliases=['j', 'виж', 'в', '+'])
     async def join(self, ctx, *, role: discord.Role):
         await ctx.author.add_roles(role, reason="join")
 
-    @commands.check_any(commands.has_role('организатор'),
+    @commands.check_any(commands.has_role('Организатор'),
                         commands.has_role('оценител'),
                         commands.has_role('ЕКО'))
     @commands.command(aliases=['l', 'напусни', 'н', '-'])
@@ -123,3 +126,43 @@ class Commands(commands.Cog):
         messages = [message async for message in channel.history()]
         message = random.choice(messages)
         await ctx.send(message.embeds[0].url)
+
+    # гришо е написал в канала какво да се прави
+    @commands.command(aliases=['email'])
+    async def auth_email(self, ctx, email):
+        # Да се откоментира в prod
+        #assert 'верификация-за-участие' in ctx.channel.name, 'problem outside auth channel'
+        
+        if(len(ctx.message.content.split()) != 3):
+            # TODO: Хубаво е да го пише на лично на човека.
+            print("Грешен формат. Пр. 'ht email ivan.i.ivanov.2019@elsys-bg.org'")
+        
+        # token = int(''.join([str(random.randint(0,10)) for _ in range(5)]))
+        # TODO: check if token exists
+        # print("Email: " + email, "Token " + token)
+        # TODO: add the token to the database
+        # TODO: send to email the token
+
+    # TODO: само ако няма роли потребители
+    @commands.command(aliases=['token'])
+    async def auth_token(self, ctx, token):
+        # Да се откоментира в prod
+        # assert 'верификация-за-участие' in ctx.channel.name, 'problem outside auth channel'
+
+        if(len(ctx.message.content.split()) != 3):
+            # TODO: Хубаво е да го пише на лично на човека.
+            print("Грешен формат. Пр. 'ht token 19420'")
+
+        # TODO: if the token matches the database one
+        if():
+            pass
+        # TODO: get email from database using the token
+        email = 'iskren.b.aleksandrov.2018@elsys-bg.org'
+        matches = re.findall(r"[\w']+", email)
+        nickname = matches[0].capitalize() + ' ' + matches[2].capitalize() + ' (' + str(7 + (date.today().year - int(matches[3]))) + ')'
+        # TODO: logs
+        await ctx.author.edit(nick=nickname)
+
+        role = discord.utils.get(ctx.author.guild.roles, name="Потребител")
+        await ctx.author.add_roles(role, reason="authenticated")
+        # print(email)

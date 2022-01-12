@@ -29,14 +29,14 @@ class Events(commands.Cog):
         if message.author == self.bot.user:
             return
 
-        if message.channel.id == channels.TEAMS:
+        if message.channel.id == channels.TEAMS or message.channel.id == channels.AUTH:
             await message.delete()
             # await send_log(f"{name} to <#{channels.TEAMS}>:\n"
             #                f"{message.content}", self.bot)
             return
 
         if isinstance(message.channel, channel.DMChannel):
-            guild = await self.bot.fetch_guild(747517305164005456)
+            guild = await self.bot.fetch_guild(871120127976951818)
             name = message.author.display_name.replace(' ', '-').lower()
             chans = await guild.fetch_channels()
             text_channel = [chan for chan in chans if chan.name == name]
@@ -89,7 +89,7 @@ class Events(commands.Cog):
                 return
 
             reason = 'member joined'
-            role = utils.get(member.guild.roles, name='участник')
+            role = utils.get(member.guild.roles, name='пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')
             await member.add_roles(role, reason=reason)
 
             if member_json['team_set']:

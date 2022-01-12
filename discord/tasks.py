@@ -25,9 +25,9 @@ class Tasks(commands.Cog):
 
         await self.all_teams.delete()
         self.all_teams = (await self.teams_channel.
-                          send("Това са всички отбори:"))
+                          send("пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ:"))
         count = len(teams)
-        await self.label.edit(name=f'ОТБОРИ: {count}')
+        await self.label.edit(name=f'пїЅпїЅпїЅпїЅпїЅпїЅ: {count}')
         for team in teams:
             team_name = 'team ' + team['name']
             await self.all_teams.edit(
@@ -65,7 +65,7 @@ class Tasks(commands.Cog):
     @fetch_teams.before_loop
     async def after_init(self):
         await self.bot.wait_until_ready()
-        self.guild = await self.bot.fetch_guild(747517305164005456)
+        self.guild = await self.bot.fetch_guild(871120127976951818)
         self.label = await self.bot.fetch_channel(channels.REGISTERED)
         self.teams_channel = await self.bot.fetch_channel(channels.TEAMS)
         self.all_teams = await self.teams_channel.send(":")
