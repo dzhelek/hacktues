@@ -155,7 +155,7 @@ class Commands(commands.Cog):
             print("Грешен формат. Пр. 'ht token 19420'")
 
         # TODO: if the token matches the database one
-        if():
+        if(token):
             pass
         # TODO: get email from database using the token
         email = 'iskren.b.aleksandrov.2018@elsys-bg.org'
@@ -168,6 +168,7 @@ class Commands(commands.Cog):
         await ctx.author.add_roles(role, reason="authenticated")
         # print(email)
 
+    # TODO: listener za paralelka pri nqkoi kanal (aktivira se ot reakt na suobshtenieto)
     @commands.command(aliases=['nick'])
-    async def auth_token(self, ctx, nickname):
+    async def auth_nick(self, ctx, nickname):
         await ctx.author.edit(nick=nickname)
