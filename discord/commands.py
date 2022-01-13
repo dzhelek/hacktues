@@ -136,6 +136,7 @@ class Commands(commands.Cog):
         if(len(ctx.message.content.split()) != 3):
             # TODO: Хубаво е да го пише на лично на човека.
             print("Грешен формат. Пр. 'ht email ivan.i.ivanov.2019@elsys-bg.org'")
+        #TODO: verifikaciq dali e elsys email
         
         # token = int(''.join([str(random.randint(0,10)) for _ in range(5)]))
         # TODO: check if token exists
@@ -163,6 +164,10 @@ class Commands(commands.Cog):
         # TODO: logs
         await ctx.author.edit(nick=nickname)
 
-        role = discord.utils.get(ctx.author.guild.roles, name="Потребител")
+        role = discord.utils.get(self.guild.roles, name="Потребител")
         await ctx.author.add_roles(role, reason="authenticated")
         # print(email)
+
+    @commands.command(aliases=['nick'])
+    async def auth_token(self, ctx, nickname):
+        await ctx.author.edit(nick=nickname)
