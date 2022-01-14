@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # coding=windows-1251
-from os import environ
+
+#from os import environ
+import os
+from dotenv import load_dotenv
 
 import discord
 from discord.ext import commands
@@ -11,7 +14,11 @@ from tasks import Tasks
 
 
 def main():
-    TOKEN = environ.get('token')
+    # Moving the global env to local one (located in the folder)
+    # TOKEN = environ.get('token')
+
+    load_dotenv()
+    TOKEN = os.getenv('token');
 
     intents = discord.Intents.all()
     bot = commands.Bot(command_prefix=('υς ', 'ht '),
