@@ -18,7 +18,7 @@ def main():
     # TOKEN = environ.get('token')
 
     load_dotenv()
-    TOKEN = os.getenv('token');
+    TOKEN = os.getenv('token')
 
     intents = discord.Intents.all()
     bot = commands.Bot(command_prefix=('υς ', 'ht '),

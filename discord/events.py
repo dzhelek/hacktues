@@ -1,5 +1,6 @@
 # coding: windows-1251
 from os import environ
+import os
 
 import aiohttp
 from discord import utils, channel
@@ -9,6 +10,8 @@ import emojis
 import channels
 from utils import get_team_role, resend, request, send_log
 
+import discord
+from discord.ext import commands
 
 class Events(commands.Cog):
     def __init__(self, bot):
@@ -29,12 +32,36 @@ class Events(commands.Cog):
         if message.author == self.bot.user:
             return
 
-        if message.channel.id == channels.TEAMS or message.channel.id == channels.AUTH:
+        if message.channel.id == channels.TEAMS:
             await message.delete()
             # await send_log(f"{name} to <#{channels.TEAMS}>:\n"
             #                f"{message.content}", self.bot)
             return
 
+        if message.channel.id == channels.AUTH:
+            mess = message
+            await message.delete()
+            if(mess.content[0].isdigit()):
+
+                auth_token = os.getenv('auth_token')
+                headers = {"Authorization": f"Bearer {auth_token}"}
+                async with aiohttp.ClientSession(headers=headers) as client:
+                    response = await request(self.bot, client, path='api/user/validate-discord-token', discordToken=mess.content)
+                    # TODO: if the token matches the database one
+                    if(response['success']):
+                        if(response['isMentor']):
+                            role = discord.utils.get(mess.guild.roles, name="Ментор")
+                            await mess.author.add_roles(role, reason="authenticated mentor")
+                            return
+
+                        nickname = response['fullName']
+                        await mess.author.edit(nick=nickname)
+
+                        role = discord.utils.get(mess.guild.roles, name="Потребител")
+                        await mess.author.add_roles(role, reason="authenticated")
+                    else:
+                        print(response.errors)
+                        
         if isinstance(message.channel, channel.DMChannel):
             guild = await self.bot.fetch_guild(871120127976951818)
             name = message.author.display_name.replace(' ', '-').lower()
