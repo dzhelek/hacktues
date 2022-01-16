@@ -149,51 +149,40 @@ class Commands(commands.Cog):
         auth_token = os.getenv('auth_token')
         headers = {"Authorization": f"Bearer {auth_token}"}
         async with aiohttp.ClientSession(headers=headers) as client:
-            response = await request(self.bot, client, path='api/user/get-discord-token', email=email)
+            response = await request(self.bot, client, path='api/user/get-discord-token', email=email, feedback=True)
             if(response['success']):
-                await remessage(ctx.author.send, f'Хелоу, Гришо е! Радвам се да те видя {SMILEY_CAT}\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно изкарване в сървъра', ctx.message)
+                await remessage(ctx.author.send, f'Хей, Гришо е! Радвам се да те видя {SMILEY_CAT}\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно изкарване в сървъра', ctx.message)
+            # elif (not response['success'] and ('' in response['errors'])):
             else:
-                # TODO: not working
-                await remessage(ctx.author.send, f'Хелоу, Гришо е!\n Случи се нещо неочаквано {SAD} Препоръчвам ти да пишеш на екипа и да пратиш грешката! \n {response}', ctx.message)
+                err_msg = list(response['errors'].values())[0]
+                await remessage(ctx.author.send, f'Хей, Гришо е!\n{err_msg} \n{SAD}', ctx.message)
 
-    # TODO: да се махне aliases-a
-    @commands.command(aliases=['token'])
-    async def auth_token(self, ctx, token):
-        # Да се откоментира в prod
-        # assert 'верификация' in ctx.channel.name, 'problem outside auth channel'
+    # @commands.command(aliases=['token'])
+    # async def auth_token(self, ctx, token):
+    #     # Да се откоментира в prod
+    #     # assert 'верификация' in ctx.channel.name, 'problem outside auth channel'
 
-        # if(len(ctx.message.content) != 5):
-        #     print("It's not token")
-        #     return
+    #     # if(len(ctx.message.content) != 5):
+    #     #     print("It's not token")
+    #     #     return
 
-        auth_token = os.getenv('auth_token')
-        headers = {"Authorization": f"Bearer {auth_token}"}
-        async with aiohttp.ClientSession(headers=headers) as client:
-            response = await request(self.bot, client, path='api/user/validate-discord-token', discordToken=token)
-            # TODO: if the token matches the database one
-            if(response['success']):
-                if(response['isMentor']):
-                    role = discord.utils.get(ctx.guild.roles, name="Ментор")
-                    await ctx.author.add_roles(role, reason="authenticated mentor")
-                    return
+    #     auth_token = os.getenv('auth_token')
+    #     headers = {"Authorization": f"Bearer {auth_token}"}
+    #     async with aiohttp.ClientSession(headers=headers) as client:
+    #         response = await request(self.bot, client, path='api/user/validate-discord-token', discordToken=token)
+    #         if(response['success']):
+    #             if(response['isMentor']):
+    #                 role = discord.utils.get(ctx.guild.roles, name="Ментор")
+    #                 await ctx.author.add_roles(role, reason="authenticated mentor")
+    #                 return
 
-                nickname = response['fullName']
-                await ctx.author.edit(nick=nickname)
+    #             nickname = response['fullName']
+    #             await ctx.author.edit(nick=nickname)
 
-                role = discord.utils.get(ctx.guild.roles, name="Потребител")
-                await ctx.author.add_roles(role, reason="authenticated")
-            else:
-                print(response.errors)
+    #             role = discord.utils.get(ctx.guild.roles, name="Потребител")
+    #             await ctx.author.add_roles(role, reason="authenticated")
+    #         else:
+    #             print(response.errors)
            
 
     # TODO: listener za paralelka pri nqkoi kanal (aktivira se ot reakt na suobshtenieto)
-
-    #TODO: Remove this command
-    @commands.command(aliases=['role'])
-    async def auth_role(self, ctx):
-        role = discord.utils.get(ctx.guild.roles, name="Потребител")
-        await ctx.author.add_roles(role, reason="authenticated")
-
-    @commands.command(aliases=['nick'])
-    async def auth_nick(self, ctx, nick):
-        await ctx.author.edit(nick=nick)

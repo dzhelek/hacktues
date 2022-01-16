@@ -47,7 +47,6 @@ class Events(commands.Cog):
                 headers = {"Authorization": f"Bearer {auth_token}"}
                 async with aiohttp.ClientSession(headers=headers) as client:
                     response = await request(self.bot, client, path='api/user/validate-discord-token', discordToken=mess.content)
-                    # TODO: if the token matches the database one
                     if(response['success']):
                         if(response['isMentor']):
                             role = discord.utils.get(mess.guild.roles, name="Ментор")

@@ -11,4 +11,4 @@ venv/
 db-backup.sql
 
 # env
-discord/.env
+.env
