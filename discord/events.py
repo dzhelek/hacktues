@@ -1,4 +1,4 @@
-# coding: windows-1251
+# coding=utf-8
 from os import environ
 import os
 
@@ -50,14 +50,14 @@ class Events(commands.Cog):
                     # TODO: if the token matches the database one
                     if(response['success']):
                         if(response['isMentor']):
-                            role = discord.utils.get(mess.guild.roles, name="Ментор")
+                            role = discord.utils.get(mess.guild.roles, name="РњРµРЅС‚РѕСЂ")
                             await mess.author.add_roles(role, reason="authenticated mentor")
                             return
 
                         nickname = response['fullName']
                         await mess.author.edit(nick=nickname)
 
-                        role = discord.utils.get(mess.guild.roles, name="Потребител")
+                        role = discord.utils.get(mess.guild.roles, name="РџРѕС‚СЂРµР±РёС‚РµР»")
                         await mess.author.add_roles(role, reason="authenticated")
                     else:
                         print(response.errors)
@@ -116,7 +116,7 @@ class Events(commands.Cog):
                 return
 
             reason = 'member joined'
-            role = utils.get(member.guild.roles, name='пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')
+            role = utils.get(member.guild.roles, name='С„РёР»СЉСЂ')
             await member.add_roles(role, reason=reason)
 
             if member_json['team_set']:

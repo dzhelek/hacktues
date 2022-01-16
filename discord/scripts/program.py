@@ -1,4 +1,4 @@
-# coding=windows-1251
+# coding=utf-8
 from os import environ
 
 from discord.ext import commands
@@ -19,9 +19,9 @@ async def on_ready():
 async def embed(ctx, *, calendar):
     channel = bot.get_channel(channels.PROGRAM)
     description = '\n' + calendar + '\n'
-    description += "Очаквайте скоро от нас повече подробности за последния ден. Полуфиналите и финалите ще се състоят чрез платформата BigBlueButton.\n"
+    description += "РћС‡Р°РєРІР°Р№С‚Рµ СЃРєРѕСЂРѕ РѕС‚ РЅР°СЃ РїРѕРІРµС‡Рµ РїРѕРґСЂРѕР±РЅРѕСЃС‚Рё Р·Р° РїРѕСЃР»РµРґРЅРёСЏ РґРµРЅ. РџРѕР»СѓС„РёРЅР°Р»РёС‚Рµ Рё С„РёРЅР°Р»РёС‚Рµ С‰Рµ СЃРµ СЃСЉСЃС‚РѕСЏС‚ С‡СЂРµР· РїР»Р°С‚С„РѕСЂРјР°С‚Р° BigBlueButton.\n"
     description += '\n<:youtube:808461189256183838> https://www.youtube.com/channel/UCQcbYkAKPEgfjzvwb2sUWSQ'
-    title = f'{emojis.MEDAL} Полуфинали, финал и награждаване {emojis.MEDAL}'
+    title = f'{emojis.MEDAL} РџРѕР»СѓС„РёРЅР°Р»Рё, С„РёРЅР°Р» Рё РЅР°РіСЂР°Р¶РґР°РІР°РЅРµ {emojis.MEDAL}'
     url = "https://hacktues.com/schedule/"
     color = 0x009d60
     thumbnail = "https://media.discordapp.net/attachments/692344787344293888/805369800171323412/instagram_profile_picture.png?width=683&height=683"

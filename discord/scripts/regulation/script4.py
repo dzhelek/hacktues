@@ -1,4 +1,4 @@
-# coding=windows-1251
+# coding=utf-8
 from os import environ
 
 from discord.ext import commands
@@ -7,7 +7,7 @@ from discord import Embed
 import channels
 import emojis
 
-bot = commands.Bot(command_prefix=('хт ', 'ht ', ','))
+bot = commands.Bot(command_prefix=('С…С‚ ', 'ht ', ','))
 TOKEN = environ.get('token')
 
 
@@ -16,37 +16,37 @@ async def on_ready():
     print(f'{bot.user.name}scripts has connected to Discord')
     channel = bot.get_channel(channels.REGULATIONS)
     message = "https://media.discordapp.net/attachments/692344787344293888/805406588965879808/ev_jureto-05.png?width=1440&height=339"
-    description = f'{emojis.WHITE_CHECK_MARK} ОЦЕНЯВАНЕ ОТ ЖУРИТО {emojis.WHITE_CHECK_MARK}'
-    title = f'{emojis.SCROLL} РЕГЛАМЕНТ {emojis.SCROLL}'
+    description = f'{emojis.WHITE_CHECK_MARK} РћР¦Р•РќРЇР’РђРќР• РћРў Р–РЈР РРўРћ {emojis.WHITE_CHECK_MARK}'
+    title = f'{emojis.SCROLL} Р Р•Р“Р›РђРњР•РќРў {emojis.SCROLL}'
     url = "https://hacktues.com/regulation/"
     color = 0x009d60
     thumbnail = "https://media.discordapp.net/attachments/692344787344293888/805369800171323412/instagram_profile_picture.png?width=683&height=683"
     embed = Embed(description=description, title=title, url=url, color=color)
     embed.set_thumbnail(url=thumbnail)
-    value = f'''Идея - какво е искал да направи отборът (0 - 2 т.):
-{emojis.SMALL_ORANGE_DIAMOND} Доколко проектът е по темата?
-{emojis.SMALL_ORANGE_DIAMOND} Иновативна ли е идеята - има ли много подобни идеи или не?
-{emojis.SMALL_ORANGE_DIAMOND} Доколко е приложима идеята - може ли да се използва в действителност?
+    value = f'''РРґРµСЏ - РєР°РєРІРѕ Рµ РёСЃРєР°Р» РґР° РЅР°РїСЂР°РІРё РѕС‚Р±РѕСЂСЉС‚ (0 - 2 С‚.):
+{emojis.SMALL_ORANGE_DIAMOND} Р”РѕРєРѕР»РєРѕ РїСЂРѕРµРєС‚СЉС‚ Рµ РїРѕ С‚РµРјР°С‚Р°?
+{emojis.SMALL_ORANGE_DIAMOND} РРЅРѕРІР°С‚РёРІРЅР° Р»Рё Рµ РёРґРµСЏС‚Р° - РёРјР° Р»Рё РјРЅРѕРіРѕ РїРѕРґРѕР±РЅРё РёРґРµРё РёР»Рё РЅРµ?
+{emojis.SMALL_ORANGE_DIAMOND} Р”РѕРєРѕР»РєРѕ Рµ РїСЂРёР»РѕР¶РёРјР° РёРґРµСЏС‚Р° - РјРѕР¶Рµ Р»Рё РґР° СЃРµ РёР·РїРѕР»Р·РІР° РІ РґРµР№СЃС‚РІРёС‚РµР»РЅРѕСЃС‚?
 '''
     embed.add_field(name=f'4.1 {emojis.BULB}', value=value, inline=False)
-    value = f'''Функционалност - какво е успял да реализира отборът (0 - 3 т.):
-{emojis.SMALL_ORANGE_DIAMOND} Обхват - какви функционалности има проектът?
-{emojis.SMALL_ORANGE_DIAMOND} Доколко реализираните функционалности позволяват, проектът да се използва по предназначение?
+    value = f'''Р¤СѓРЅРєС†РёРѕРЅР°Р»РЅРѕСЃС‚ - РєР°РєРІРѕ Рµ СѓСЃРїСЏР» РґР° СЂРµР°Р»РёР·РёСЂР° РѕС‚Р±РѕСЂСЉС‚ (0 - 3 С‚.):
+{emojis.SMALL_ORANGE_DIAMOND} РћР±С…РІР°С‚ - РєР°РєРІРё С„СѓРЅРєС†РёРѕРЅР°Р»РЅРѕСЃС‚Рё РёРјР° РїСЂРѕРµРєС‚СЉС‚?
+{emojis.SMALL_ORANGE_DIAMOND} Р”РѕРєРѕР»РєРѕ СЂРµР°Р»РёР·РёСЂР°РЅРёС‚Рµ С„СѓРЅРєС†РёРѕРЅР°Р»РЅРѕСЃС‚Рё РїРѕР·РІРѕР»СЏРІР°С‚, РїСЂРѕРµРєС‚СЉС‚ РґР° СЃРµ РёР·РїРѕР»Р·РІР° РїРѕ РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРёРµ?
 '''
     embed.add_field(name=f'4.2 {emojis.GEAR}', value=value, inline=False)
-    value = f'''Реализация - колко добре е реализиран проектът (0 - 10 т.):
-{emojis.SMALL_ORANGE_DIAMOND} Каква част от проекта е завършена? 
-{emojis.SMALL_ORANGE_DIAMOND} Качествена разработка - добре ли е разработен проектът (качествен код и добър хардуер)?
-{emojis.SMALL_ORANGE_DIAMOND} Организация (структура) на проекта - виждат ли се ясно отделните елементи в проекта и връзките между тях?
-{emojis.SMALL_ORANGE_DIAMOND} Удобен ли е да се адаптира и надгражда проектът - могат ли лесно да се правят промени и да се добавят нови елементи?
-{emojis.SMALL_ORANGE_DIAMOND} До колко е удобен за употреба (user experience)?
-{emojis.SMALL_ORANGE_DIAMOND} Работа в екип - разпределени ли са задачите според индивидуалните възможности на всеки от екипа?
+    value = f'''Р РµР°Р»РёР·Р°С†РёСЏ - РєРѕР»РєРѕ РґРѕР±СЂРµ Рµ СЂРµР°Р»РёР·РёСЂР°РЅ РїСЂРѕРµРєС‚СЉС‚ (0 - 10 С‚.):
+{emojis.SMALL_ORANGE_DIAMOND} РљР°РєРІР° С‡Р°СЃС‚ РѕС‚ РїСЂРѕРµРєС‚Р° Рµ Р·Р°РІСЉСЂС€РµРЅР°? 
+{emojis.SMALL_ORANGE_DIAMOND} РљР°С‡РµСЃС‚РІРµРЅР° СЂР°Р·СЂР°Р±РѕС‚РєР° - РґРѕР±СЂРµ Р»Рё Рµ СЂР°Р·СЂР°Р±РѕС‚РµРЅ РїСЂРѕРµРєС‚СЉС‚ (РєР°С‡РµСЃС‚РІРµРЅ РєРѕРґ Рё РґРѕР±СЉСЂ С…Р°СЂРґСѓРµСЂ)?
+{emojis.SMALL_ORANGE_DIAMOND} РћСЂРіР°РЅРёР·Р°С†РёСЏ (СЃС‚СЂСѓРєС‚СѓСЂР°) РЅР° РїСЂРѕРµРєС‚Р° - РІРёР¶РґР°С‚ Р»Рё СЃРµ СЏСЃРЅРѕ РѕС‚РґРµР»РЅРёС‚Рµ РµР»РµРјРµРЅС‚Рё РІ РїСЂРѕРµРєС‚Р° Рё РІСЂСЉР·РєРёС‚Рµ РјРµР¶РґСѓ С‚СЏС…?
+{emojis.SMALL_ORANGE_DIAMOND} РЈРґРѕР±РµРЅ Р»Рё Рµ РґР° СЃРµ Р°РґР°РїС‚РёСЂР° Рё РЅР°РґРіСЂР°Р¶РґР° РїСЂРѕРµРєС‚СЉС‚ - РјРѕРіР°С‚ Р»Рё Р»РµСЃРЅРѕ РґР° СЃРµ РїСЂР°РІСЏС‚ РїСЂРѕРјРµРЅРё Рё РґР° СЃРµ РґРѕР±Р°РІСЏС‚ РЅРѕРІРё РµР»РµРјРµРЅС‚Рё?
+{emojis.SMALL_ORANGE_DIAMOND} Р”Рѕ РєРѕР»РєРѕ Рµ СѓРґРѕР±РµРЅ Р·Р° СѓРїРѕС‚СЂРµР±Р° (user experience)?
+{emojis.SMALL_ORANGE_DIAMOND} Р Р°Р±РѕС‚Р° РІ РµРєРёРї - СЂР°Р·РїСЂРµРґРµР»РµРЅРё Р»Рё СЃР° Р·Р°РґР°С‡РёС‚Рµ СЃРїРѕСЂРµРґ РёРЅРґРёРІРёРґСѓР°Р»РЅРёС‚Рµ РІСЉР·РјРѕР¶РЅРѕСЃС‚Рё РЅР° РІСЃРµРєРё РѕС‚ РµРєРёРїР°?
 '''
     embed.add_field(name=f'4.3 {emojis.JIGSAW}', value=value, inline=False)
-    value = f'''Презентация - колко добре е представен проектът пред журито (0 - 5 т.):
-{emojis.SMALL_ORANGE_DIAMOND} Засегнати ли са въпросите от темплейта - учениците ще получат темплейт, в който е показано какво е задължително да включат в презентацията си.
-{emojis.SMALL_ORANGE_DIAMOND} Екипът подготвен ли е за презентиране?
-{emojis.SMALL_ORANGE_DIAMOND} Отговаря ли на въпросите на журито, или се опитва да ги избегне?
+    value = f'''РџСЂРµР·РµРЅС‚Р°С†РёСЏ - РєРѕР»РєРѕ РґРѕР±СЂРµ Рµ РїСЂРµРґСЃС‚Р°РІРµРЅ РїСЂРѕРµРєС‚СЉС‚ РїСЂРµРґ Р¶СѓСЂРёС‚Рѕ (0 - 5 С‚.):
+{emojis.SMALL_ORANGE_DIAMOND} Р—Р°СЃРµРіРЅР°С‚Рё Р»Рё СЃР° РІСЉРїСЂРѕСЃРёС‚Рµ РѕС‚ С‚РµРјРїР»РµР№С‚Р° - СѓС‡РµРЅРёС†РёС‚Рµ С‰Рµ РїРѕР»СѓС‡Р°С‚ С‚РµРјРїР»РµР№С‚, РІ РєРѕР№С‚Рѕ Рµ РїРѕРєР°Р·Р°РЅРѕ РєР°РєРІРѕ Рµ Р·Р°РґСЉР»Р¶РёС‚РµР»РЅРѕ РґР° РІРєР»СЋС‡Р°С‚ РІ РїСЂРµР·РµРЅС‚Р°С†РёСЏС‚Р° СЃРё.
+{emojis.SMALL_ORANGE_DIAMOND} Р•РєРёРїСЉС‚ РїРѕРґРіРѕС‚РІРµРЅ Р»Рё Рµ Р·Р° РїСЂРµР·РµРЅС‚РёСЂР°РЅРµ?
+{emojis.SMALL_ORANGE_DIAMOND} РћС‚РіРѕРІР°СЂСЏ Р»Рё РЅР° РІСЉРїСЂРѕСЃРёС‚Рµ РЅР° Р¶СѓСЂРёС‚Рѕ, РёР»Рё СЃРµ РѕРїРёС‚РІР° РґР° РіРё РёР·Р±РµРіРЅРµ?
 '''
     embed.add_field(name=f'4.4 {emojis.BAR_CHART}', value=value, inline=False)
     await channel.send(message)

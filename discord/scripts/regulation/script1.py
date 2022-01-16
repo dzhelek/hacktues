@@ -1,4 +1,4 @@
-# coding=windows-1251
+# coding=utf-8
 from os import environ
 
 from discord.ext import commands
@@ -7,7 +7,7 @@ from discord import Embed
 import channels
 import emojis
 
-bot = commands.Bot(command_prefix=('хт ', 'ht ', ','))
+bot = commands.Bot(command_prefix=('С…С‚ ', 'ht ', ','))
 TOKEN = environ.get('token')
 
 
@@ -17,17 +17,17 @@ async def on_ready():
     channel = bot.get_channel(channels.REGULATIONS)
     #await channel.send("https://media.discordapp.net/attachments/792306324125515797/805360546974138408/rules-01.png?width=1440&height=339")
     message = "https://media.discordapp.net/attachments/792306324125515797/805364075324112906/projects-02.png?width=1440&height=339"
-    description = f'{emojis.TOOLS} ПРОЕКТИТЕ {emojis.TOOLS}'
-    title = f'{emojis.SCROLL} РЕГЛАМЕНТ {emojis.SCROLL}'
+    description = f'{emojis.TOOLS} РџР РћР•РљРўРРўР• {emojis.TOOLS}'
+    title = f'{emojis.SCROLL} Р Р•Р“Р›РђРњР•РќРў {emojis.SCROLL}'
     url = "https://hacktues.com/regulation/"
     color = 0x009d60
     thumbnail = "https://media.discordapp.net/attachments/692344787344293888/805369800171323412/instagram_profile_picture.png?width=683&height=683"
     embed = Embed(description=description, title=title, url=url, color=color)
     embed.set_thumbnail(url=thumbnail)
-    embed.add_field(name=f'1.1 {emojis.NO_ENTRY}', value="Проектите трябва да са авторски и да се придържат към главната тема на събитието. Тя ще бъде обявена заедно с подтемите 4 дни преди началото на хакатона. Отборите не са задължени да се вмъкват в подтемите - те са насока. Задължително е да се вписват в главната тема.", inline=False)
-    embed.add_field(name=f'1.2 {emojis.COMPUTER}', value="По време на работните дни е задължително всеки отбор да съхранява кода на проекта си в публично хранилище като GitHub.", inline=False)
-    embed.add_field(name=f'1.3 {emojis.CLOCK9}', value="Версии на кода трябва да се качват на публично хранилище по време на хакатона, като последната версия трябва да е качена до 08:59:59  на 14.03.2021 г.", inline=False)
-    embed.add_field(name=f'1.4 {emojis.EXCLAMATION}', value="ВАЖНО: Каквато и да е промяна след този час, ще се счита за нарушение на регламента и организаторите могат да не допуснат отбора до полуфинали и финали. Единствено при embedded проектите, ако се е счупила дадена хардуерна част непосредствено преди представянето, е позволено, но само и единствено, ако организаторите бъдат уведомени.", inline=False)
+    embed.add_field(name=f'1.1 {emojis.NO_ENTRY}', value="РџСЂРѕРµРєС‚РёС‚Рµ С‚СЂСЏР±РІР° РґР° СЃР° Р°РІС‚РѕСЂСЃРєРё Рё РґР° СЃРµ РїСЂРёРґСЉСЂР¶Р°С‚ РєСЉРј РіР»Р°РІРЅР°С‚Р° С‚РµРјР° РЅР° СЃСЉР±РёС‚РёРµС‚Рѕ. РўСЏ С‰Рµ Р±СЉРґРµ РѕР±СЏРІРµРЅР° Р·Р°РµРґРЅРѕ СЃ РїРѕРґС‚РµРјРёС‚Рµ 4 РґРЅРё РїСЂРµРґРё РЅР°С‡Р°Р»РѕС‚Рѕ РЅР° С…Р°РєР°С‚РѕРЅР°. РћС‚Р±РѕСЂРёС‚Рµ РЅРµ СЃР° Р·Р°РґСЉР»Р¶РµРЅРё РґР° СЃРµ РІРјСЉРєРІР°С‚ РІ РїРѕРґС‚РµРјРёС‚Рµ - С‚Рµ СЃР° РЅР°СЃРѕРєР°. Р—Р°РґСЉР»Р¶РёС‚РµР»РЅРѕ Рµ РґР° СЃРµ РІРїРёСЃРІР°С‚ РІ РіР»Р°РІРЅР°С‚Р° С‚РµРјР°.", inline=False)
+    embed.add_field(name=f'1.2 {emojis.COMPUTER}', value="РџРѕ РІСЂРµРјРµ РЅР° СЂР°Р±РѕС‚РЅРёС‚Рµ РґРЅРё Рµ Р·Р°РґСЉР»Р¶РёС‚РµР»РЅРѕ РІСЃРµРєРё РѕС‚Р±РѕСЂ РґР° СЃСЉС…СЂР°РЅСЏРІР° РєРѕРґР° РЅР° РїСЂРѕРµРєС‚Р° СЃРё РІ РїСѓР±Р»РёС‡РЅРѕ С…СЂР°РЅРёР»РёС‰Рµ РєР°С‚Рѕ GitHub.", inline=False)
+    embed.add_field(name=f'1.3 {emojis.CLOCK9}', value="Р’РµСЂСЃРёРё РЅР° РєРѕРґР° С‚СЂСЏР±РІР° РґР° СЃРµ РєР°С‡РІР°С‚ РЅР° РїСѓР±Р»РёС‡РЅРѕ С…СЂР°РЅРёР»РёС‰Рµ РїРѕ РІСЂРµРјРµ РЅР° С…Р°РєР°С‚РѕРЅР°, РєР°С‚Рѕ РїРѕСЃР»РµРґРЅР°С‚Р° РІРµСЂСЃРёСЏ С‚СЂСЏР±РІР° РґР° Рµ РєР°С‡РµРЅР° РґРѕ 08:59:59  РЅР° 14.03.2021 Рі.", inline=False)
+    embed.add_field(name=f'1.4 {emojis.EXCLAMATION}', value="Р’РђР–РќРћ: РљР°РєРІР°С‚Рѕ Рё РґР° Рµ РїСЂРѕРјСЏРЅР° СЃР»РµРґ С‚РѕР·Рё С‡Р°СЃ, С‰Рµ СЃРµ СЃС‡РёС‚Р° Р·Р° РЅР°СЂСѓС€РµРЅРёРµ РЅР° СЂРµРіР»Р°РјРµРЅС‚Р° Рё РѕСЂРіР°РЅРёР·Р°С‚РѕСЂРёС‚Рµ РјРѕРіР°С‚ РґР° РЅРµ РґРѕРїСѓСЃРЅР°С‚ РѕС‚Р±РѕСЂР° РґРѕ РїРѕР»СѓС„РёРЅР°Р»Рё Рё С„РёРЅР°Р»Рё. Р•РґРёРЅСЃС‚РІРµРЅРѕ РїСЂРё embedded РїСЂРѕРµРєС‚РёС‚Рµ, Р°РєРѕ СЃРµ Рµ СЃС‡СѓРїРёР»Р° РґР°РґРµРЅР° С…Р°СЂРґСѓРµСЂРЅР° С‡Р°СЃС‚ РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРѕ РїСЂРµРґРё РїСЂРµРґСЃС‚Р°РІСЏРЅРµС‚Рѕ, Рµ РїРѕР·РІРѕР»РµРЅРѕ, РЅРѕ СЃР°РјРѕ Рё РµРґРёРЅСЃС‚РІРµРЅРѕ, Р°РєРѕ РѕСЂРіР°РЅРёР·Р°С‚РѕСЂРёС‚Рµ Р±СЉРґР°С‚ СѓРІРµРґРѕРјРµРЅРё.", inline=False)
     await channel.send(message)
     await channel.send(embed=embed)
 

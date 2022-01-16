@@ -1,4 +1,4 @@
-# coding=windows-1251
+# coding=utf-8
 from os import environ
 
 from discord.ext import commands
@@ -7,7 +7,7 @@ from discord import Embed
 import channels
 import emojis
 
-bot = commands.Bot(command_prefix=('хт ', 'ht ', ','))
+bot = commands.Bot(command_prefix=('С…С‚ ', 'ht ', ','))
 TOKEN = environ.get('token')
 
 
@@ -16,22 +16,22 @@ async def on_ready():
     print(f'{bot.user.name}scripts has connected to Discord')
     channel = bot.get_channel(channels.REGULATIONS)
     message = "https://media.discordapp.net/attachments/692344787344293888/805388623946973224/ev_mentors-04.png?width=1440&height=339"
-    description = f'{emojis.WHITE_CHECK_MARK} ОЦЕНЯВАНЕ ОТ МЕНТОРИТЕ {emojis.WHITE_CHECK_MARK}'
-    title = f'{emojis.SCROLL} РЕГЛАМЕНТ {emojis.SCROLL}'
+    description = f'{emojis.WHITE_CHECK_MARK} РћР¦Р•РќРЇР’РђРќР• РћРў РњР•РќРўРћР РРўР• {emojis.WHITE_CHECK_MARK}'
+    title = f'{emojis.SCROLL} Р Р•Р“Р›РђРњР•РќРў {emojis.SCROLL}'
     url = "https://hacktues.com/regulation/"
     color = 0x009d60
     thumbnail = "https://media.discordapp.net/attachments/692344787344293888/805369800171323412/instagram_profile_picture.png?width=683&height=683"
     embed = Embed(description=description, title=title, url=url, color=color)
     embed.set_thumbnail(url=thumbnail)
-    embed.add_field(name=f'3.1 {emojis.SILHOUETTE}', value=f"В края на всеки един работен ден отборите ще получат оценка от специален ментор, специалист в бранша, който отговаря за съответния отбор.", inline=False)
-    value = f'''Оценката се поставя на базата на следните критерии:
-{emojis.SMALL_ORANGE_DIAMOND} Техническа трудност - Труден за постигане ли е даденият проект в рамките на хакатона? Използват ли се неща за напреднали програмисти или е по-скоро проект за начинаещи?
-{emojis.SMALL_ORANGE_DIAMOND} Работа в екип - Разпределят ли се равномерно задачите в отбора? Сработват ли се участниците помежду си?
-{emojis.SMALL_ORANGE_DIAMOND} Качествен код/хардуер
-{emojis.SMALL_ORANGE_DIAMOND} Реализация - Каква част от проекта е завършена и работи? Ако отборът не е довършил проекта, то каква част е направена?
+    embed.add_field(name=f'3.1 {emojis.SILHOUETTE}', value=f"Р’ РєСЂР°СЏ РЅР° РІСЃРµРєРё РµРґРёРЅ СЂР°Р±РѕС‚РµРЅ РґРµРЅ РѕС‚Р±РѕСЂРёС‚Рµ С‰Рµ РїРѕР»СѓС‡Р°С‚ РѕС†РµРЅРєР° РѕС‚ СЃРїРµС†РёР°Р»РµРЅ РјРµРЅС‚РѕСЂ, СЃРїРµС†РёР°Р»РёСЃС‚ РІ Р±СЂР°РЅС€Р°, РєРѕР№С‚Рѕ РѕС‚РіРѕРІР°СЂСЏ Р·Р° СЃСЉРѕС‚РІРµС‚РЅРёСЏ РѕС‚Р±РѕСЂ.", inline=False)
+    value = f'''РћС†РµРЅРєР°С‚Р° СЃРµ РїРѕСЃС‚Р°РІСЏ РЅР° Р±Р°Р·Р°С‚Р° РЅР° СЃР»РµРґРЅРёС‚Рµ РєСЂРёС‚РµСЂРёРё:
+{emojis.SMALL_ORANGE_DIAMOND} РўРµС…РЅРёС‡РµСЃРєР° С‚СЂСѓРґРЅРѕСЃС‚ - РўСЂСѓРґРµРЅ Р·Р° РїРѕСЃС‚РёРіР°РЅРµ Р»Рё Рµ РґР°РґРµРЅРёСЏС‚ РїСЂРѕРµРєС‚ РІ СЂР°РјРєРёС‚Рµ РЅР° С…Р°РєР°С‚РѕРЅР°? РР·РїРѕР»Р·РІР°С‚ Р»Рё СЃРµ РЅРµС‰Р° Р·Р° РЅР°РїСЂРµРґРЅР°Р»Рё РїСЂРѕРіСЂР°РјРёСЃС‚Рё РёР»Рё Рµ РїРѕ-СЃРєРѕСЂРѕ РїСЂРѕРµРєС‚ Р·Р° РЅР°С‡РёРЅР°РµС‰Рё?
+{emojis.SMALL_ORANGE_DIAMOND} Р Р°Р±РѕС‚Р° РІ РµРєРёРї - Р Р°Р·РїСЂРµРґРµР»СЏС‚ Р»Рё СЃРµ СЂР°РІРЅРѕРјРµСЂРЅРѕ Р·Р°РґР°С‡РёС‚Рµ РІ РѕС‚Р±РѕСЂР°? РЎСЂР°Р±РѕС‚РІР°С‚ Р»Рё СЃРµ СѓС‡Р°СЃС‚РЅРёС†РёС‚Рµ РїРѕРјРµР¶РґСѓ СЃРё?
+{emojis.SMALL_ORANGE_DIAMOND} РљР°С‡РµСЃС‚РІРµРЅ РєРѕРґ/С…Р°СЂРґСѓРµСЂ
+{emojis.SMALL_ORANGE_DIAMOND} Р РµР°Р»РёР·Р°С†РёСЏ - РљР°РєРІР° С‡Р°СЃС‚ РѕС‚ РїСЂРѕРµРєС‚Р° Рµ Р·Р°РІСЉСЂС€РµРЅР° Рё СЂР°Р±РѕС‚Рё? РђРєРѕ РѕС‚Р±РѕСЂСЉС‚ РЅРµ Рµ РґРѕРІСЉСЂС€РёР» РїСЂРѕРµРєС‚Р°, С‚Рѕ РєР°РєРІР° С‡Р°СЃС‚ Рµ РЅР°РїСЂР°РІРµРЅР°?
 '''
     embed.add_field(name=f'3.2 {emojis.EYES}', value=value, inline=False)
-    embed.add_field(name=f'3.3 {emojis.MEDAL}', value="Оценката на менторите ще се използва за разпределяне на отборите в полуфиналите на хакатона и избор на “Финалист на менторите”.", inline=False)
+    embed.add_field(name=f'3.3 {emojis.MEDAL}', value="РћС†РµРЅРєР°С‚Р° РЅР° РјРµРЅС‚РѕСЂРёС‚Рµ С‰Рµ СЃРµ РёР·РїРѕР»Р·РІР° Р·Р° СЂР°Р·РїСЂРµРґРµР»СЏРЅРµ РЅР° РѕС‚Р±РѕСЂРёС‚Рµ РІ РїРѕР»СѓС„РёРЅР°Р»РёС‚Рµ РЅР° С…Р°РєР°С‚РѕРЅР° Рё РёР·Р±РѕСЂ РЅР° вЂњР¤РёРЅР°Р»РёСЃС‚ РЅР° РјРµРЅС‚РѕСЂРёС‚РµвЂќ.", inline=False)
     await channel.send(message)
     await channel.send(embed=embed)
 

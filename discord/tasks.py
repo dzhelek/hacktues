@@ -1,4 +1,4 @@
-# coding=windows-1251
+# coding=utf-8
 import aiohttp
 from discord import utils
 from discord.ext import tasks, commands
@@ -25,9 +25,9 @@ class Tasks(commands.Cog):
 
         await self.all_teams.delete()
         self.all_teams = (await self.teams_channel.
-                          send("���� �� ������ ������:"))
+                          send("self.all_teams: "))
         count = len(teams)
-        await self.label.edit(name=f'������: {count}')
+        await self.label.edit(name=f'Брой отбори: {count}')
         for team in teams:
             team_name = 'team ' + team['name']
             await self.all_teams.edit(
