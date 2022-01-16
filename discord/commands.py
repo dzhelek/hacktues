@@ -143,7 +143,7 @@ class Commands(commands.Cog):
         #assert 'верификация' in ctx.channel.name, 'problem outside auth channel'
         
         if(len(ctx.message.content.split()) != 3):
-            await remessage(ctx.author.send, f'Здравей, Гришо е!\n Радвам се да те видя {SMILEY_CAT} Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', ctx.message)
+            await remessage(ctx.author.send, emojis.encode(f'Здравей, Гришо е!\n Радвам се да те видя :sunglasses:. Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', ctx.message))
             return
 
         auth_token = os.getenv('auth_token')
