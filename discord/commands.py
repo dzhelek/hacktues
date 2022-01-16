@@ -136,8 +136,7 @@ class Commands(commands.Cog):
         message = random.choice(messages)
         await ctx.send(message.embeds[0].url)
 
-    # гришо е написал в канала какво да се прави
-    @commands.command(aliases=['email'])
+    @commands.command(aliases=['email', 'имейл', 'емаил'])
     async def auth_email(self, ctx, email):
         # Да се откоментира в prod
         #assert 'верификация' in ctx.channel.name, 'problem outside auth channel'
@@ -149,7 +148,7 @@ class Commands(commands.Cog):
         auth_token = os.getenv('auth_token')
         headers = {"Authorization": f"Bearer {auth_token}"}
         async with aiohttp.ClientSession(headers=headers) as client:
-            response = await request(self.bot, client, path='api/user/get-discord-token', email=email)
+            response = await request(self.bot, client, path='api/user/get-discord-token', email=email, feedback=True)
             if(response['success']):
                 await remessage(ctx.author.send, f'Здравей, Гришо е! Радвам се да те видя {SUNGLASSES}.\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно прекарване в сървъра.', ctx.message)
             else:

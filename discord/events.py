@@ -39,28 +39,25 @@ class Events(commands.Cog):
             return
 
         if message.channel.id == channels.AUTH:
-            mess = message
+            message_copy = message
             await message.delete()
-            if(mess.content[0].isdigit()):
+            if(message_copy.content[0].isdigit()):
 
                 auth_token = os.getenv('auth_token')
                 headers = {"Authorization": f"Bearer {auth_token}"}
                 async with aiohttp.ClientSession(headers=headers) as client:
-                    response = await request(self.bot, client, path='api/user/validate-discord-token', discordToken=mess.content)
-                    # TODO: if the token matches the database one
+                    response = await request(self.bot, client, path='api/user/validate-discord-token', discordToken=message_copy.content)
                     if(response['success']):
                         if(response['isMentor']):
-                            role = discord.utils.get(mess.guild.roles, name="Ментор")
-                            await mess.author.add_roles(role, reason="authenticated mentor")
+                            role = discord.utils.get(message_copy.guild.roles, name="Ментор")
+                            await message_copy.author.add_roles(role, reason="authenticated mentor")
                             return
 
                         nickname = response['fullName']
-                        await mess.author.edit(nick=nickname)
+                        await message_copy.author.edit(nick=nickname)
 
-                        role = discord.utils.get(mess.guild.roles, name="Потребител")
-                        await mess.author.add_roles(role, reason="authenticated")
-                    else:
-                        print(response.errors)
+                        role = discord.utils.get(message_copy.guild.roles, name="Потребител")
+                        await message_copy.author.add_roles(role, reason="authenticated")
                         
         if isinstance(message.channel, channel.DMChannel):
             guild = await self.bot.fetch_guild(871120127976951818)
