@@ -8,7 +8,7 @@ import discord
 from discord.ext import commands
 
 import channels
-from emojis import SMILEY_CAT, SAD
+from emojis import SUNGLASSES, SAD
 import emojis
 from utils import remessage, request, resend
 
@@ -141,9 +141,9 @@ class Commands(commands.Cog):
     async def auth_email(self, ctx, email):
         # Да се откоментира в prod
         #assert 'верификация' in ctx.channel.name, 'problem outside auth channel'
-        
+
         if(len(ctx.message.content.split()) != 3):
-            await remessage(ctx.author.send, emojis.encode(f'Здравей, Гришо е!\n Радвам се да те видя :sunglasses:. Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', ctx.message))
+            await remessage(ctx.author.send, f'Здравей, Гришо е!\n Радвам се да те видя {SUNGLASSES}. Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', ctx.message)
             return
 
         auth_token = os.getenv('auth_token')
@@ -151,7 +151,7 @@ class Commands(commands.Cog):
         async with aiohttp.ClientSession(headers=headers) as client:
             response = await request(self.bot, client, path='api/user/get-discord-token', email=email)
             if(response['success']):
-                await remessage(ctx.author.send, emojis.encode(f'Здравей, Гришо е! Радвам се да те видя :sunglasses:.\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно прекарване в сървъра.', ctx.message))
+                await remessage(ctx.author.send, f'Здравей, Гришо е! Радвам се да те видя {SUNGLASSES}.\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно прекарване в сървъра.', ctx.message)
             else:
                 # TODO: not working
                 await remessage(ctx.author.send, f'Здравей, Гришо е!\n Случи се нещо неочаквано {SAD} Препоръчвам ти да пишеш на екипа и да пратиш грешката! \n {response}', ctx.message)
@@ -173,22 +173,24 @@ class Commands(commands.Cog):
             # TODO: if the token matches the database one
             if(response['success']):
                 if(response['isMentor']):
-                    role = discord.utils.get(ctx.guild.roles, name="Ментор")
+                    role = discord.utils.get(
+                        ctx.guild.roles, name="Ментор")
                     await ctx.author.add_roles(role, reason="authenticated mentor")
                     return
 
                 nickname = response['fullName']
                 await ctx.author.edit(nick=nickname)
 
-                role = discord.utils.get(ctx.guild.roles, name="Потребител")
+                role = discord.utils.get(
+                    ctx.guild.roles, name="Потребител")
                 await ctx.author.add_roles(role, reason="authenticated")
             else:
                 print(response.errors)
-           
 
     # TODO: listener za paralelka pri nqkoi kanal (aktivira se ot reakt na suobshtenieto)
 
-    #TODO: Remove this command
+    # TODO: Remove this command
+
     @commands.command(aliases=['role'])
     async def auth_role(self, ctx):
         role = discord.utils.get(ctx.guild.roles, name="Потребител")
