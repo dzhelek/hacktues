@@ -49,17 +49,15 @@ class Events(commands.Cog):
                     response = await request(self.bot, client, path='api/user/validate-discord-token', discordToken=message_copy.content)
                     if(response['success']):
                         if(response['isMentor']):
-                            role = discord.utils.get(mess.guild.roles, name="Ментор")
-                            await mess.author.add_roles(role, reason="authenticated mentor")
+                            role = discord.utils.get(message_copy.guild.roles, name="Ментор")
+                            await message_copy.author.add_roles(role, reason="authenticated mentor")
                             return
 
                         nickname = response['fullName']
                         await message_copy.author.edit(nick=nickname)
 
-                        role = discord.utils.get(mess.guild.roles, name="Потребител")
-                        await mess.author.add_roles(role, reason="authenticated")
-                    else:
-                        print(response.errors)
+                        role = discord.utils.get(message_copy.guild.roles, name="Потребител")
+                        await message_copy.author.add_roles(role, reason="authenticated")
                         
         if isinstance(message.channel, channel.DMChannel):
             guild = await self.bot.fetch_guild(871120127976951818)
