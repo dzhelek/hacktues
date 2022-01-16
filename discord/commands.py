@@ -151,7 +151,7 @@ class Commands(commands.Cog):
         async with aiohttp.ClientSession(headers=headers) as client:
             response = await request(self.bot, client, path='api/user/get-discord-token', email=email)
             if(response['success']):
-                await remessage(ctx.author.send, f'Здравей, Гришо е! Радвам се да те видя ?? ?? ?? ??.\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно изкарване в сървъра', ctx.message)
+                await remessage(ctx.author.send, emojis.encode(f'Здравей, Гришо е! Радвам се да те видя :sunglasses:.\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно прекарване в сървъра.', ctx.message))
             else:
                 # TODO: not working
                 await remessage(ctx.author.send, f'Здравей, Гришо е!\n Случи се нещо неочаквано {SAD} Препоръчвам ти да пишеш на екипа и да пратиш грешката! \n {response}', ctx.message)
