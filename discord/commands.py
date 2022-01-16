@@ -25,45 +25,45 @@ class Commands(commands.Cog):
         self.bot = bot
         load_dotenv()
 
-    @commands.has_role('Организатор')
-    @commands.command(aliases=['s', 'с'])
+    @commands.has_role('пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')
+    @commands.command(aliases=['s', 'пїЅ'])
     async def send(self, ctx, channel: discord.TextChannel, *, message=''):
         await remessage(channel.send, message, ctx.message)
 
-    @commands.has_role('Организатор')
-    @commands.command(aliases=['m', 'съобщение', 'м'])
+    @commands.has_role('пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')
+    @commands.command(aliases=['m', 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ', 'пїЅ'])
     async def message(self, ctx, user: discord.User, *, message=''):
         await remessage(user.send, message, ctx.message)
         await ctx.send(f"sent to {user.id}")
 
-    @commands.check_any(commands.has_role('Организатор'),
-                        commands.has_role('оценител'),
-                        commands.has_role('ЕКО'))
-    @commands.command(aliases=['j', 'виж', 'в', '+'])
+    @commands.check_any(commands.has_role('пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'),
+                        commands.has_role('пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'),
+                        commands.has_role('пїЅпїЅпїЅ'))
+    @commands.command(aliases=['j', 'пїЅпїЅпїЅ', 'пїЅ', '+'])
     async def join(self, ctx, *, role: discord.Role):
         await ctx.author.add_roles(role, reason="join")
 
-    @commands.check_any(commands.has_role('Организатор'),
-                        commands.has_role('оценител'),
-                        commands.has_role('ЕКО'))
-    @commands.command(aliases=['l', 'напусни', 'н', '-'])
+    @commands.check_any(commands.has_role('пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'),
+                        commands.has_role('пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'),
+                        commands.has_role('пїЅпїЅпїЅ'))
+    @commands.command(aliases=['l', 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ', 'пїЅ', '-'])
     async def leave(self, ctx, *, role: discord.Role):
         await ctx.author.remove_roles(role, reason="leave")
 
-    async def edit_status(self, message, status, проблем, team):
-        content = f"{emojis.TICKETS}проблем от {team}: {проблем} (статус: {status})"
+    async def edit_status(self, message, status, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, team):
+        content = f"{emojis.TICKETS}пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ {team}: {пїЅпїЅпїЅпїЅпїЅпїЅпїЅ} (пїЅпїЅпїЅпїЅпїЅпїЅ: {status})"
         await message.edit(content=content)
 
-    @commands.command(aliases=('проблем', 'п', 'p'))
-    async def problem(self, ctx, *, проблем="не е посочен конкретен проблем"):
+    @commands.command(aliases=('пїЅпїЅпїЅпїЅпїЅпїЅпїЅ', 'пїЅ', 'p'))
+    async def problem(self, ctx, *, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ="пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ"):
         assert 'team' in ctx.channel.name, 'problem outside team channel'
         roles = ['team' in str(role) for role in ctx.author.roles]
         assert any(roles), 'problem from non-participant'
         team_role = ctx.author.roles[roles.index(True)]
 
         reason = 'ticket system'
-        status = f"{emojis.TICKETS} отворенo"
-        content = f"{emojis.TICKETS}проблем от {team_role.name}: {проблем} (статус: {status})"
+        status = f"{emojis.TICKETS} пїЅпїЅпїЅпїЅпїЅпїЅпїЅo"
+        content = f"{emojis.TICKETS}пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ {team_role.name}: {пїЅпїЅпїЅпїЅпїЅпїЅпїЅ} (пїЅпїЅпїЅпїЅпїЅпїЅ: {status})"
         problems = await self.bot.fetch_channel(channels.PROBLEMS)
         message = await problems.send(content)
 
@@ -78,8 +78,8 @@ class Commands(commands.Cog):
                          emojis.NEGATIVE_SQUARED_CROSS_MARK)))
             return check
 
-        content = (f"Вашият {emojis.TICKETS}проблем беше "
-                   "изпратен до менторите успешно!")
+        content = (f"пїЅпїЅпїЅпїЅпїЅпїЅ {emojis.TICKETS}пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ "
+                   "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!")
         await ctx.channel.send(content)
 
         while True:
@@ -92,12 +92,12 @@ class Commands(commands.Cog):
                 mentor_name = mentor.name
             await mentor.add_roles(team_role, reason=reason)
             await message.clear_reaction(emojis.TICKETS)
-            status = f"{emojis.X} в процес на разрешаване…"
-            await self.edit_status(message, status, проблем, team_role.name)
+            status = f"{emojis.X} пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"
+            await self.edit_status(message, status, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, team_role.name)
 
             await message.add_reaction(emojis.WHITE_CHECK_MARK)
             await message.add_reaction(emojis.NEGATIVE_SQUARED_CROSS_MARK)
-            content = f"<@{mentor.id}> се зае с вашия {emojis.TICKETS}проблем!"
+            content = f"<@{mentor.id}> пїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ {emojis.TICKETS}пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!"
             await ctx.channel.send(content)
             claimed = await self.bot.fetch_channel(channels.CLAIMED)
             await claimed.send(mentor_name)
@@ -108,41 +108,41 @@ class Commands(commands.Cog):
             await message.clear_reaction(emojis.NEGATIVE_SQUARED_CROSS_MARK)
 
             if str(reaction) == emojis.WHITE_CHECK_MARK:
-                status = f"{emojis.WHITE_CHECK_MARK} приключено"
-                await self.edit_status(message, status, проблем, team_role.name)
-                content = (f"{emojis.TICKETS}Проблемът ви "
-                           "беше отбелязан като разрешен!")
+                status = f"{emojis.WHITE_CHECK_MARK} пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"
+                await self.edit_status(message, status, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, team_role.name)
+                content = (f"{emojis.TICKETS}пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ "
+                           "пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!")
                 await ctx.channel.send(content)
                 closed = await self.bot.fetch_channel(channels.CLOSED)
                 await closed.send(mentor_name)
                 break
 
-            await self.edit_status(message, f"{emojis.TICKETS} отворенo",
-                                   проблем, team_role.name)
-            content = f"{emojis.TICKETS}Проблемът ви беше повторно отворен!"
+            await self.edit_status(message, f"{emojis.TICKETS} пїЅпїЅпїЅпїЅпїЅпїЅпїЅo",
+                                   пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, team_role.name)
+            content = f"{emojis.TICKETS}пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!"
             await ctx.channel.send(content)
             reopened = await self.bot.fetch_channel(channels.REOPENED)
             await reopened.send(mentor_name)
 
-    @commands.command(aliases=['пинг'])
+    @commands.command(aliases=['пїЅпїЅпїЅпїЅ'])
     async def ping(self, ctx):
-        await ctx.send(f"{emojis.PONG} Понг с "
+        await ctx.send(f"{emojis.PONG} пїЅпїЅпїЅпїЅ пїЅ "
                        f"{str(round(self.bot.latency, 2))} s")
 
-    @commands.command(aliases=['мотивирай', 'мот', 'mot'])
+    @commands.command(aliases=['пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ', 'пїЅпїЅпїЅ', 'mot'])
     async def motivate(self, ctx):
         channel = await self.bot.fetch_channel(channels.MOTIVATIONS)
         messages = [message async for message in channel.history()]
         message = random.choice(messages)
         await ctx.send(message.embeds[0].url)
 
-    @commands.command(aliases=['email', 'имейл', 'емаил'])
+    @commands.command(aliases=['email', 'пїЅпїЅпїЅпїЅпїЅ', 'пїЅпїЅпїЅпїЅпїЅ'])
     async def auth_email(self, ctx, email):
-        # Да се откоментира в prod
-        #assert 'верификация' in ctx.channel.name, 'problem outside auth channel'
+        # пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ prod
+        #assert 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ' in ctx.channel.name, 'problem outside auth channel'
 
         if(len(ctx.message.content.split()) != 3):
-            await remessage(ctx.author.send, f'Здравей, Гришо е!\n Радвам се да те видя {SUNGLASSES}. Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', ctx.message)
+            await remessage(ctx.author.send, f'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅ!\n пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ {SUNGLASSES}. пїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ "ht email ivan.i.ivanov.2020@elsys-bg.org"', ctx.message)
             return
 
         auth_token = os.getenv('auth_token')
@@ -150,16 +150,16 @@ class Commands(commands.Cog):
         async with aiohttp.ClientSession(headers=headers) as client:
             response = await request(self.bot, client, path='api/user/get-discord-token', email=email, feedback=True)
             if(response['success']):
-                await remessage(ctx.author.send, f'Здравей, Гришо е! Радвам се да те видя {SUNGLASSES}.\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно прекарване в сървъра.', ctx.message)
+                await remessage(ctx.author.send, f'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅ! пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ {SUNGLASSES}.\nпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ HackTUES Infinity пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.', ctx.message)
             else:
                 # TODO: not working
-                await remessage(ctx.author.send, f'Здравей, Гришо е!\n Случи се нещо неочаквано {SAD} Препоръчвам ти да пишеш на екипа и да пратиш грешката! \n {response}', ctx.message)
+                await remessage(ctx.author.send, f'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅ!\n пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ {SAD} пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ! \n {response}', ctx.message)
 
-    # TODO: да се махне aliases-a
+    # TODO: пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ aliases-a
     @commands.command(aliases=['token'])
     async def auth_token(self, ctx, token):
-        # Да се откоментира в prod
-        # assert 'верификация' in ctx.channel.name, 'problem outside auth channel'
+        # пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ prod
+        # assert 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ' in ctx.channel.name, 'problem outside auth channel'
 
         # if(len(ctx.message.content) != 5):
         #     print("It's not token")
@@ -173,7 +173,7 @@ class Commands(commands.Cog):
             if(response['success']):
                 if(response['isMentor']):
                     role = discord.utils.get(
-                        ctx.guild.roles, name="Ментор")
+                        ctx.guild.roles, name="пїЅпїЅпїЅпїЅпїЅпїЅ")
                     await ctx.author.add_roles(role, reason="authenticated mentor")
                     return
 
@@ -181,7 +181,7 @@ class Commands(commands.Cog):
                 await ctx.author.edit(nick=nickname)
 
                 role = discord.utils.get(
-                    ctx.guild.roles, name="Потребител")
+                    ctx.guild.roles, name="пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")
                 await ctx.author.add_roles(role, reason="authenticated")
             else:
                 print(response.errors)
@@ -192,7 +192,7 @@ class Commands(commands.Cog):
 
     @commands.command(aliases=['role'])
     async def auth_role(self, ctx):
-        role = discord.utils.get(ctx.guild.roles, name="Потребител")
+        role = discord.utils.get(ctx.guild.roles, name="пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")
         await ctx.author.add_roles(role, reason="authenticated")
 
     @commands.command(aliases=['nick'])
