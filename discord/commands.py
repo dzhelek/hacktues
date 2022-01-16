@@ -136,12 +136,10 @@ class Commands(commands.Cog):
         message = random.choice(messages)
         await ctx.send(message.embeds[0].url)
 
-    # гришо е написал в канала какво да се прави
-    @commands.command(aliases=['email'])
+    @commands.command(aliases=['email', 'имейл', 'емаил'])
     async def auth_email(self, ctx, email):
-        # Да се откоментира в prod
-        #assert 'верификация' in ctx.channel.name, 'problem outside auth channel'
-
+        assert 'верификация' in ctx.channel.name, 'Problem outside auth channel'
+        
         if(len(ctx.message.content.split()) != 3):
             await remessage(ctx.author.send, f'Здравей, Гришо е!\n Радвам се да те видя {SUNGLASSES}. Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', ctx.message)
             return
@@ -152,6 +150,7 @@ class Commands(commands.Cog):
             response = await request(self.bot, client, path='api/user/get-discord-token', email=email, feedback=True)
             if(response['success']):
                 await remessage(ctx.author.send, f'Здравей, Гришо е! Радвам се да те видя {SUNGLASSES}.\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно прекарване в сървъра.', ctx.message)
+            # elif (not response['success'] and ('' in response['errors'])):
             else:
                 # TODO: not working
                 await remessage(ctx.author.send, f'Здравей, Гришо е!\n Случи се нещо неочаквано {SAD} Препоръчвам ти да пишеш на екипа и да пратиш грешката! \n {response}', ctx.message)
@@ -159,12 +158,11 @@ class Commands(commands.Cog):
     # TODO: да се махне aliases-a
     @commands.command(aliases=['token'])
     async def auth_token(self, ctx, token):
-        # Да се откоментира в prod
-        # assert 'верификация' in ctx.channel.name, 'problem outside auth channel'
+        assert 'верификация' in ctx.channel.name, 'Problem outside auth channel'
 
-        # if(len(ctx.message.content) != 5):
-        #     print("It's not token")
-        #     return
+        if(len(ctx.message.content) != 5):
+             print("It's not token")
+             return
 
         auth_token = os.getenv('auth_token')
         headers = {"Authorization": f"Bearer {auth_token}"}
