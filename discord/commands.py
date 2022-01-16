@@ -143,7 +143,7 @@ class Commands(commands.Cog):
         #assert 'верификация' in ctx.channel.name, 'problem outside auth channel'
         
         if(len(ctx.message.content.split()) != 3):
-            await remessage(ctx.author.send, f'Хелоу, Гришо е!\n Радвам се да те видя {SMILEY_CAT} Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', ctx.message)
+            await remessage(ctx.author.send, f'Здравей, Гришо е!\n Радвам се да те видя {SMILEY_CAT} Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', ctx.message)
             return
 
         auth_token = os.getenv('auth_token')
@@ -151,10 +151,10 @@ class Commands(commands.Cog):
         async with aiohttp.ClientSession(headers=headers) as client:
             response = await request(self.bot, client, path='api/user/get-discord-token', email=email)
             if(response['success']):
-                await remessage(ctx.author.send, f'Хелоу, Гришо е! Радвам се да те видя {SMILEY_CAT}\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно изкарване в сървъра', ctx.message)
+                await remessage(ctx.author.send, f'Здравей, Гришо е! Радвам се да те видя ?? ?? ?? ??.\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно изкарване в сървъра', ctx.message)
             else:
                 # TODO: not working
-                await remessage(ctx.author.send, f'Хелоу, Гришо е!\n Случи се нещо неочаквано {SAD} Препоръчвам ти да пишеш на екипа и да пратиш грешката! \n {response}', ctx.message)
+                await remessage(ctx.author.send, f'Здравей, Гришо е!\n Случи се нещо неочаквано {SAD} Препоръчвам ти да пишеш на екипа и да пратиш грешката! \n {response}', ctx.message)
 
     # TODO: да се махне aliases-a
     @commands.command(aliases=['token'])
