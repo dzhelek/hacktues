@@ -1,4 +1,4 @@
-# coding: windows-1251
+# coding=utf-8
 from os import environ
 import os
 
@@ -49,15 +49,17 @@ class Events(commands.Cog):
                     response = await request(self.bot, client, path='api/user/validate-discord-token', discordToken=message_copy.content)
                     if(response['success']):
                         if(response['isMentor']):
-                            role = discord.utils.get(message_copy.guild.roles, name="Ментор")
-                            await message_copy.author.add_roles(role, reason="authenticated mentor")
+                            role = discord.utils.get(mess.guild.roles, name="РњРµРЅС‚РѕСЂ")
+                            await mess.author.add_roles(role, reason="authenticated mentor")
                             return
 
                         nickname = response['fullName']
                         await message_copy.author.edit(nick=nickname)
 
-                        role = discord.utils.get(message_copy.guild.roles, name="Потребител")
-                        await message_copy.author.add_roles(role, reason="authenticated")
+                        role = discord.utils.get(mess.guild.roles, name="РџРѕС‚СЂРµР±РёС‚РµР»")
+                        await mess.author.add_roles(role, reason="authenticated")
+                    else:
+                        print(response.errors)
                         
         if isinstance(message.channel, channel.DMChannel):
             guild = await self.bot.fetch_guild(871120127976951818)
@@ -113,7 +115,7 @@ class Events(commands.Cog):
                 return
 
             reason = 'member joined'
-            role = utils.get(member.guild.roles, name='пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')
+            role = utils.get(member.guild.roles, name='С„РёР»СЉСЂ')
             await member.add_roles(role, reason=reason)
 
             if member_json['team_set']:
