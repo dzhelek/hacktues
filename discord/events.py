@@ -5,6 +5,7 @@ import os
 import aiohttp
 from discord import utils, channel
 from discord.ext import commands
+from utils import remessage
 
 import emojis
 import channels
@@ -12,6 +13,8 @@ from utils import get_team_role, resend, request, send_log
 
 import discord
 from discord.ext import commands
+
+from emojis import SUNGLASSES, SAD
 
 class Events(commands.Cog):
     def __init__(self, bot):
@@ -58,7 +61,26 @@ class Events(commands.Cog):
 
                         role = discord.utils.get(message_copy.guild.roles, name="Потребител")
                         await message_copy.author.add_roles(role, reason="authenticated")
-                        
+            
+            elif('@' in message_copy):
+                assert 'верификация' in message_copy.channel.name, 'Problem outside auth channel'
+                
+                if(len(message_copy.message.content.split()) != 3):
+                    await remessage(message_copy.author.send, f'Здравей, Гришо е!\n Радвам се да те видя {SUNGLASSES}. Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', message_copy.message)
+                    return
+
+                auth_token = os.getenv('auth_token')
+                headers = {"Authorization": f"Bearer {auth_token}"}
+                async with aiohttp.ClientSession(headers=headers) as client:
+                    response = await request(self.bot, client, path='api/user/get-discord-token', email=message_copy.content, feedback=True)
+                    if(response['success']):
+                        await remessage(message_copy.author.send, f'Хей, Гришо е! Радвам се да те видя {SUNGLASSES}\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно изкарване в сървъра', message_copy.message)
+                    # elif (not response['success'] and ('' in response['errors'])):
+                    else:
+                        err_msg = list(response['errors'].values())[0]
+                        await remessage(message_copy.author.send, f'Хей, Гришо е!\n{err_msg} \n{SAD}', message_copy.message)
+
+                    
         if isinstance(message.channel, channel.DMChannel):
             guild = await self.bot.fetch_guild(871120127976951818)
             name = message.author.display_name.replace(' ', '-').lower()
