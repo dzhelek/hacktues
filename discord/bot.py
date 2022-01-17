@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# coding=windows-1251
+# coding=utf-8
 
 #from os import environ
 import os
@@ -21,7 +21,7 @@ def main():
     TOKEN = os.getenv('token')
 
     intents = discord.Intents.all()
-    bot = commands.Bot(command_prefix=('υς ', 'ht '),
+    bot = commands.Bot(command_prefix=('Ρ…Ρ‚ ', 'ht '),
                        help_command=None, intents=intents)
 
     bot.add_cog(Events(bot))

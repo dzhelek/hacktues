@@ -8,7 +8,7 @@ import discord
 from discord.ext import commands
 
 import channels
-from emojis import SMILEY_CAT, SAD
+from emojis import SUNGLASSES, SAD
 import emojis
 from utils import remessage, request, resend
 
@@ -141,7 +141,7 @@ class Commands(commands.Cog):
         assert 'верификация' in ctx.channel.name, 'Problem outside auth channel'
         
         if(len(ctx.message.content.split()) != 3):
-            await remessage(ctx.author.send, f'Хей, Гришо е!\nРадвам се да те видя {SMILEY_CAT} Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', ctx.message)
+            await remessage(ctx.author.send, f'Здравей, Гришо е!\n Радвам се да те видя {SUNGLASSES}. Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', ctx.message)
             return
 
         auth_token = os.getenv('auth_token')

@@ -113,7 +113,7 @@ class Events(commands.Cog):
                 return
 
             reason = 'member joined'
-            role = utils.get(member.guild.roles, name='пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')
+            role = utils.get(member.guild.roles, name='филър')
             await member.add_roles(role, reason=reason)
 
             if member_json['team_set']:
