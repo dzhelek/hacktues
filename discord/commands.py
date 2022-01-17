@@ -149,7 +149,7 @@ class Commands(commands.Cog):
         async with aiohttp.ClientSession(headers=headers) as client:
             response = await request(self.bot, client, path='api/user/get-discord-token', email=email, feedback=True)
             if(response['success']):
-                await remessage(ctx.author.send, f'Хей, Гришо е! Радвам се да те видя {SMILEY_CAT}\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно изкарване в сървъра', ctx.message)
+                await remessage(ctx.author.send, f'Хей, Гришо е! Радвам се да те видя {SUNGLASSES}\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно изкарване в сървъра', ctx.message)
             # elif (not response['success'] and ('' in response['errors'])):
             else:
                 err_msg = list(response['errors'].values())[0]
