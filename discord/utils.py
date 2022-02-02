@@ -41,6 +41,7 @@ async def request(bot, client, path='', url=None, feedback=False, **kwargs):
         func = client.get
 
     async with func(url, json=kwargs) as response:
+        # print("Trying to decode: ", response)
         json = await response.json()
         print(json)
         if response.status != 200:

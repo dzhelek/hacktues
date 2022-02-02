@@ -21,7 +21,7 @@ class Tasks(commands.Cog):
     async def fetch_teams(self):
         print('fetching teams...')
         async with aiohttp.ClientSession() as client:
-            teams = await request(self.bot, client, path='teams/')
+            teams = await request(self.bot, client, path='api/team/get-teams/')['response']
 
         await self.all_teams.delete()
         self.all_teams = (await self.teams_channel.

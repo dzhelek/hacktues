@@ -1,6 +1,7 @@
 # coding: utf-8
 from os import environ
 import os
+from xml.etree.ElementTree import tostring
 
 import aiohttp
 from discord import utils, channel
@@ -62,23 +63,23 @@ class Events(commands.Cog):
                         role = discord.utils.get(message_copy.guild.roles, name="Потребител")
                         await message_copy.author.add_roles(role, reason="authenticated")
             
-            elif('@' in message_copy):
-                assert 'верификация' in message_copy.channel.name, 'Problem outside auth channel'
+            # elif(('@' in message_copy) and (len(message_copy.split(" ")) == 1)):
+            #     assert 'верификация' in message_copy.channel.name, 'Problem outside auth channel'
                 
-                if(len(message_copy.message.content.split()) != 3):
-                    await remessage(message_copy.author.send, f'Здравей, Гришо е!\n Радвам се да те видя {SUNGLASSES}. Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', message_copy.message)
-                    return
+            #     if(len(message_copy.message.content.split()) != 3):
+            #         await remessage(message_copy.author.send, f'Здравей, Гришо е!\n Радвам се да те видя {SUNGLASSES}. Пиша, за да ти кажа, че ползваш грешен формат.. Форматът е "ht email ivan.i.ivanov.2020@elsys-bg.org"', message_copy.message)
+            #         return
 
-                auth_token = os.getenv('auth_token')
-                headers = {"Authorization": f"Bearer {auth_token}"}
-                async with aiohttp.ClientSession(headers=headers) as client:
-                    response = await request(self.bot, client, path='api/user/get-discord-token', email=message_copy.content, feedback=True)
-                    if(response['success']):
-                        await remessage(message_copy.author.send, f'Хей, Гришо е! Радвам се да те видя {SUNGLASSES}\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно изкарване в сървъра', message_copy.message)
-                    # elif (not response['success'] and ('' in response['errors'])):
-                    else:
-                        err_msg = list(response['errors'].values())[0]
-                        await remessage(message_copy.author.send, f'Хей, Гришо е!\n{err_msg} \n{SAD}', message_copy.message)
+            #     auth_token = os.getenv('auth_token')
+            #     headers = {"Authorization": f"Bearer {auth_token}"}
+            #     async with aiohttp.ClientSession(headers=headers) as client:
+            #         response = await request(self.bot, client, path='api/user/get-discord-token', email=message_copy.content, feedback=True)
+            #         if(response['success']):
+            #             await remessage(message_copy.author.send, f'Хей, Гришо е! Радвам се да те видя {SUNGLASSES}\nПиша, за да ти кажа, че ти пратих имейл с кода за верификация. Екипът на HackTUES Infinity ти пожелава приятно изкарване в сървъра', message_copy.message)
+            #         # elif (not response['success'] and ('' in response['errors'])):
+            #         else:
+            #             err_msg = list(response['errors'].values())[0]
+            #             await remessage(message_copy.author.send, f'Хей, Гришо е!\n{err_msg} \n{SAD}', message_copy.message)
 
                     
         if isinstance(message.channel, channel.DMChannel):
@@ -110,6 +111,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
+        # print("Hello!")
         if before == self.bot.user:
             return
 
@@ -120,40 +122,45 @@ class Events(commands.Cog):
         print("new member")
 
         async with aiohttp.ClientSession() as client:
-            members_json = await request(self.bot, client, path='users/')
-
-            member_found = False
-            for member_json in members_json:
-                if member_json['discord_id'] == member.id:
-                    member_found = True
-                    break
-
-            if not member_found:
+            print("member id: " + str(member.id))
+            # Search for a user with the same discord_id
+            matches = await request(self.bot, client, path='api/user/search-user/', discordId=str(member.id))
+            if not matches:
                 await send_log(f'{emojis.EXCLAMATION} {member.name}#'
                                f'{member.discriminator} '
                                'was not found in database', self.bot)
                 return
 
-            reason = 'member joined'
-            role = utils.get(member.guild.roles, name='филър')
-            await member.add_roles(role, reason=reason)
+            reason = "Member joined"
+            participant_r = utils.get(member.guild.roles, name='Участник')
+            unapproved_r = utils.get(member.guild.roles, name='Непотвърден')
 
-            if member_json['team_set']:
-                team_id = member_json['team_set'][-1]
-                team_json = await request(self.bot, client,
-                                          path=f'/teams/{team_id}/')
-                team_name = 'team ' + team_json['name']
-                role = await get_team_role(team_name, member.guild, reason)
-                await member.add_roles(role, reason=reason)
-                if member_json['is_captain']:
-                    role = utils.get(member.guild.roles, name='captain')
-                    await member.add_roles(role, reason=reason)
-            else:
-                # member has no team
-                role = utils.get(member.guild.roles, name='captain')
-                await member.add_roles(role, reason=reason)
+            await member.add_roles(participant_r, reason=reason)
+            await member.remove_roles(unapproved_r, reason=reason)
 
-        await member.edit(
-            nick=f"{member_json['first_name']} {member_json['last_name']}"
-            f" - {member_json['form']}"
-        )
+            member_json = matches['response'][0]
+
+            await member.edit(
+                # nick=f"{member_json['first_name']} {member_json['last_name']}"
+                # f" - {member_json['form']}"
+                nick=f"{member_json['fullName']} {member_json['studentClass']}"
+            )
+
+            teams = (await request(self.bot, client, path='api/team/get-teams/'))['response']
+
+            # Find member's team
+            for team in teams:
+                for member_ in team['members']:
+                    if(member_json['_id'] == member_["id"]):  
+
+                        team_name = 'team ' + team["teamName"]
+                        role = await get_team_role(team_name, member.guild, reason)
+                        await member.add_roles(role, reason=reason)
+                        if member_["isCaptain"]:
+                            role = utils.get(member.guild.roles, name='Капитан')
+                            await member.add_roles(role, reason=reason)
+                            
+                        break
+            #     # member has no team
+            #     role = utils.get(member.guild.roles, name='captain')
+            #     await member.add_roles(role, reason=reason)
