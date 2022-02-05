@@ -129,6 +129,7 @@ class Commands(commands.Cog):
         await ctx.send(f"{emojis.PONG} Понг с "
                        f"{str(round(self.bot.latency, 2))} s")
 
+    # TODO make it work with images which are NOT urls
     @commands.command(aliases=['мотивирай', 'мот', 'mot'])
     async def motivate(self, ctx):
         channel = await self.bot.fetch_channel(channels.MOTIVATIONS)
