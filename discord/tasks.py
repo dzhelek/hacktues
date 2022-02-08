@@ -69,16 +69,20 @@ class Tasks(commands.Cog):
             reason = "Member joined"
             participant_r = utils.get(member.guild.roles, name='Участник')
             unapproved_r = utils.get(member.guild.roles, name='Непотвърден')
-            if(user['teamName'] is not None):
-                team_name = 'team ' + user['teamName']
-                team_r = await get_team_role(team_name, member.guild, reason)
 
             if participant_r not in member.roles:
                 await member.add_roles(participant_r, reason=reason)
             if unapproved_r in member.roles:
                 await member.remove_roles(unapproved_r, reason=reason)
-            if team_r not in member.roles and (user['teamName'] is not None):
-                await member.add_roles(team_r, reason=reason)
+
+            if(user['teamName'] is not None):
+                team_name = 'team ' + user['teamName']
+                team_r = await get_team_role(team_name, member.guild, reason)
+
+                # If user doesn't has the team role
+                if team_r not in member.roles:
+                    await member.add_roles(team_r, reason=reason)
+
 
             await member.edit(nick=f"{user['fullName']} {user['studentClass']}")
 
