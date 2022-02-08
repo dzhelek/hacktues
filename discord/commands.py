@@ -155,3 +155,4 @@ class Commands(commands.Cog):
             else:
                 err_msg = list(response['errors'].values())[0]
                 await remessage(ctx.author.send, f'Хей, Гришо е!\n{err_msg} \n{SAD}', ctx.message)
+
