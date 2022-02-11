@@ -85,7 +85,9 @@ class Events(commands.Cog):
         if isinstance(message.channel, channel.DMChannel):
             guild = await self.bot.fetch_guild(871120127976951818)
             name = message.author.display_name.replace(' ', '-').lower()
-            chans = await guild.fetch_channels()
+            # chans = await guild.fetch_channels()
+            category = await self.bot.fetch_channel(channels.DM)
+            chans = category.channels
             text_channel = [chan for chan in chans if chan.name == name]
             if not text_channel:
                 category = await self.bot.fetch_channel(channels.DM)
