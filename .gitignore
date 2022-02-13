@@ -9,3 +9,7 @@ venv/
 
 # Database backup
 db-backup.sql
+
+# env
+.env
+discord/.env

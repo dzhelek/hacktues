@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
-# coding=windows-1251
-from os import environ
+# coding=utf-8
+
+#from os import environ
+import os
+from dotenv import load_dotenv
 
 import discord
 from discord.ext import commands
@@ -11,15 +14,19 @@ from tasks import Tasks
 
 
 def main():
-    TOKEN = environ.get('token')
+    # Moving the global env to local one (located in the folder)
+    # TOKEN = environ.get('token')
+
+    load_dotenv()
+    TOKEN = os.getenv('token')
 
     intents = discord.Intents.all()
-    bot = commands.Bot(command_prefix=('υς ', 'ht '),
+    bot = commands.Bot(command_prefix=('Ρ…Ρ‚ ', 'ht '),
                        help_command=None, intents=intents)
 
     bot.add_cog(Events(bot))
     bot.add_cog(Commands(bot))
-    # bot.add_cog(Tasks(bot))
+    bot.add_cog(Tasks(bot))
     bot.load_extension("jishaku")
     bot.run(TOKEN)
 

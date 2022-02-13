@@ -4,11 +4,12 @@ import discord
 from discord import errors
 
 import channels
+from emojis import SAD
 
 if environ.get('ENV') == 'DEV':
     host = 'http://localhost:8000'
 else:
-    host = 'https://api.hacktues.com'
+    host = 'https://server.hacktues.com'
 
 
 async def send_log(message, bot):
@@ -30,7 +31,7 @@ async def resend(text_channel, message):
     await remessage(text_channel.send, message.content, message)
 
 
-async def request(bot, client, path='', url=None, **kwargs):
+async def request(bot, client, path='', url=None, feedback=False, **kwargs):
     if url is None:
         url = f'{host}/{path}'
 
@@ -39,13 +40,17 @@ async def request(bot, client, path='', url=None, **kwargs):
     else:
         func = client.get
 
-    async with func(url, data=kwargs) as response:
+    async with func(url, json=kwargs) as response:
+        # print("Trying to decode: ", response)
         json = await response.json()
+        print(json)
         if response.status != 200:
             await send_log(f"{func.__name__} {url}\n"
                            f"{response.status} {response.reason}\n"
-                           f"```py\n{json}\n```", bot)
-            await response.raise_for_status()
+                           f"```py\n{json}\n```"
+                           f"Kwargs: {kwargs}", bot)
+            if(feedback is False):
+                await response.raise_for_status()
         return json
 
 
